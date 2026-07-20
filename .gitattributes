@@ -1,0 +1,35 @@
+# Auto-detect text files
+* text=auto
+
+# Markdown — diff-friendly
+*.md text diff=markdown
+
+# Text files
+*.txt text
+*.toml text
+*.json text
+*.yaml text
+*.yml text
+*.sh text eol=lf
+*.ps1 text eol=crlf
+
+# Binaries — never diff or text-convert
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+*.tar binary
+*.gz binary
+
+# Git
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# Linguagem
+# Garante LF mesmo no Windows para arquivos shell
+*.sh eol=lf

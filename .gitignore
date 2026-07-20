@@ -1,0 +1,30 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# AI conversations / chat history
+conversations/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Dependencies (if any guide ever adds build artifacts)
+node_modules/
+target/
