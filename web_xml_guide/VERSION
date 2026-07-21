@@ -1,0 +1,18 @@
+XML Moderno — Guia de Referência (2024-2026)
+
+Padrões cobertos:
+  XML .............. 1.0 (Quinta Edição)
+  XPath ............ 1.0 (Recomendação W3C 1999)
+  XSLT ............. 1.0 (Recomendação W3C 1999)
+  EXSLT ............ 1.0 (Community Specification)
+  OpenSearch ....... 1.1 (Draft 6)
+  Namespaces ....... 1.0 (Recomendação W3C)
+
+APIs navegador:
+  DOMParser ........ Padrão WHATWG
+  XMLSerializer .... Padrão WHATWG
+  XSLTProcessor ... Non-standard (legacy)
+  document.evaluate (XPath) .. DOM Level 3
+
+Versão do guia: 1.0.0
+Última revisão: 2025-01

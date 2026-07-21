@@ -1,0 +1,5 @@
+PWA Guide v2.0
+Based on: Web App Manifest (W3C Candidate Recommendation), Service Worker (W3C Candidate Recommendation),
+Background Sync, Periodic Sync, Background Fetch, Push API, Badging API, File Handlers, Share Target,
+Protocol Handlers, Scope Extensions, Window Controls Overlay, Launch Handler — as implemented in
+Chromium 125+, Safari 17.4+, Firefox 126+ (partial). Coverage post-2023 standards.

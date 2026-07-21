@@ -1,0 +1,6 @@
+ECMAScript 2025 (ES2025)
+Cobertura: ES6 (2015) até ES2025
+Features-chave: ES2022 (# private, Error.cause),
+                ES2023 (toSorted, structuredClone),
+                ES2024 (Object.groupBy, Promise.withResolvers),
+                ES2025 (using/await using, DisposableStack, Map.emplace)
