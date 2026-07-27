@@ -1,0 +1,15 @@
+nginx-guide 1.0
+=================
+Covered NGINX version: 1.27.x (latest stable as of mid-2026)
+OpenSSL: >= 1.1.1 (TLSv1.3, OCSP Stapling, Early Data)
+HTTP/3 (QUIC): requires NGINX >= 1.25.0 with --with-http_v3_module
+njs: 0.8.x
+ACME: 1.27.x built-in
+
+This guide was extracted from the official nginx.org documentation
+(~150 HTML files, ~96K lines) and condensed into 28 reference files
+(~14.6K lines) plus a growing examples/ directory with real-world
+scenarios.
+
+For details on what changed between versions, see:
+https://nginx.org/en/CHANGES
