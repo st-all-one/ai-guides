@@ -22,6 +22,7 @@ Repositório bilíngue (português/inglês) que reúne referências densas e dir
 | [PWA](./pwa_guide/) | Pós-2023 | Service Worker, manifest, offline, notificações, instalação |
 | [Redmine](./redmine_guide/) | API v5.0+ | API REST — issues, projetos, usuários, time entries, wiki |
 | [Rust](./rust_guide/) | 1.97.0 (Ed. 2024) | Ownership, async, concorrência, macros, FFI, testing, Cargo |
+| [sniff-computed-style](./sniff_guide/) | 1.0.0 | Uso da ferramenta pela IA — captura, diff, checks (MCP + CLI) |
 | [SQLite](./sqlite_guide/) | 3.53.0 | Compilação, WAL, FTS5, extensões, performance, migração |
 | [Vite](./vite_guide/) | 8 | Vite — configuração, plugins, SSR, HMR, build, deployment, casos avançados |
 | [Web Accessibility](./web_accessibility_guide/) | WCAG 2.2 AA + ARIA 1.2 | HTML semântico, ARIA, teclado, contraste, leitores de tela |

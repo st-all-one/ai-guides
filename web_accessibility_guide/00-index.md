@@ -50,3 +50,16 @@ Acessibilidade (A11y) significa capacitar o maior número possível de pessoas a
 | 10 | cognitive-accessibility.md | Acessibilidade cognitiva |
 | 11 | testing-tools.md | Ferramentas de teste e validação |
 | 12 | wcag-quick-reference.md | Referência rápida WCAG 2.2 |
+| 13 | aria-advanced-roles.md | Roles avançadas (application, feed, term, note, math, ...) |
+| 14 | structural-roles.md | Roles estruturais e mapeamento HTML → ARIA |
+| 15 | aria-advanced-attributes.md | Atributos ARIA avançados |
+| 16 | table-grid-attributes.md | Tabelas e grids: colindex/rowindex, spans, grids esparsos |
+| 17 | web-components-shadow-dom.md | Web Components e Shadow DOM |
+| 18 | svg-canvas.md | SVG e canvas |
+| 19 | inert-forced-colors.md | `inert`, forced-colors e prefers-contrast |
+| 20 | os-browser-settings.md | Configurações do SO/browser e media queries |
+| 21 | keyboard-patterns.md | Padrões de teclado por widget |
+| 22 | design-patterns.md | Padrões de design acessíveis |
+| 23 | advanced-testing.md | Testes avançados (AT real, mocks) |
+| 24 | wcag-supplement.md | Suplemento WCAG 2.2 |
+| 25 | tag-role-reference.md | **Elemento HTML → role ARIA implícita** (referência completa; fonte da `sniff-computed-style`) |

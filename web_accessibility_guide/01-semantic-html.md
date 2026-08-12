@@ -60,6 +60,11 @@
 | `<details>` | `group` | `aria-expanded` |
 | `<summary>` | `button` (nomeia o details) | — |
 
+> **Referência completa** de elemento → role implícita (incluindo `<fieldset>`,
+> `<output>`, `<progress>`, `<meter>`, `<select multiple>`, matriz de
+> `<input type=...>` e as regras de nuance de `header`/`footer`/`section`):
+> [`25-tag-role-reference.md`](25-tag-role-reference.md).
+
 ## Padrões Modernos: O Que SEMPRE Usar
 
 ### 1. Skip Links
