@@ -212,4 +212,4 @@ function announce(msg) {
 - Radix UI: https://www.radix-ui.com/
 - MDN A11y: https://developer.mozilla.org/en-US/docs/Web/Accessibility
 - Referência elemento → role implícita: `25-tag-role-reference.md`
-- Medição real com a ferramenta: `sniff-computed-style --aria --contrast --ax`
+- Medição real com a ferramenta: `sniffCSS` (contrast + ax já ON por padrão)

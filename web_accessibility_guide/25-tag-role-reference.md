@@ -3,7 +3,7 @@
 Tabela de referência **completa** dos papéis implícitos que o HTML confere aos
 elementos, segundo a especificação HTML-ARIA. Use como fonte da verdade ao
 auditar páginas e ao interpretar o facet `aria.role`/`ax.role` da ferramenta
-`sniff-computed-style`.
+`sniffCSS`.
 
 > A role implícita é a que o navegador usa **quando nenhum `role` explícito**
 > é declarado. Um `role` explícito sobrescreve a implícita.
@@ -94,7 +94,7 @@ auditar páginas e ao interpretar o facet `aria.role`/`ax.role` da ferramenta
 
 ## Regras de nuance (validadas na ferramenta)
 
-A `sniff-computed-style` implementa essas regras deterministicamente no facet
+A `sniffCSS` implementa essas regras deterministicamente no facet
 `aria.role` (`extractor.rs`, `implicitRole`), e a árvore de acessibilidade real
 do Chrome (`ax.role`, via CDP `Accessibility`) é a fonte autoritativa quando as
 duas divergem:
@@ -112,7 +112,8 @@ duas divergem:
 
 ```bash
 # Ver um elemento específico (aria.role determinístico + ax.role do Chrome)
-sniff-computed-style -u URL -s "select#multi" --ax --compact \
+# ax já vem ON por padrão; --compact também. --full desliga os otimizadores.
+sniffCSS -u URL -s "select#multi" \
   | jq '{aria_role: .aria.role, ax_role: .ax.role}'
 ```
 
