@@ -62,4 +62,4 @@ Acessibilidade (A11y) significa capacitar o maior número possível de pessoas a
 | 22 | design-patterns.md | Padrões de design acessíveis |
 | 23 | advanced-testing.md | Testes avançados (AT real, mocks) |
 | 24 | wcag-supplement.md | Suplemento WCAG 2.2 |
-| 25 | tag-role-reference.md | **Elemento HTML → role ARIA implícita** (referência completa; fonte da `sniff-computed-style`) |
+| 25 | tag-role-reference.md | **Elemento HTML → role ARIA implícita** (referência completa; fonte da `sniffCSS`) |
