@@ -1,0 +1,25 @@
+{
+  "lock": false,
+  "tasks": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "deno serve -A _fresh/server.js"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "imports": {
+    "@/": "./",
+    "fresh": "https://deno.land/x/fresh@2.0.0-alpha.22/mod.ts",
+    "@fresh/plugin-vite": "https://deno.land/x/fresh@2.0.0-alpha.22/plugins/vite.ts",
+    "preact": "https://esm.sh/preact@10.26.4",
+    "preact/": "https://esm.sh/preact@10.26.4/",
+    "@preact/signals": "https://esm.sh/@preact/signals@2.3.0",
+    "vite": "https://deno.land/x/vite@6.3.5/mod.ts",
+    "@tailwindcss/vite": "npm:@tailwindcss/vite@4.1.4",
+    "tailwindcss": "npm:tailwindcss@4.1.4",
+    "@types/babel__core": "https://esm.sh/@types/babel__core@7.20.5",
+    "@std/http": "jsr:@std/http@^1.0.0"
+  }
+}

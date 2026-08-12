@@ -1,0 +1,11 @@
+fresh             jsr:@fresh/core@^2
+@fresh/plugin-vite  jsr:@fresh/plugin-vite@^1
+vite                npm:vite@^7
+preact              npm:preact@^10
+@preact/signals     npm:@preact/signals@^2
+@tailwindcss/vite   npm:@tailwindcss/vite@^4
+tailwindcss         npm:tailwindcss@^4
+@types/babel__core  npm:@types/babel__core@^7
+
+deno      >=2.0 (2.7+ para console OTel; 2.8+ para WebSocket no vite dev)
+fresh     2.x

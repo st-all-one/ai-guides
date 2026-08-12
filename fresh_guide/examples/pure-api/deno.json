@@ -1,0 +1,19 @@
+{
+  "lock": false,
+  "tasks": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "deno serve -A _fresh/server.js"
+  },
+  "imports": {
+    "fresh": "jsr:@fresh/core@^2.0.0",
+    "@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^2.0.0",
+    "vite": "npm:vite@^5.0.0",
+    "@std/http": "jsr:@std/http@^1.0.0",
+    "@std/expect": "jsr:@std/expect@^1.0.0"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  }
+}
