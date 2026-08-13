@@ -1,0 +1,15 @@
+name: webmcp_dart_example
+description: WebMCP example with Flutter web (dart:js_interop).
+publish_to: none
+version: 0.1.0
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  web: ^1.0.0
+
+flutter:
+  uses-material-design: true

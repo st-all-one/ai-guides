@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Example Shoppe — WebMCP (Rust)</title>
+</head>
+<body>
+  <h1>Example Shoppe</h1>
+  <p>WebMCP com backend axum (Rust). Abra o console e use a
+     Model Context Tool Inspector Extension.</p>
+
+  <script type="module">
+    document.modelContext.registerTool({
+      name: 'search_products',
+      description: 'Search the product catalog and return id, name and price.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          query: { type: 'string', description: 'Free text search term.' },
+          maxPrice: { type: 'number', description: 'Optional upper price filter.' }
+        },
+        required: ['query']
+      },
+      execute: async ({ query, maxPrice }) => {
+        const url = new URL('/api/products', location.origin);
+        url.searchParams.set('q', query);
+        if (maxPrice != null) url.searchParams.set('max', String(maxPrice));
+
+        const res = await fetch(url, { credentials: 'same-origin' });
+        if (!res.ok) throw new Error('Search failed: ' + res.status);
+        return res.json();
+      }
+    });
+  </script>
+</body>
+</html>

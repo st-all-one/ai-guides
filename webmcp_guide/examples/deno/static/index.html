@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Example Shoppe — WebMCP (Deno + Hono)</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
+    code { background: rgba(127, 127, 127, .15); padding: .1em .35em; border-radius: 4px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+    fieldset { border-radius: 8px; }
+    button { cursor: pointer; }
+    #log {
+      font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap;
+      background: rgba(127, 127, 127, .1); border-radius: 8px; padding: .75rem;
+      min-height: 180px; max-height: 320px; overflow: auto;
+    }
+    #tooltable td { padding: .15rem .5rem; }
+  </style>
+</head>
+<body>
+  <h1>🛒 Example Shoppe — WebMCP (Deno 2 + Hono)</h1>
+
+  <div class="grid">
+    <fieldset>
+      <legend>Formulário declarativo</legend>
+      <form toolname="search_cars"
+            tooldescription="Search for cars based on criteria such as type, seats and year."
+            toolautosubmit
+            action="/search">
+        <p>
+          <label for="car_type">Tipo de carro</label><br />
+          <select id="car_type" name="car_type" toolparamdescription="Type of car">
+            <option value="">Qualquer</option>
+            <option value="family">Família</option>
+            <option value="suv">SUV</option>
+            <option value="sedan">Sedan</option>
+          </select>
+        </p>
+        <p>
+          <label for="seats">Lugares mínimos</label><br />
+          <input id="seats" name="seats" type="number" min="1" max="9"
+                 toolparamdescription="Minimum number of seats required"
+                 placeholder="7" />
+        </p>
+        <button type="submit">Buscar</button>
+      </form>
+    </fieldset>
+
+    <fieldset>
+      <legend>Console do agente (in-page)</legend>
+      <p>
+        <button id="register">Registrar ferramentas</button>
+        <button id="list">Listar (getTools)</button>
+      </p>
+      <p>
+        <label for="toolselect">Ferramenta</label><br />
+        <select id="toolselect"></select>
+      </p>
+      <p>
+        <label for="args">Argumentos (JSON)</label><br />
+        <textarea id="args" rows="3" style="width: 100%">{&quot;query&quot;:&quot;jaqueta&quot;}</textarea>
+      </p>
+      <p><button id="run">Executar (executeTool)</button></p>
+    </fieldset>
+  </div>
+
+  <h2>Registro das ferramentas (código que roda nesta página)</h2>
+  <pre id="code"></pre>
+
+  <h2>Log</h2>
+  <div id="log">Pronto. Clique em "Registrar ferramentas" e depois teste o console do agente.</div>
+
+  <script type="module">
+    // -----------------------------------------------------------------------
+    // Front totalmente integrado ao WebMCP.
+    // As ferramentas são registradas aqui e o execute() chama o backend Hono.
+    // -----------------------------------------------------------------------
+
+    const $ = (id) => document.getElementById(id);
+    const log = (msg) => { $('log').textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n` + $('log').textContent; };
+
+    // Código de registro exibido na página (didático).
+    const code = `await document.modelContext.registerTool({
+  name: 'search_products',
+  description: 'Search the product catalog and return id, name and price.',
+  inputSchema: {
+    type: 'object',
+    properties: {
+      query: { type: 'string', description: 'Free text search term.' },
+      maxPrice: { type: 'number', description: 'Optional upper price filter.' }
+    },
+    required: ['query']
+  },
+  execute: async ({ query, maxPrice }) => {
+    const url = new URL('/api/products', location.origin);
+    url.searchParams.set('q', query);
+    if (maxPrice != null) url.searchParams.set('max', String(maxPrice));
+    const res = await fetch(url, { credentials: 'same-origin' });
+    if (!res.ok) throw new Error('Search failed: ' + res.status);
+    return res.json();               // ← devolvido ao agente
+  }
+});`;
+    $('code').textContent = code;
+
+    const ctx = document.modelContext;
+
+    $('register').addEventListener('click', async () => {
+      if (!ctx) { log('ERRO: document.modelContext indisponível. Habilite a flag enable-webmcp-testing.'); return; }
+
+      // search_products — leitura de catálogo
+      await ctx.registerTool({
+        name: 'search_products',
+        description: 'Search the product catalog and return id, name and price.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            query: { type: 'string', description: 'Free text search term.' },
+            maxPrice: { type: 'number', description: 'Optional upper price filter.' }
+          },
+          required: ['query']
+        },
+        execute: async ({ query, maxPrice }) => {
+          const url = new URL('/api/products', location.origin);
+          url.searchParams.set('q', query);
+          if (maxPrice != null) url.searchParams.set('max', String(maxPrice));
+          const res = await fetch(url, { credentials: 'same-origin' });
+          if (!res.ok) throw new Error('Search failed: ' + res.status);
+          return res.json();
+        }
+      });
+
+      // get_order_status — somente leitura (readOnlyHint)
+      await ctx.registerTool({
+        name: 'get_order_status',
+        description: 'Returns order number, shipping status and current location.',
+        inputSchema: {
+          type: 'object',
+          properties: { orderId: { type: 'string', description: 'Order identifier.' } },
+          required: ['orderId']
+        },
+        annotations: { readOnlyHint: true },
+        execute: async ({ orderId }) => {
+          const res = await fetch(`/api/orders/${encodeURIComponent(orderId)}/status`);
+          if (!res.ok) throw new Error('Order lookup failed: ' + res.status);
+          return res.json();
+        }
+      });
+
+      // add_to_cart — mutação (o agente deve pedir confirmação ao usuário)
+      await ctx.registerTool({
+        name: 'add_to_cart',
+        description: 'Adds a product to the shopping cart. Requires user confirmation before executing.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            productId: { type: 'string', description: 'Product id from search_products.' },
+            quantity: { type: 'number', description: 'Quantity (default 1).' }
+          },
+          required: ['productId']
+        },
+        execute: async ({ productId, quantity }) => {
+          const res = await fetch('/api/cart', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ productId, quantity: quantity ?? 1 })
+          });
+          if (!res.ok) throw new Error('Cart update failed: ' + res.status);
+          return res.json();
+        }
+      });
+
+      log('Ferramentas registradas: search_products, get_order_status, add_to_cart');
+    });
+
+    $('list').addEventListener('click', async () => {
+      if (!ctx) return log('ERRO: WebMCP indisponível.');
+      const tools = await ctx.getTools();
+      $('toolselect').innerHTML = tools
+        .map((t) => `<option value="${t.name}">${t.name}</option>`)
+        .join('');
+      log(`getTools() → ${tools.map((t) => t.name).join(', ')} (${tools.length})`);
+    });
+
+    $('run').addEventListener('click', async () => {
+      const name = $('toolselect').value;
+      const argsJson = $('args').value;
+      if (!name) return log('Selecione uma ferramenta primeiro.');
+
+      const tools = await ctx.getTools();
+      const tool = tools.find((t) => t.name === name);
+      if (!tool) return log(`Ferramenta "${name}" não encontrada.`);
+
+      try {
+        const result = await ctx.executeTool(tool, argsJson);
+        log(`executeTool(${name}, ${argsJson})\n→ ${JSON.stringify(result, null, 2)}`);
+      } catch (err) {
+        log(`executeTool(${name}) FALHOU: ${err}`);
+      }
+    });
+  </script>
+</body>
+</html>
