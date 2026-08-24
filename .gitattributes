@@ -33,3 +33,6 @@
 # Linguagem
 # Garante LF mesmo no Windows para arquivos shell
 *.sh eol=lf
+.seeds/issues.jsonl merge=union
+.seeds/templates.jsonl merge=union
+.seeds/plans.jsonl merge=union
