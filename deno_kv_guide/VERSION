@@ -1,0 +1,26 @@
+Deno KV (Deno 2.9.x)
+API instável: --unstable-kv / deno.json » "unstable": ["kv"]
+Cron: --unstable-cron / "unstable": ["cron"]
+
+Back-end local: SQLite (caminho padrão ou ":memory:")
+Produção: FoundationDB (Deno Deploy) ou remoto via KV_URL
+
+Cobertura:
+  quick start, keyspace (chaves/valores/versionstamp/ULID/KvU64),
+  operations (get/getMany/list/set/delete), transactions (OCC),
+  secondary indexes, key expiration (TTL), data modeling em TypeScript,
+  queue/cron, watch/realtime, integração Fresh 2.x,
+  testing (:memory:), produção/deploy, limites oficiais.
+
+Limites:
+  chave 2 KiB · valor 64 KiB · getMany 10
+  list batch: default = limit (ou 100), máximo 500 (clamped)
+  atomic: 100 checks · 1000 mutações · 800 KiB total · 90 KiB de chaves
+  watch: 10 chaves
+  cron: backoff máx. 5 tentativas / intervalo máx. 1 h
+
+Notas de API (Deno 2.x):
+  enqueue() retorna Promise<KvCommitResult>
+  listenQueue() não expõe AbortSignal; roda pela vida do processo
+  Deno.cron(name, schedule, { backoffSchedule?, signal? }, handler)
+  .sum/.min/.max(key, bigint) — valor armazenado deve ser Deno.KvU64

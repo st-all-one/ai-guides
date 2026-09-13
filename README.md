@@ -12,9 +12,11 @@ Repositório bilíngue (português/inglês) que reúne referências densas e dir
 | [Askama](./askama_guide/) | 0.16.0 | Templates type-safe para Rust, filtros, integração web |
 | [CSS](./css_guide/) | Moderno (2026) | Grid, Subgrid, Flexbox, animações, seletores, tipografia, responsivo, performance |
 | [DaisyUI](./daisy_guide/) | 5 | DaisyUI c/ HTML e Leptos — componentes, cores, layout, casos práticos |
+| [Eta](./eta_guide/) | 4.6.0 | Templates JS ESM — sintaxe, partials, layouts/blocks, helpers, custom tags, API, segurança |
 | [HTML](./html_guide/) | Living Standard (2025) | Tags, semântica, Web Components, formulários, acessibilidade, performance |
 | [HTTP + URI](./http_uri_guide/) | RFC 9110–9114 (2026) | HTTP/2, HTTP/3, caching, CORS, autenticação, cookies, segurança |
 | [htmx 4](./htmx4_guide/) | 4 | htmx — atributos, formulários, multi-target, migração v2, padrões Rust/Axum |
+| [Hono](./hono_guide/) | 4.13.7 | Web Standards — roteamento, Context, middleware, helpers, validação, RPC, JSX, deploy |
 | [JavaScript](./javascript_guide/) | ES2025 | ES6+, async/await, módulos, classes, metaprogramação, coleções |
 | [Leptos](./leptos_guide/) | 0.8 | Full-stack Rust — reatividade fina, SSR, islands, server functions, roteamento |
 | [Lit](./lit_guide/) | 3 | Web Components — Shadow DOM, reatividade, SSR, diretivas customizadas |
