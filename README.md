@@ -80,7 +80,9 @@ Os guias estão organizados por **categoria semântica**, para facilitar a busca
 
 | Guia | Versão | Descrição |
 |---|---|---|
+| [gRPC](./protocols/grpc_guide/) | Core 57 / C++ 1.85-dev | RPC sobre HTTP/2: streaming, status, metadata/deadlines, interceptors, TLS/mTLS, reflection/health, compressão/keepalive, LB/xDS, observabilidade + implementação por stack |
 | [HTTP + URI](./protocols/http_uri_guide/) | RFC 9110–9114 (2026) | HTTP/2, HTTP/3, caching, CORS, autenticação, cookies, segurança |
+| [Protobuf](./protocols/protobuf_guide/) | 37 (editions 2023/2024/2026) | Contrato `.proto`, wire format, editions/features, segurança, performance, testes, evolução + uso sem gRPC (PHP 7.2/Laravel 5.5) |
 | [Redmine](./protocols/redmine_guide/) | API v5.0+ | API REST — issues, projetos, usuários, time entries, wiki |
 | [WebMCP](./protocols/webmcp_guide/) | Experimental | Tools para agentes de IA na web — APIs imperativa e declarativa |
 
