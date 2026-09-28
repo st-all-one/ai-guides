@@ -111,6 +111,7 @@ Os guias estão organizados por **categoria semântica**, para facilitar a busca
 
 | Guia | Versão | Descrição |
 |---|---|---|
+| [knudge](./ai/knudge_guide/) | 0.5.0 | Memória durável por projeto para agentes — notas Markdown, índice derivado (BM25+RRF+embeddings), tarefas, MCP |
 | [RLM](./ai/rlm_guide/) | 1.0 | Recursive Language Model — contextos quase infinitos via REPL e sub-LLMs |
 
 ## Convenções de cada guia
@@ -150,7 +151,7 @@ cd ai-guides && ./install.sh          # cópia em ~/.local/bin/ai-guides
 ```bash
 cd meu-projeto
 ai-guides                 # mini-CLI interativo: filtra e seleciona
-ai-guides list [termo]    # lista as 44 skills
+ai-guides list [termo]    # lista as 45 skills
 ai-guides search php      # busca por nome/categoria/versão/descrição
 ai-guides install dart rust
 ai-guides update          # ressincroniza as skills já instaladas
