@@ -4,6 +4,7 @@ Frameworks full-stack e web.
 
 | Guia | Versão | Descrição |
 |---|---|---|
+| [Flutter](./flutter_guide/) | 3.47 (Dart 3.13) | Cross-platform — widgets, MVVM, estado, testes, segurança, performance, deploy |
 | [Fresh](./fresh_guide/) | 2.x | Full-stack Deno — SSR, islands, routing, Vite, segurança |
 | [Hono](./hono_guide/) | 4.13.7 | Web Standards — roteamento, middleware, validação, RPC, JSX, deploy |
 | [Laravel 5.5](./laravel55_guide/) | 5.5.50 (LTS) | Eloquent, Blade, Service Container, segurança, performance |

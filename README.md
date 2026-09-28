@@ -29,6 +29,7 @@ Os guias estão organizados por **categoria semântica**, para facilitar a busca
 | Guia | Versão | Descrição |
 |---|---|---|
 | [CSS](./languages/css_guide/) | Moderno (2026) | Grid, Subgrid, Flexbox, animações, seletores, tipografia, responsivo, performance |
+| [Dart](./languages/dart_guide/) | 3.13.0 | Tipagem sound + null safety, primary constructors, records/patterns, async/isolates, pub, segurança, testes, logs, performance, Effective Dart |
 | [HTML](./languages/html_guide/) | Living Standard (2025) | Tags, semântica, Web Components, formulários, acessibilidade, performance |
 | [JavaScript](./languages/javascript_guide/) | ES2025 | ES6+, async/await, módulos, classes, metaprogramação, coleções |
 | [PHP 7.2](./languages/php72_guide/) | 7.2 | Dossiê isolado — tipagem, POO, segurança, performance (somente ≤ 7.2) |
@@ -41,6 +42,7 @@ Os guias estão organizados por **categoria semântica**, para facilitar a busca
 
 | Guia | Versão | Descrição |
 |---|---|---|
+| [Flutter](./frameworks/flutter_guide/) | 3.47 (Dart 3.13) | Cross-platform — widgets, MVVM, estado, testes, segurança, performance, deploy |
 | [Fresh](./frameworks/fresh_guide/) | 2.x | Full-stack Deno — SSR, islands, routing, Vite, segurança |
 | [Hono](./frameworks/hono_guide/) | 4.13.7 | Web Standards — roteamento, middleware, validação, RPC, JSX, deploy |
 | [Laravel 5.5](./frameworks/laravel55_guide/) | 5.5.50 (LTS) | Eloquent, Blade, Service Container, segurança, performance |
@@ -87,6 +89,7 @@ Os guias estão organizados por **categoria semântica**, para facilitar a busca
 | Guia | Versão | Descrição |
 |---|---|---|
 | [Git](./tooling/git_guide/) | — | Fluxo, bisect/debug, segurança, performance, workflow otimizado |
+| [Patrol](./tooling/patrol_guide/) | 4.10 | E2E de apps Flutter com acesso nativo — finders `$`, `$.platform`, CLI, hot restart, sharding, CI/device farms, segurança e logs |
 | [PI](./tooling/pi_guide/) | — | Configuração e extensão do agente PI — providers, skills, SDK |
 | [Playwright](./tooling/playwrigth_guide/) | 1.x | Testes E2E em TypeScript (cenários administrativos) |
 | [sniffCSS](./tooling/sniff_guide/) | 1.0.0 | Captura, diff e checks de estilo/acessibilidade (MCP + CLI) |

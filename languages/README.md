@@ -5,6 +5,7 @@ Linguagens de programação e formatos de marcação.
 | Guia | Versão | Descrição |
 |---|---|---|
 | [CSS](./css_guide/) | Moderno (2026) | Grid, Subgrid, Flexbox, animações, seletores, tipografia, responsivo, performance |
+| [Dart](./dart_guide/) | 3.13.0 | Tipagem sound + null safety, POO/primary constructors, records/patterns, async/isolates, pub, segurança, testes, logs, performance, Effective Dart |
 | [HTML](./html_guide/) | Living Standard (2025) | Tags, semântica, Web Components, formulários, acessibilidade, performance |
 | [JavaScript](./javascript_guide/) | ES2025 | ES6+, async/await, módulos, classes, metaprogramação, coleções |
 | [PHP 7.2](./php72_guide/) | 7.2 | Dossiê isolado — tipagem, POO, segurança, performance (≤ 7.2) |
