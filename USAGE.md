@@ -46,6 +46,20 @@ Ao ser invocado como contexto, siga estas diretrizes:
 - `*-recommended-*` → práticas recomendadas e implementação final
 - Conteúdo em português (pt-BR) com termos técnicos em inglês quando apropriado
 
+## Instalação automática (CLI `ai-guides`)
+
+Em vez de copiar arquivos manualmente, use o utilitário [`bin/ai-guides`](./bin/ai-guides):
+
+```bash
+cd meu-projeto
+ai-guides                 # mini-CLI interativo (filtrar + selecionar)
+ai-guides install dart    # copia o guia para .agents/skill/dart/
+ai-guides update          # sincroniza novidades do repositório
+```
+
+Cada guia é copiado **1:1** (SKILL.md + arquivos associados) para
+`.agents/skill/<nome>/`. Detalhes e variáveis de ambiente no [`README.md`](./README.md#cli-ai-guides--instalar-skills-no-seu-projeto).
+
 ## Fluxo sugerido
 
 ```

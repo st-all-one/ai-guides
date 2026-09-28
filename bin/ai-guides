@@ -1,0 +1,498 @@
+#!/usr/bin/env bash
+#
+# ai-guides — instala e sincroniza skills do repositório ai-guides no projeto atual.
+#
+# Copia 1:1 cada guia (SKILL.md + arquivos associados) do repositório remoto para
+#   <projeto>/.agents/skill/<nome>/
+#
+# Uso:
+#   ai-guides                 # mini-CLI interativo (filtrar + selecionar)
+#   ai-guides list [termo]    # lista skills
+#   ai-guides search <termo>  # busca
+#   ai-guides install <nome>… # instala/sincroniza por nome
+#   ai-guides update [nome]…  # sincroniza skills já instaladas (ou as indicadas)
+#   ai-guides remove <nome>…  # remove skills instaladas
+#   ai-guides sync            # sincroniza apenas o cache local
+#   ai-guides help
+#
+# Configuração (variáveis de ambiente):
+#   AI_GUIDES_REPO_URL   URL do repositório  (default: https://github.com/st-all-one/ai-guides.git)
+#   AI_GUIDES_BRANCH     Branch              (default: main)
+#   AI_GUIDES_CACHE      Cache do clone      (default: ${XDG_CACHE_HOME:-~/.cache}/ai-guides)
+#   AI_GUIDES_SOURCE     Usa um checkout local em vez de clonar (ex.: o próprio repo)
+#   AI_GUIDES_ROOT       Raiz do projeto     (default: git toplevel ou $PWD)
+#   AI_GUIDES_SKILL_DIR  Diretório destino   (default: <root>/.agents/skill)
+#
+set -euo pipefail
+
+VERSION="1.0.0"
+
+REPO_URL="${AI_GUIDES_REPO_URL:-https://github.com/st-all-one/ai-guides.git}"
+BRANCH="${AI_GUIDES_BRANCH:-main}"
+CACHE_DIR="${AI_GUIDES_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}/ai-guides}"
+
+# Normaliza o cache para caminho absoluto (facilita as guardas de remoção).
+case "$CACHE_DIR" in
+  "") die "AI_GUIDES_CACHE vazio" ;;
+  /*) ;;
+  *)  CACHE_DIR="$PWD/$CACHE_DIR" ;;
+esac
+
+# ---------------------------------------------------------------------------
+# Cores / saída
+# ---------------------------------------------------------------------------
+if [ -t 1 ]; then
+  C_RESET=$'\e[0m'; C_BOLD=$'\e[1m'; C_DIM=$'\e[2m'
+  C_CYAN=$'\e[36m'; C_GREEN=$'\e[32m'; C_YELLOW=$'\e[33m'; C_RED=$'\e[31m'
+else
+  C_RESET=""; C_BOLD=""; C_DIM=""; C_CYAN=""; C_GREEN=""; C_YELLOW=""; C_RED=""
+fi
+
+info() { printf '%s·%s %s\n' "$C_CYAN" "$C_RESET" "$*" >&2; }
+ok()   { printf '%s✓%s %s\n' "$C_GREEN" "$C_RESET" "$*" >&2; }
+warn() { printf '%s!%s %s\n' "$C_YELLOW" "$C_RESET" "$*" >&2; }
+die()  { printf '%s✗%s %s\n' "$C_RED" "$C_RESET" "$*" >&2; exit 1; }
+
+# Canonicaliza (sem exigir existência) quando `realpath` está disponível.
+canon_path() {
+  if command -v realpath >/dev/null 2>&1; then
+    realpath -m -- "$1" 2>/dev/null || printf '%s' "$1"
+  else
+    printf '%s' "$1"
+  fi
+}
+
+# Valida um caminho para `rm -rf`: nunca vazio, nunca "/", absoluto e com >= 2 segmentos.
+# Imprime o caminho normalizado em caso de sucesso; retorna 1 se inseguro.
+is_safe_rm_path() {
+  local path
+  path=$(canon_path "${1:-}")
+  while [ "${path%/}" != "$path" ]; do path="${path%/}"; done
+  case "$path" in
+    ""|"/"|"."|"..") return 1 ;;
+  esac
+  case "$path" in
+    /*/*) ;;
+    *) return 1 ;;
+  esac
+  if command -v mountpoint >/dev/null 2>&1 && mountpoint -q -- "$path" 2>/dev/null; then
+    return 1
+  fi
+  printf '%s' "$path"
+}
+
+safe_rm_rf() {
+  local path
+  path=$(is_safe_rm_path "${1:-}") || die "recusando remover caminho inseguro: '${1:-}'"
+  rm -rf -- "$path"
+}
+
+# Nomes de skill só podem ser simples; evita `..` e path traversal.
+valid_skill_name() {
+  case "$1" in
+    ""|"."|"..") return 1 ;;
+  esac
+  [[ "$1" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]]
+}
+
+usage() {
+  sed -n '3,24p' "$0" | sed 's/^# \{0,1\}//'
+}
+
+# ---------------------------------------------------------------------------
+# Índice de skills
+# ---------------------------------------------------------------------------
+S_NAME=(); S_CAT=(); S_VER=(); S_DESC=(); S_DIR=(); S_SLUG=(); S_FILES=()
+declare -A NAME_TO_IDX=()
+FILTER_TERMS=()
+SOURCE_DIR=""
+TARGET_DIR=""
+
+# Extrai name/category/version/description do frontmatter YAML (separados por \x1f).
+skill_meta() {
+  awk '
+    BEGIN { in_fm = 0; grab = 0 }
+    NR == 1 && $0 == "---" { in_fm = 1; next }
+    in_fm && $0 == "---" { in_fm = 0; next }
+    !in_fm { next }
+    {
+      if (grab && $0 !~ /^[ \t]/) grab = 0
+      if ($0 ~ /^name:/) {
+        name = $0; sub(/^name:[ \t]*/, "", name)
+      } else if ($0 ~ /^category:/) {
+        cat = $0; sub(/^category:[ \t]*/, "", cat)
+      } else if ($0 ~ /^version:/) {
+        ver = $0; sub(/^version:[ \t]*/, "", ver)
+      } else if ($0 ~ /^description:/) {
+        desc = $0; sub(/^description:[ \t]*/, "", desc)
+        if (desc == ">" || desc == "|" || desc == ">-" || desc == "|-") { desc = ""; grab = 1 }
+      } else if (grab && $0 ~ /^[ \t]/) {
+        sub(/^[ \t]+/, "", $0)
+        desc = (desc == "" ? $0 : desc " " $0)
+      }
+    }
+    END {
+      gsub(/^[ \t]+|[ \t]+$/, "", name)
+      gsub(/^[ \t]+|[ \t]+$/, "", cat)
+      gsub(/^[ \t]+|[ \t]+$/, "", ver)
+      gsub(/^[ \t]+|[ \t]+$/, "", desc)
+      gsub(/^"|"$/, "", name); gsub(/^"|"$/, "", ver)
+      printf "%s\037%s\037%s\037%s\n", name, cat, ver, desc
+    }
+  ' "$1"
+}
+
+# Localiza a raiz do projeto (toplevel git ou $PWD).
+detect_root() {
+  if [ -n "${AI_GUIDES_ROOT:-}" ]; then printf '%s\n' "$AI_GUIDES_ROOT"; return; fi
+  local r
+  if r=$(git rev-parse --show-toplevel 2>/dev/null) && [ -n "$r" ]; then
+    printf '%s\n' "$r"; return
+  fi
+  printf '%s\n' "$PWD"
+}
+
+setup_target() {
+  local root
+  root=$(detect_root)
+  TARGET_DIR="${AI_GUIDES_SKILL_DIR:-$root/.agents/skill}"
+}
+
+require_deps() {
+  local d
+  for d in git rsync find; do
+    command -v "$d" >/dev/null 2>&1 || die "dependência ausente: $d"
+  done
+}
+
+# Sincroniza o cache (ou usa AI_GUIDES_SOURCE).
+sync_cache() {
+  local force="${1:-}"
+  if [ -n "${AI_GUIDES_SOURCE:-}" ]; then
+    [ -d "$AI_GUIDES_SOURCE" ] || die "AI_GUIDES_SOURCE não é um diretório: $AI_GUIDES_SOURCE"
+    SOURCE_DIR=$(cd "$AI_GUIDES_SOURCE" && pwd)
+    return 0
+  fi
+
+  if [ ! -d "$CACHE_DIR/.git" ]; then
+    if [ -e "$CACHE_DIR" ] && [ "$force" != "--force" ]; then
+      die "cache existe e não é repositório git: $CACHE_DIR (use 'ai-guides sync --force')"
+    fi
+    safe_rm_rf "$CACHE_DIR"
+    mkdir -p "$(dirname "$CACHE_DIR")"
+    info "clonando $REPO_URL (branch $BRANCH)…"
+    git clone --depth 1 --branch "$BRANCH" --quiet "$REPO_URL" "$CACHE_DIR" \
+      || die "falha ao clonar $REPO_URL"
+  else
+    local before after
+    before=$(git -C "$CACHE_DIR" rev-parse HEAD 2>/dev/null || echo "")
+    if git -C "$CACHE_DIR" fetch --depth 1 --quiet origin "$BRANCH" 2>/dev/null; then
+      git -C "$CACHE_DIR" reset --hard --quiet FETCH_HEAD
+      after=$(git -C "$CACHE_DIR" rev-parse HEAD)
+      if [ "$before" = "$after" ]; then
+        info "cache já atualizado ($(git -C "$CACHE_DIR" rev-parse --short HEAD))"
+      else
+        ok "cache atualizado ($(git -C "$CACHE_DIR" rev-parse --short HEAD))"
+      fi
+    else
+      warn "não foi possível sincronizar (offline?); usando cache local"
+    fi
+  fi
+  SOURCE_DIR="$CACHE_DIR"
+}
+
+build_skill_index() {
+  S_NAME=(); S_CAT=(); S_VER=(); S_DESC=(); S_DIR=(); S_SLUG=(); S_FILES=()
+  NAME_TO_IDX=()
+  [ -n "$SOURCE_DIR" ] && [ -d "$SOURCE_DIR" ] || die "fonte inválida: ${SOURCE_DIR:-<vazia>}"
+
+  local f dir slug meta name cat ver desc idx=0
+  while IFS= read -r f; do
+    dir=$(dirname "$f")
+    case "$dir" in
+      */TMP/*|*/examples/*|*/node_modules/*|*/target/*) continue ;;
+    esac
+    meta=$(skill_meta "$f")
+    IFS=$'\x1f' read -r name cat ver desc <<< "$meta"
+    slug=$(basename "$dir")
+    [ -n "$name" ] || name="${slug%_guide}"
+    # Nunca deixa um nome de skill virar path traversal na hora de copiar/remover.
+    if ! valid_skill_name "$name"; then
+      if valid_skill_name "${slug%_guide}"; then
+        name="${slug%_guide}"
+      else
+        warn "SKILL.md com nome inválido ignorado: $f (name='$name', dir='$slug')"
+        continue
+      fi
+    fi
+    S_NAME+=("$name")
+    S_CAT+=("${cat:-—}")
+    S_VER+=("${ver:-—}")
+    S_DESC+=("$desc")
+    S_DIR+=("$dir")
+    S_SLUG+=("$slug")
+    S_FILES+=("$(find "$dir" -type f | wc -l | tr -d ' ')")
+    NAME_TO_IDX["$name"]=$idx
+    idx=$((idx + 1))
+  done < <(find "$SOURCE_DIR" -name SKILL.md -type f 2>/dev/null | LC_ALL=C sort)
+}
+
+# ---------------------------------------------------------------------------
+# Filtro / listagem
+# ---------------------------------------------------------------------------
+set_filter() {
+  FILTER_TERMS=()
+  local t
+  for t in $(printf '%s' "$1" | tr '[:upper:]' '[:lower:]'); do
+    FILTER_TERMS+=("$t")
+  done
+}
+
+matches_filter() {
+  local i=$1 t
+  local hay="${S_NAME[$i]} ${S_CAT[$i]} ${S_VER[$i]} ${S_DESC[$i]} ${S_SLUG[$i]}"
+  hay=$(printf '%s' "$hay" | tr '[:upper:]' '[:lower:]')
+  for t in "${FILTER_TERMS[@]}"; do
+    [[ "$hay" == *"$t"* ]] || return 1
+  done
+  return 0
+}
+
+render_list() {
+  local i shown=0 total=${#S_NAME[@]}
+  printf '   %s%-20s %-11s %-13s %5s  %s%s\n' \
+    "$C_DIM" "SKILL" "CATEGORIA" "VERSÃO" "ARQS" "DESCRIÇÃO" "$C_RESET"
+  for i in "${!S_NAME[@]}"; do
+    matches_filter "$i" || continue
+    shown=$((shown + 1))
+    printf ' %s%3d%s  %-20s %-11s %-13s %5s  %s\n' \
+      "$C_BOLD" "$((i + 1))" "$C_RESET" \
+      "${S_NAME[$i]}" "${S_CAT[$i]:0:11}" "${S_VER[$i]:0:13}" "${S_FILES[$i]}" \
+      "${S_DESC[$i]:0:64}"
+  done
+  [ "$shown" -eq 0 ] && warn "nenhuma skill corresponde ao filtro"
+  printf '%s%d de %d skill(s)%s\n' "$C_DIM" "$shown" "$total" "$C_RESET"
+}
+
+# ---------------------------------------------------------------------------
+# Instalação
+# ---------------------------------------------------------------------------
+install_one() {
+  local i=$1
+  local name="${S_NAME[$i]}" src="${S_DIR[$i]}" dest="$TARGET_DIR/${S_NAME[$i]}"
+  local existed=0 changes=0 out=""
+  valid_skill_name "$name" || die "nome de skill inválido para instalação: '$name'"
+  [ -n "$TARGET_DIR" ] || die "destino vazio (TARGET_DIR)"
+  # O destino precisa ficar exatamente um nível abaixo de TARGET_DIR.
+  case "$dest" in
+    "$TARGET_DIR"/*) ;;
+    *) die "destino fora de TARGET_DIR: '$dest'" ;;
+  esac
+  [ -d "$dest" ] && existed=1
+  mkdir -p "$dest"
+  out=$(rsync -ai --delete "$src/" "$dest/")
+  if [ -n "$out" ]; then changes=$(printf '%s\n' "$out" | grep -c . || true); fi
+
+  if [ "$existed" -eq 0 ]; then
+    ok "instalado    ${C_BOLD}${name}${C_RESET} → ${dest#"$TARGET_DIR/"}/ (${S_FILES[$i]} arquivos)"
+  elif [ "$changes" -eq 0 ]; then
+    info "já atualizado ${name}"
+  else
+    ok "sincronizado ${C_BOLD}${name}${C_RESET} (${changes} alteração(ões))"
+  fi
+}
+
+# Resolve uma consulta para um índice único; imprime índice (0-based) ou retorna 1.
+resolve_unique() {
+  local q="$1" ql t idx
+  ql=$(printf '%s' "$q" | tr '[:upper:]' '[:lower:]')
+  # 1) nome exato / slug exato
+  if [ -n "${NAME_TO_IDX[$q]:-}" ]; then printf '%s\n' "${NAME_TO_IDX[$q]}"; return 0; fi
+  for idx in "${!S_NAME[@]}"; do
+    if [ "$(printf '%s' "${S_SLUG[$idx]}" | tr '[:upper:]' '[:lower:]')" = "$ql" ]; then
+      printf '%s\n' "$idx"; return 0
+    fi
+  done
+  # 2) prefixo/substring — exige match único
+  local hits=()
+  for idx in "${!S_NAME[@]}"; do
+    t=$(printf '%s %s' "${S_NAME[$idx]}" "${S_SLUG[$idx]}" | tr '[:upper:]' '[:lower:]')
+    if [[ "$t" == *"$ql"* ]]; then hits+=("$idx"); fi
+  done
+  if [ "${#hits[@]}" -eq 1 ]; then printf '%s\n' "${hits[0]}"; return 0; fi
+  if [ "${#hits[@]}" -eq 0 ]; then
+    warn "skill não encontrada: $q"
+  else
+    warn "consulta ambígua '$q' — candidatos: $(for h in "${hits[@]}"; do printf '%s ' "${S_NAME[$h]}"; done)"
+  fi
+  return 1
+}
+
+# Expande "1,3 5-7" / "all" em índices 0-based.
+expand_selection() {
+  local input="$1" token a b i t
+  input="${input//,/ }"
+  for token in $input; do
+    case "$token" in
+      a|A|all|todos|\*)
+        for i in "${!S_NAME[@]}"; do
+          if matches_filter "$i"; then printf '%s\n' "$i"; fi
+        done
+        ;;
+      *-*)
+        a="${token%-*}"; b="${token#*-}"
+        if ! [[ "$a" =~ ^[0-9]+$ && "$b" =~ ^[0-9]+$ ]]; then
+          warn "seleção inválida: $token"; continue
+        fi
+        if [ "$a" -gt "$b" ]; then t=$a; a=$b; b=$t; fi
+        for ((i = a; i <= b; i++)); do
+          if [ "$i" -ge 1 ] && [ "$i" -le "${#S_NAME[@]}" ]; then printf '%s\n' "$((i - 1))"; fi
+        done
+        ;;
+      *)
+        if ! [[ "$token" =~ ^[0-9]+$ ]]; then warn "seleção inválida: $token"; continue; fi
+        if [ "$token" -ge 1 ] && [ "$token" -le "${#S_NAME[@]}" ]; then printf '%s\n' "$((token - 1))"; fi
+        ;;
+    esac
+  done | awk '!seen[$0]++'
+}
+
+# ---------------------------------------------------------------------------
+# Comandos
+# ---------------------------------------------------------------------------
+cmd_interactive() {
+  sync_cache
+  build_skill_index
+  [ "${#S_NAME[@]}" -gt 0 ] || die "nenhuma skill encontrada em $SOURCE_DIR"
+
+  printf '\n%sai-guides%s %s·%s %d skills %s·%s destino: %s\n' \
+    "$C_BOLD" "$C_RESET" "$C_DIM" "$C_RESET" "${#S_NAME[@]}" "$C_DIM" "$C_RESET" "$TARGET_DIR"
+
+  local filter="" f sel idx found
+  while true; do
+    printf '\n%s[filtro atual: %s]%s\n' "$C_DIM" "${filter:-<todos>}" "$C_RESET"
+    printf 'busca [enter=manter | c=limpar | q=sair]: '
+    read -r f || break
+    case "$f" in
+      q|Q) break ;;
+      c|C) filter="" ;;
+      "")  ;;
+      *)   filter="$f" ;;
+    esac
+    set_filter "$filter"
+    printf '\n'
+    render_list
+    printf '\nseleção [ex: 1,3,5-7 | a=todas | enter=voltar | q=sair]: '
+    read -r sel || break
+    case "$sel" in q|Q) break ;; "") continue ;; esac
+    found=0
+    while IFS= read -r idx; do
+      install_one "$idx"
+      found=1
+    done < <(expand_selection "$sel")
+    [ "$found" -eq 0 ] && warn "nada selecionado"
+  done
+  return 0
+}
+
+cmd_list() {
+  sync_cache
+  build_skill_index
+  set_filter "${1:-}"
+  render_list
+  return 0
+}
+
+cmd_install() {
+  [ "$#" -gt 0 ] || die "uso: ai-guides install <nome>…"
+  sync_cache
+  build_skill_index
+  setup_target
+  local q idx done=0
+  for q in "$@"; do
+    idx=$(resolve_unique "$q") || continue
+    install_one "$idx"
+    done=1
+  done
+  [ "$done" -eq 1 ]
+}
+
+cmd_update() {
+  sync_cache
+  build_skill_index
+  setup_target
+  local idx
+
+  if [ "$#" -gt 0 ]; then
+    local q done=0
+    for q in "$@"; do
+      idx=$(resolve_unique "$q") || continue
+      install_one "$idx"
+      done=1
+    done
+    [ "$done" -eq 1 ] || return 1
+    return 0
+  fi
+
+  [ -d "$TARGET_DIR" ] || { info "nenhuma skill instalada em $TARGET_DIR"; return; }
+  local d base found=0
+  for d in "$TARGET_DIR"/*/; do
+    [ -d "$d" ] || continue
+    base=$(basename "${d%/}")
+    idx=$(resolve_unique "$base") || continue
+    install_one "$idx"
+    found=1
+  done
+  [ "$found" -eq 0 ] && info "nenhuma skill instalada corresponde ao repositório"
+  return 0
+}
+
+cmd_remove() {
+  [ "$#" -gt 0 ] || die "uso: ai-guides remove <nome>…"
+  setup_target
+  local q dir
+  for q in "$@"; do
+    if ! valid_skill_name "$q"; then
+      warn "nome de skill inválido: '$q'"
+      continue
+    fi
+    dir="$TARGET_DIR/$q"
+    if [ -d "$dir" ]; then
+      safe_rm_rf "$dir"
+      ok "removido $q"
+    else
+      warn "skill não instalada: $q"
+    fi
+  done
+  return 0
+}
+
+cmd_search() {
+  [ "$#" -gt 0 ] || die "uso: ai-guides search <termo>"
+  cmd_list "$*"
+}
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+main() {
+  setup_target
+  local cmd="${1:-}"
+  case "$cmd" in
+    version|-v|--version) printf 'ai-guides %s\n' "$VERSION"; return 0 ;;
+    help|-h|--help)      usage; return 0 ;;
+  esac
+  require_deps
+  case "$cmd" in
+    ""|-i|--interactive) cmd_interactive ;;
+    list|ls)             shift; cmd_list "${1:-}" ;;
+    search|find)         shift; cmd_search "$@" ;;
+    install|add)         shift; cmd_install "$@" ;;
+    update|sync-skill|upgrade) shift; cmd_update "$@" ;;
+    remove|rm|uninstall) shift; cmd_remove "$@" ;;
+    sync)                shift; sync_cache "${1:-}"; info "fonte: $SOURCE_DIR" ;;
+    *) die "comando desconhecido: $cmd (use 'ai-guides help')" ;;
+  esac
+}
+
+main "$@"

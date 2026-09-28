@@ -121,6 +121,60 @@ Cada guia contém:
 - um arquivo [`VERSION`](./USAGE.md#version) com a versão de referência;
 - arquivos numerados (`00-*`, `01-*`, …) que formam uma progressão lógica de consulta.
 
+## CLI `ai-guides` — instalar skills no seu projeto
+
+O utilitário [`bin/ai-guides`](./bin/ai-guides) copia **1:1** qualquer guia deste
+repositório para o projeto atual, em `.agents/skill/<nome>/` (SKILL.md + arquivos
+associados), e sincroniza novidades depois.
+
+### Instalação (rápida)
+
+```bash
+curl --proto '=https' --tlsv1.2 --show-error --fail \
+  https://raw.githubusercontent.com/st-all-one/ai-guides/main/install.sh | bash
+```
+
+O instalador baixa [`bin/ai-guides`](./bin/ai-guides), coloca em `~/.local/bin/ai-guides`
+e ajusta o `PATH`. Flags úteis: `--install-dir DIR`, `--prefix DIR`, `--symlink`,
+`--ref TAG`, `--no-path`, `--uninstall`.
+
+Alternativa a partir do repositório clonado:
+
+```bash
+git clone https://github.com/st-all-one/ai-guides.git
+cd ai-guides && ./install.sh          # cópia em ~/.local/bin/ai-guides
+```
+
+### Uso
+
+```bash
+cd meu-projeto
+ai-guides                 # mini-CLI interativo: filtra e seleciona
+ai-guides list [termo]    # lista as 44 skills
+ai-guides search php      # busca por nome/categoria/versão/descrição
+ai-guides install dart rust
+ai-guides update          # ressincroniza as skills já instaladas
+ai-guides remove dart
+```
+
+No modo interativo, digite um termo para filtrar (ex.: `php`, `web`, `rust`),
+depois escolha por número (`1,3,5-7`) ou `a` para todas. A cópia é feita com
+`rsync --delete`, ou seja, edições locais são sobrescritas pelo upstream.
+
+### Configuração (variáveis de ambiente)
+
+| Variável | Default | Descrição |
+|---|---|---|
+| `AI_GUIDES_REPO_URL` | `https://github.com/st-all-one/ai-guides.git` | Repositório de origem |
+| `AI_GUIDES_BRANCH` | `main` | Branch |
+| `AI_GUIDES_CACHE` | `${XDG_CACHE_HOME:-~/.cache}/ai-guides` | Cache do clone |
+| `AI_GUIDES_SOURCE` | — | Usa um checkout local em vez do cache |
+| `AI_GUIDES_ROOT` | git toplevel ou `$PWD` | Raiz do projeto destino |
+| `AI_GUIDES_SKILL_DIR` | `<root>/.agents/skill` | Destino das skills |
+
+> A pasta `.agents/skill` segue a convenção usada nos projetos. Para usar
+> `.agentes/skill`, defina `AI_GUIDES_SKILL_DIR="$PWD/.agentes/skill"`.
+
 ## Licença
 
 MIT © 2026 st-all-one
