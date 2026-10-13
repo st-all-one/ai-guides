@@ -1,168 +1,107 @@
+<div align="center">
+
 # ai-guides
 
-**Guias técnicos otimizados para consumo por IA**, com foco em implementação prática de ferramentas e projetos.
+**Skills técnicas densas para agentes de IA — contexto sob demanda, não documentação para ler.**
 
-Repositório bilíngue (português/inglês) que reúne referências densas e diretas sobre tecnologias modernas de desenvolvimento *web* e sistemas — cada guia é projetado para ser usado como contexto por modelos de linguagem durante tarefas de programação.
+[![License](https://img.shields.io/badge/license-MIT-2b3a42?style=for-the-badge)](./LICENSE)
+[![Skills](https://img.shields.io/badge/skills-45-009739?style=for-the-badge)](./INDEX.md)
+[![CLI](https://img.shields.io/badge/CLI-0.1.1-DEA584?style=for-the-badge&logo=gnubash&logoColor=000)](./bin/ai-guides)
+[![Idioma](https://img.shields.io/badge/idioma-pt--BR%20%2F%20EN-6E56CF?style=for-the-badge)](./INDEX.md)
 
-## Estrutura
+</div>
 
-Os guias estão organizados por **categoria semântica**, para facilitar a busca:
+O **ai-guides** é uma coleção de **45 guias de referência** sobre linguagens, frameworks,
+bibliotecas, runtimes, bancos, protocolos, tooling e temas web — cada um empacotado como uma
+**skill** (`SKILL.md` + arquivos numerados) que um agente de IA carrega no seu projeto.
 
-| Pasta | Conteúdo |
-|---|---|
-| [`languages/`](./languages/) | Linguagens de programação e formatos de marcação |
-| [`frameworks/`](./frameworks/) | Frameworks full-stack e web |
-| [`libraries/`](./libraries/) | Bibliotecas de UI, templates, query builder e TUI |
-| [`runtimes/`](./runtimes/) | Servidores e runtimes de execução |
-| [`databases/`](./databases/) | Bancos de dados e persistência |
-| [`protocols/`](./protocols/) | Protocolos, especificações e APIs |
-| [`tooling/`](./tooling/) | Ferramentas de desenvolvimento, build, teste e agentes |
-| [`web/`](./web/) | Temas transversais da plataforma web |
-| [`ai/`](./ai/) | IA, agentes e modelos |
+A CLI **`ai-guides`** instala e sincroniza qualquer guia em `.agents/skills/<nome>/`, para que o
+modelo consulte **apenas a seção necessária** em vez de ler a documentação inteira. Denso,
+determinístico e otimizado para tokens.
 
-> Consulte também o [`INDEX.md`](./INDEX.md) para a lista completa de skills com nome, categoria, versão e caminho.
+## 🚀 Quickstart
 
-## Guias por categoria
-
-### languages
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [CSS](./languages/css_guide/) | Moderno (2026) | Grid, Subgrid, Flexbox, animações, seletores, tipografia, responsivo, performance |
-| [Dart](./languages/dart_guide/) | 3.13.0 | Tipagem sound + null safety, primary constructors, records/patterns, async/isolates, pub, segurança, testes, logs, performance, Effective Dart |
-| [HTML](./languages/html_guide/) | Living Standard (2025) | Tags, semântica, Web Components, formulários, acessibilidade, performance |
-| [JavaScript](./languages/javascript_guide/) | ES2025 | ES6+, async/await, módulos, classes, metaprogramação, coleções |
-| [PHP 7.2](./languages/php72_guide/) | 7.2 | Dossiê isolado — tipagem, POO, segurança, performance (somente ≤ 7.2) |
-| [PHP 7.4](./languages/php74_guide/) | 7.4 | Dossiê isolado — arrow fns, typed properties, preloading (≤ 7.4) |
-| [PHP 8.4](./languages/php84_guide/) | 8.4 | Dossiê isolado — enums, readonly, property hooks, JIT (≤ 8.4) |
-| [Rust](./languages/rust_guide/) | 1.97.0 (Ed. 2024) | Ownership, async, concorrência, macros, FFI, testing, Cargo |
-| [XML](./languages/web_xml_guide/) | 1.0 (2025) | XML, XPath, XSLT, EXSLT, OpenSearch, segurança, parsing |
-
-### frameworks
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [Flutter](./frameworks/flutter_guide/) | 3.47 (Dart 3.13) | Cross-platform — widgets, MVVM, estado, testes, segurança, performance, deploy |
-| [Fresh](./frameworks/fresh_guide/) | 2.x | Full-stack Deno — SSR, islands, routing, Vite, segurança |
-| [Hono](./frameworks/hono_guide/) | 4.13.7 | Web Standards — roteamento, middleware, validação, RPC, JSX, deploy |
-| [Laravel 5.5](./frameworks/laravel55_guide/) | 5.5.50 (LTS) | Eloquent, Blade, Service Container, segurança, performance |
-| [Leptos](./frameworks/leptos_guide/) | 0.8 | Full-stack Rust — reatividade fina, SSR, islands, server functions |
-
-### libraries
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [Alpine.js](./libraries/alpine_js_guide/) | 3.15.12 | Reatividade, transições, plugins, integração com Rust |
-| [Askama](./libraries/askama_guide/) | 0.16.0 | Templates type-safe para Rust, filtros, integração web |
-| [daisyUI](./libraries/daisy_guide/) | 5 | Componentes, cores, layout — HTML e Leptos |
-| [Eta](./libraries/eta_guide/) | 4.6.0 | Templates JS ESM — sintaxe, partials, layouts/blocks, segurança |
-| [htmx 4](./libraries/htmx4_guide/) | 4 | Atributos, formulários, multi-target, migração v2, Rust/Axum |
-| [Kysely](./libraries/kysely_guide/) | 0.29.5 | Query builder SQL type-safe para TypeScript |
-| [Lit](./libraries/lit_guide/) | 3 | Web Components — Shadow DOM, reatividade, SSR, diretivas |
-| [Ratatui](./libraries/ratatui_guide/) | 0.30 | TUIs em Rust — renderização, eventos, async, cache SQLite |
-
-### runtimes
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [Caddy](./runtimes/caddy_guide/) | 2.x | HTTPS automático, Caddyfile, proxy reverso, observabilidade |
-| [NGINX](./runtimes/nginx_guide/) | 1.27.x | Config, HTTP/2-3, proxy, FastCGI, stream, hardening, tuning |
-
-### databases
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [Deno KV](./databases/deno_kv_guide/) | Deno 2.9.x | Chave-valor, transações OCC, índices, TTL, filas, watch |
-| [PostgreSQL](./databases/postgres_guide/) | 18.4 | DDL, DML, MVCC, RLS, replicação, índices, backup, tuning |
-| [SQLite](./databases/sqlite_guide/) | 3.53.0 | Compilação, WAL, FTS5, extensões, performance, migração |
-
-### protocols
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [gRPC](./protocols/grpc_guide/) | Core 57 / C++ 1.85-dev | RPC sobre HTTP/2: streaming, status, metadata/deadlines, interceptors, TLS/mTLS, reflection/health, compressão/keepalive, LB/xDS, observabilidade + implementação por stack |
-| [HTTP + URI](./protocols/http_uri_guide/) | RFC 9110–9114 (2026) | HTTP/2, HTTP/3, caching, CORS, autenticação, cookies, segurança |
-| [Protobuf](./protocols/protobuf_guide/) | 37 (editions 2023/2024/2026) | Contrato `.proto`, wire format, editions/features, segurança, performance, testes, evolução + uso sem gRPC (PHP 7.2/Laravel 5.5) |
-| [Redmine](./protocols/redmine_guide/) | API v5.0+ | API REST — issues, projetos, usuários, time entries, wiki |
-| [WebMCP](./protocols/webmcp_guide/) | Experimental | Tools para agentes de IA na web — APIs imperativa e declarativa |
-
-### tooling
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [Git](./tooling/git_guide/) | — | Fluxo, bisect/debug, segurança, performance, workflow otimizado |
-| [Patrol](./tooling/patrol_guide/) | 4.10 | E2E de apps Flutter com acesso nativo — finders `$`, `$.platform`, CLI, hot restart, sharding, CI/device farms, segurança e logs |
-| [PI](./tooling/pi_guide/) | — | Configuração e extensão do agente PI — providers, skills, SDK |
-| [Playwright](./tooling/playwrigth_guide/) | 1.x | Testes E2E em TypeScript (cenários administrativos) |
-| [sniffCSS](./tooling/sniff_guide/) | 1.0.0 | Captura, diff e checks de estilo/acessibilidade (MCP + CLI) |
-| [Vite](./tooling/vite_guide/) | 8 | Configuração, plugins, SSR, HMR, build, deployment |
-
-### web
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [PWA](./web/pwa_guide/) | Pós-2023 | Service Worker, manifest, offline, notificações, instalação |
-| [Web Accessibility](./web/web_accessibility_guide/) | WCAG 2.2 AA + ARIA 1.2 | HTML semântico, ARIA, teclado, contraste, leitores de tela |
-| [Web API](./web/web_api_guide/) | MDN v2.0 (2026) | Documentação de APIs — templates, macros, interdependências, padrões |
-| [Web Performance](./web/web_performance_guide/) | 2.0.0 | Core Web Vitals, CRP, caching, lazy loading, RAIL |
-| [Web Security](./web/web_security_guide/) | 2.0.0 (2026) | CSP, CORS, HSTS, WebAuthn, cookies, Privacy Sandbox, TLS 1.3 |
-
-### ai
-
-| Guia | Versão | Descrição |
-|---|---|---|
-| [knudge](./ai/knudge_guide/) | 0.5.0 | Memória durável por projeto para agentes — notas Markdown, índice derivado (BM25+RRF+embeddings), tarefas, MCP |
-| [RLM](./ai/rlm_guide/) | 1.0 | Recursive Language Model — contextos quase infinitos via REPL e sub-LLMs |
-
-## Convenções de cada guia
-
-Cada guia contém:
-
-- um arquivo [`SKILL.md`](./USAGE.md#skillmd) otimizado para carregamento rápido por IA, com **frontmatter YAML** (`name`, `description`, `category`, `version`, `tags`, `license`);
-- um arquivo [`VERSION`](./USAGE.md#version) com a versão de referência;
-- arquivos numerados (`00-*`, `01-*`, …) que formam uma progressão lógica de consulta.
-
-## CLI `ai-guides` — instalar skills no seu projeto
-
-O utilitário [`bin/ai-guides`](./bin/ai-guides) copia **1:1** qualquer guia deste
-repositório para o projeto atual, em `.agents/skill/<nome>/` (SKILL.md + arquivos
-associados), e sincroniza novidades depois.
-
-### Instalação (rápida)
+### 1. Instale a CLI
 
 ```bash
 curl --proto '=https' --tlsv1.2 --show-error --fail \
   https://raw.githubusercontent.com/st-all-one/ai-guides/main/install.sh | bash
 ```
 
-O instalador baixa [`bin/ai-guides`](./bin/ai-guides), coloca em `~/.local/bin/ai-guides`
-e ajusta o `PATH`. Flags úteis: `--install-dir DIR`, `--prefix DIR`, `--symlink`,
-`--ref TAG`, `--no-path`, `--uninstall`.
+Instala o binário em `~/.local/bin/ai-guides` e ajusta o `PATH`. Flags úteis: `--install-dir DIR`,
+`--symlink`, `--ref TAG`, `--no-path`, `--uninstall`.
 
-Alternativa a partir do repositório clonado:
+<details>
+<summary>A partir do repositório clonado</summary>
 
 ```bash
 git clone https://github.com/st-all-one/ai-guides.git
-cd ai-guides && ./install.sh          # cópia em ~/.local/bin/ai-guides
+cd ai-guides && ./install.sh
 ```
+</details>
 
-### Uso
+### 2. Instale skills no seu projeto
 
 ```bash
 cd meu-projeto
-ai-guides                 # mini-CLI interativo: filtra e seleciona
-ai-guides list [termo]    # lista as 45 skills
-ai-guides search php      # busca por nome/categoria/versão/descrição
+
+ai-guides                  # mini-CLI interativo: filtre e selecione
+ai-guides list [termo]     # lista as 45 skills
+ai-guides search php       # busca por nome / categoria / versão / descrição
 ai-guides install dart rust
-ai-guides update          # ressincroniza as skills já instaladas
+ai-guides update           # ressincroniza as skills já instaladas
 ai-guides remove dart
 ```
 
-No modo interativo, digite um termo para filtrar (ex.: `php`, `web`, `rust`),
-depois escolha por número (`1,3,5-7`) ou `a` para todas. A cópia é feita com
-`rsync --delete`, ou seja, edições locais são sobrescritas pelo upstream.
+No modo interativo, digite um termo para filtrar (ex.: `php`, `web`, `rust`) e escolha por número
+(`1,3,5-7`) ou `a` para todas.
 
-### Configuração (variáveis de ambiente)
+### 3. Use como contexto
+
+Cada guia é copiado **1:1** para `.agents/skills/<nome>/`. Aponte o agente para o `SKILL.md` — o
+frontmatter YAML (`name`, `description`, `category`, `version`, `tags`) diz **quando** carregar o
+guia; os arquivos numerados (`00-*`, `01-*`, …) formam a ordem de consulta.
+
+```bash
+# exemplo: skill Rust instalada
+.agents/skills/rust/
+├── SKILL.md            # metadados + mapa de arquivos
+├── VERSION             # versão de referência
+├── 00-introduction.md
+├── 01-toolchain.md
+└── …
+```
+
+> A cópia usa `rsync --delete`: **edições locais são sobrescritas** pelo upstream.
+
+## 🧠 Como funciona
+
+1. **Um guia = uma skill.** `SKILL.md` (frontmatter YAML + mapa) descreve propósito e gatilhos de
+   uso; `VERSION` fixa a versão de referência da tecnologia.
+2. **Progressão numerada.** Arquivos `00-*`, `01-*`, … formam o caminho lógico de leitura —
+   o agente busca o arquivo específico da tarefa, não o guia inteiro.
+3. **Cache + 1:1.** A CLI clona o repositório em cache, resolve o nome da skill e sincroniza a
+   pasta. `update` ressincroniza sem reinstalar; `remove` apaga o destino com guardas de segurança.
+
+## 📁 Categorias
+
+| Pasta | Skills | Conteúdo |
+|---|---:|---|
+| [`languages/`](./languages/) | 9 | Linguagens de programação e formatos de marcação |
+| [`frameworks/`](./frameworks/) | 5 | Frameworks full-stack e web |
+| [`libraries/`](./libraries/) | 8 | UI, templates, query builder e TUI |
+| [`runtimes/`](./runtimes/) | 2 | Servidores e runtimes de execução |
+| [`databases/`](./databases/) | 3 | Bancos de dados e persistência |
+| [`protocols/`](./protocols/) | 5 | Protocolos, especificações e APIs |
+| [`tooling/`](./tooling/) | 6 | Ferramentas de build, teste e agentes |
+| [`web/`](./web/) | 5 | Temas transversais da plataforma web |
+| [`ai/`](./ai/) | 2 | IA, agentes e modelos |
+
+A lista completa (nome, categoria, versão e caminho) está em **[`INDEX.md`](./INDEX.md)**.
+
+## ⚙️ Configuração
+
+Variáveis de ambiente da CLI:
 
 | Variável | Default | Descrição |
 |---|---|---|
@@ -171,11 +110,19 @@ depois escolha por número (`1,3,5-7`) ou `a` para todas. A cópia é feita com
 | `AI_GUIDES_CACHE` | `${XDG_CACHE_HOME:-~/.cache}/ai-guides` | Cache do clone |
 | `AI_GUIDES_SOURCE` | — | Usa um checkout local em vez do cache |
 | `AI_GUIDES_ROOT` | git toplevel ou `$PWD` | Raiz do projeto destino |
-| `AI_GUIDES_SKILL_DIR` | `<root>/.agents/skill` | Destino das skills |
+| `AI_GUIDES_SKILL_DIR` | `<root>/.agents/skills` | Destino das skills |
 
-> A pasta `.agents/skill` segue a convenção usada nos projetos. Para usar
-> `.agentes/skill`, defina `AI_GUIDES_SKILL_DIR="$PWD/.agentes/skill"`.
+> Prefere `.agentes/skills`? Defina `AI_GUIDES_SKILL_DIR="$PWD/.agentes/skills"`.
+
+## 📖 Documentação
+
+| Doc | Conteúdo |
+|---|---|
+| [`USAGE.md`](./USAGE.md) | Como usar o repositório como contexto (humanos e IA). |
+| [`INDEX.md`](./INDEX.md) | Índice completo das 45 skills com categoria, versão e caminho. |
+| [`bin/ai-guides`](./bin/ai-guides) | Código da CLI (`list`, `search`, `install`, `update`, `remove`, `sync`). |
+| [`install.sh`](./install.sh) | Instalador da CLI com `--prefix`, `--symlink`, `--ref`, `--uninstall`. |
 
 ## Licença
 
-MIT © 2026 st-all-one
+MIT © 2026 st-all-one — uso livre, sem atribuição.

@@ -53,12 +53,12 @@ Em vez de copiar arquivos manualmente, use o utilitário [`bin/ai-guides`](./bin
 ```bash
 cd meu-projeto
 ai-guides                 # mini-CLI interativo (filtrar + selecionar)
-ai-guides install dart    # copia o guia para .agents/skill/dart/
+ai-guides install dart    # copia o guia para .agents/skills/dart/
 ai-guides update          # sincroniza novidades do repositório
 ```
 
 Cada guia é copiado **1:1** (SKILL.md + arquivos associados) para
-`.agents/skill/<nome>/`. Detalhes e variáveis de ambiente no [`README.md`](./README.md#cli-ai-guides--instalar-skills-no-seu-projeto).
+`.agents/skills/<nome>/`. Detalhes e variáveis de ambiente no [`README.md`](./README.md#cli-ai-guides--instalar-skills-no-seu-projeto).
 
 ## Fluxo sugerido
 

@@ -3,7 +3,7 @@
 # ai-guides — instala e sincroniza skills do repositório ai-guides no projeto atual.
 #
 # Copia 1:1 cada guia (SKILL.md + arquivos associados) do repositório remoto para
-#   <projeto>/.agents/skill/<nome>/
+#   <projeto>/.agents/skills/<nome>/
 #
 # Uso:
 #   ai-guides                 # mini-CLI interativo (filtrar + selecionar)
@@ -21,11 +21,11 @@
 #   AI_GUIDES_CACHE      Cache do clone      (default: ${XDG_CACHE_HOME:-~/.cache}/ai-guides)
 #   AI_GUIDES_SOURCE     Usa um checkout local em vez de clonar (ex.: o próprio repo)
 #   AI_GUIDES_ROOT       Raiz do projeto     (default: git toplevel ou $PWD)
-#   AI_GUIDES_SKILL_DIR  Diretório destino   (default: <root>/.agents/skill)
+#   AI_GUIDES_SKILL_DIR  Diretório destino   (default: <root>/.agents/skills)
 #
 set -euo pipefail
 
-VERSION="1.0.0"
+VERSION="0.1.1"
 
 REPO_URL="${AI_GUIDES_REPO_URL:-https://github.com/st-all-one/ai-guides.git}"
 BRANCH="${AI_GUIDES_BRANCH:-main}"
@@ -155,7 +155,7 @@ detect_root() {
 setup_target() {
   local root
   root=$(detect_root)
-  TARGET_DIR="${AI_GUIDES_SKILL_DIR:-$root/.agents/skill}"
+  TARGET_DIR="${AI_GUIDES_SKILL_DIR:-$root/.agents/skills}"
 }
 
 require_deps() {
