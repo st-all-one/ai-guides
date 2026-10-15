@@ -5,13 +5,13 @@
 **Skills técnicas densas para agentes de IA — contexto sob demanda, não documentação para ler.**
 
 [![License](https://img.shields.io/badge/license-MIT-2b3a42?style=for-the-badge)](./LICENSE)
-[![Skills](https://img.shields.io/badge/skills-45-009739?style=for-the-badge)](./INDEX.md)
+[![Skills](https://img.shields.io/badge/skills-46-009739?style=for-the-badge)](./INDEX.md)
 [![CLI](https://img.shields.io/badge/CLI-0.1.1-DEA584?style=for-the-badge&logo=gnubash&logoColor=000)](./bin/ai-guides)
 [![Idioma](https://img.shields.io/badge/idioma-pt--BR%20%2F%20EN-6E56CF?style=for-the-badge)](./INDEX.md)
 
 </div>
 
-O **ai-guides** é uma coleção de **45 guias de referência** sobre linguagens, frameworks,
+O **ai-guides** é uma coleção de **46 guias de referência** sobre linguagens, frameworks,
 bibliotecas, runtimes, bancos, protocolos, tooling e temas web — cada um empacotado como uma
 **skill** (`SKILL.md` + arquivos numerados) que um agente de IA carrega no seu projeto.
 
@@ -46,7 +46,7 @@ cd ai-guides && ./install.sh
 cd meu-projeto
 
 ai-guides                  # mini-CLI interativo: filtre e selecione
-ai-guides list [termo]     # lista as 45 skills
+ai-guides list [termo]     # lista as 46 skills
 ai-guides search php       # busca por nome / categoria / versão / descrição
 ai-guides install dart rust
 ai-guides update           # ressincroniza as skills já instaladas
@@ -88,7 +88,7 @@ guia; os arquivos numerados (`00-*`, `01-*`, …) formam a ordem de consulta.
 | Pasta | Skills | Conteúdo |
 |---|---:|---|
 | [`languages/`](./languages/) | 9 | Linguagens de programação e formatos de marcação |
-| [`frameworks/`](./frameworks/) | 5 | Frameworks full-stack e web |
+| [`frameworks/`](./frameworks/) | 6 | Frameworks full-stack e web |
 | [`libraries/`](./libraries/) | 8 | UI, templates, query builder e TUI |
 | [`runtimes/`](./runtimes/) | 2 | Servidores e runtimes de execução |
 | [`databases/`](./databases/) | 3 | Bancos de dados e persistência |
@@ -119,7 +119,7 @@ Variáveis de ambiente da CLI:
 | Doc | Conteúdo |
 |---|---|
 | [`USAGE.md`](./USAGE.md) | Como usar o repositório como contexto (humanos e IA). |
-| [`INDEX.md`](./INDEX.md) | Índice completo das 45 skills com categoria, versão e caminho. |
+| [`INDEX.md`](./INDEX.md) | Índice completo das 46 skills com categoria, versão e caminho. |
 | [`bin/ai-guides`](./bin/ai-guides) | Código da CLI (`list`, `search`, `install`, `update`, `remove`, `sync`). |
 | [`install.sh`](./install.sh) | Instalador da CLI com `--prefix`, `--symlink`, `--ref`, `--uninstall`. |
 
