@@ -87,6 +87,41 @@ for part in s.split(',') {}
 let bytes: Vec<u8> = s.into_bytes();
 let s = String::from_utf8(bytes).expect("invalid UTF-8");
 let s: &str = &string;     // borrow, não custa
+
+// UTF-16 (estabilizado em 1.98)
+let s = String::from_utf16le(&bytes)?;
+let s = String::from_utf16le_lossy(&bytes);
+let s = String::from_utf16be(&bytes)?;
+let s = String::from_utf16be_lossy(&bytes);
+```
+
+### Novas APIs estabilizadas (1.98–1.99)
+
+```rust
+// str::substr_range / [T]::subslice_range
+let range = s.substr_range("hello"..);
+
+// [T]::strip_circumfix / str::strip_circumfix
+let stripped = "[hello]".strip_circumfix('[', ']');
+
+// IntoIterator para Box<[T; N]> (1.99)
+let arr: Box<[i32; 3]> = Box::new([1, 2, 3]);
+for x in arr { println!("{x}"); }
+
+// VecDeque::retain_back (1.99)
+use std::collections::VecDeque;
+let mut dq: VecDeque<i32> = (0..10).collect();
+dq.retain_back(|&x| x % 2 == 0); // mantém apenas do fim
+
+// Vec::into_parts / Vec::from_parts (1.99)
+let (ptr, len, cap) = v.into_parts();
+let v = unsafe { Vec::from_parts(ptr, len, cap) };
+
+// String::from_utf8_lossy_owned (1.99)
+let s = String::from_utf8_lossy_owned(bytes);
+
+// FusedIterator para StepBy<I> (1.99)
+let step: StepBy<Range<i32>> = (0..10).step_by(2);
 ```
 
 ### &str — string slice

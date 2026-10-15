@@ -126,6 +126,12 @@ codegen-units = 256     # mais unidades = compilação mais rápida
 lto = false
 panic = "unwind"
 
+# Novo em 1.99: profile "debug" built-in
+# Preparação para transição do profile dev
+# Atualmente idêntico ao dev
+[profile.debug]
+inherits = "dev"
+
 [profile.release]
 opt-level = 3           # -O3
 debug = false
@@ -152,6 +158,9 @@ opt-level = 3
 [profile.dev.build-override]
 opt-level = 3
 ```
+
+> **Rust 1.99+**: Em CI (detectado pela env var `CI`), a compilação
+> incremental é desabilitada por default para builds mais confiáveis.
 
 ## Workspaces
 
@@ -192,6 +201,10 @@ edition.workspace = true
 serde.workspace = true
 tokio.workspace = true
 my_utils = { path = "../utils" }
+
+# Rust 1.99+: Workspace members em edition 2024+ podem override
+# default-features de dependência herdada (RFC 3945)
+serde = { workspace = true, default-features = false }
 ```
 
 ## Features

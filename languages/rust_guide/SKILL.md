@@ -1,17 +1,17 @@
 ---
 name: rust
 description: >
-  Rust 1.97.0 / Edition 2024: ownership, borrowing, lifetimes, structs/enums,
+  Rust 1.99.1 / Edition 2024: ownership, borrowing, lifetimes, structs/enums,
   traits/generics, error handling, iterators, smart pointers, concurrency,
   async/Tokio, macros, unsafe/FFI, testing, Cargo. Load when writing,
   reviewing, or debugging Rust or structuring a crate/workspace.
 category: languages
-version: "1.97.0 (Edition 2024)"
+version: "1.99.1 (Edition 2024)"
 tags: [rust, ownership, borrowing, async, tokio, concurrency, cargo, macros, ffi, testing]
 license: MIT
 ---
 
-# Rust 1.97.0 (Edition 2024)
+# Rust 1.99.1 (Edition 2024)
 
 ## Use When
 - Writing/reviewing/debugging Rust (systems, CLI, web, libraries)
@@ -27,6 +27,8 @@ license: MIT
 - Traits: small and cohesive; use generics for static dispatch, `dyn Trait` for heterogeneity.
 - Unsafe: isolate and document with a `// SAFETY:` comment; minimize surface.
 - Edition 2024: `gen` blocks, `async` closures, `unsafe extern`, RPIT lifetime capture changes.
+- Rust 1.98+: `f32`/`f64` `algebraic_*` methods relaxam ordem/precisão (estilo `-ffast-math`); use só em hot loops numéricos, nunca quando reprodutibilidade importa.
+- Rust 1.99+: defina variádicas `extern "C"` com `...`/`VaList`/`next_arg`; `#[my_macro] mod foo;`; `Box::into_non_null`.
 - No `mem::transmute` unless unavoidable; no leaking abstractions across modules.
 - Test: doc tests + unit tests in-module + integration tests in `tests/`.
 
@@ -83,9 +85,10 @@ let cell = std::cell::RefCell::new(0);     // interior mutability (single thread
 | `14-unsafe-macros-ffi.md` | unsafe, macros, FFI, `extern "C"` |
 | `15-cargo-deep.md` | features, profiles, workspaces, publishing |
 | `16-project-practical.md` | project structure and patterns |
+| `CHANGELOG.md` | mudanças 1.97.0 → 1.99.1 |
 
 ## Read Order
 Linear for learning (`00`→`16`); for reference jump to the topic. Start at `03-ownership.md` for correctness issues.
 
 ## Prereqs
-Basic programming; no prior Rust required. Rust 1.97+ / Edition 2024.
+Basic programming; no prior Rust required. Rust 1.99+ / Edition 2024.

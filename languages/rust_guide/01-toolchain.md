@@ -23,7 +23,7 @@ cargo +nightly build            # shorthand
 ```rust
 // hello.rs
 fn main() {
-    println!("Hello, Rust 1.97.0!");
+    println!("Hello, Rust 1.99.1!");
 }
 ```
 
@@ -32,6 +32,9 @@ rustc hello.rs                  # compilação direta
 rustc -O hello.rs               # com otimizações
 rustc --edition 2024 hello.rs   # edição específica
 ```
+
+> **Rust 1.99+**: Atualizado para LLVM 23. O lint `unsafe_code`
+> é agora consistentemente emitido para todos os atributos unsafe.
 
 ## Cargo (package manager + build system)
 

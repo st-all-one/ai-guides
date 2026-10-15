@@ -185,6 +185,11 @@ let s: &'static str = "hello";
 takes_any(s);  // OK: 'static é encurtado para 'a
 ```
 
+> **Rust 1.98+**: Lifetime shortening agora funciona em unsize-coercing
+> mesmo em posições invariantes. Por exemplo, `Cell<&'long mut i32>` pode
+> ser coercido para `Cell<&'short mut dyn Send>`. Anteriormente isso só era
+> permitido de `&mut` para `&` ou de `&` para `&`.
+
 ## RAII (Resource Acquisition Is Initialization)
 
 Recursos são adquiridos na inicialização e liberados no destructor:

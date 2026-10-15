@@ -319,3 +319,8 @@ impl Display for MyStruct {}
 7. **Default generic params** para operadores e extensibilidade
 8. **PhantomData** para parâmetros genéricos que só existem no
    type level
+
+> **Rust 1.99+**: Trait methods agora são resolvidos em adjusted
+> never type (produzindo um FCW — future compatibility warning).
+> Inference variables podem ser coercidos para trait objects se
+> related via subtyping a um tipo `Sized`.

@@ -204,6 +204,39 @@ fn get_config() -> &'static Config {
 }
 ```
 
+## ManuallyDrop — Controle Manual de Drop (Rust 1.98+)
+
+`ManuallyDrop<T>` suprime o `Drop` automático, deixando o controle para
+você. Antes da 1.96 havia um bug: mover um `ManuallyDrop<Box<_>>` cujo
+`Box` já havia sido dropado era **UB**. A 1.96 corrigiu o comportamento, e
+a **1.98 documenta a garantia estável** de que esse código continua sendo
+seguro (não-UB) no futuro (ver RFC 3336).
+
+```rust
+use std::mem::ManuallyDrop;
+
+let mut x = ManuallyDrop::new(Box::new(1));
+unsafe { ManuallyDrop::drop(&mut x) }; // Box dropado, x ainda válido
+let x = x; // OK desde 1.96 — não é mais UB (garantido na 1.98)
+```
+
+> **Regra**: `ManuallyDrop::drop` deve ser chamado no máximo uma vez, e o
+> valor não deve ser usado depois. A garantia da 1.98 cobre apenas a
+> movimentação do wrapper após o drop, não o reuso do conteúdo.
+
+## Box::into_non_null / Box::from_non_null (1.99)
+
+```rust
+use std::ptr::NonNull;
+
+// Box<T> → NonNull<T> (sem alocação extra)
+let boxed = Box::new(42);
+let ptr: NonNull<i32> = Box::into_non_null(boxed);
+
+// NonNull<T> → Box<T>
+let boxed = unsafe { Box::from_non_null(ptr) };
+```
+
 ## Resumo
 
 | Smart Pointer | Multi-Owner | Mutável | Thread-Safe | Overhead |
@@ -216,6 +249,9 @@ fn get_config() -> &'static Config {
 | `Mutex<T>` | Não | Sim | Sim | Lock |
 | `RwLock<T>` | Não | Sim | Sim | Lock |
 | `OnceCell<T>` | 1x | Sim (1x) | Não (Cell) / Sim (Lock) | Option |
+
+> **Rust 1.99**: `Pin::new_unchecked` teve seus safety invariants
+> levemente alterados. `Box::leak` agora avisa sobre evitar unleaking.
 
 ## Boas Práticas
 

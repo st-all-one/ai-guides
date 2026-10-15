@@ -253,3 +253,6 @@ for x in 0..1000 {
 8. **Evitar `for` em favor de `map`/`filter`/`fold`** em cadeias curtas
 9. **Usar `any()`/`all()`** em vez de loops com flag bool
 10. **`flat_map()`** para nested loops
+
+> **Rust 1.99+**: `StepBy<I>` agora implementa `FusedIterator`,
+> permitindo uso seguro em contextos que exigem este trait.

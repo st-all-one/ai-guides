@@ -244,3 +244,7 @@ fn play(guess: Guess) {
 8. **Não abuse de panic** — Result é mais composto e testável
 9. **Error types devem ser `Send + Sync`** para async e threading
 10. **Implemente `source()`** para erros que encadeiam
+
+> **Rust 1.98+**: O lint `c_void_returns` (warn-by-default) detecta
+> `core::ffi::c_void` como tipo de retorno. Use `()` em vez de `c_void`
+> em funções FFI quando possível.

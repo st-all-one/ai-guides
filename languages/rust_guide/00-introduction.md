@@ -1,4 +1,4 @@
-# Rust 1.97.0 — Guia Completo e Otimizado
+# Rust 1.99.1 — Guia Completo e Otimizado
 
 ## Filosofia Rust
 
@@ -17,7 +17,7 @@
 
 ## Edition 2024
 
-Rust 1.97.0 usa a **Rust Edition 2024** como default para novos projetos.
+Rust 1.99.1 usa a **Rust Edition 2024** como default para novos projetos.
 
 | Edition | Ano | Mudanças principais |
 |---------|-----|---------------------|

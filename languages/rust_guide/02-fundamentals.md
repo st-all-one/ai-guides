@@ -50,6 +50,75 @@ let binary = 0b1111_0000;   // base 2
 let byte = b'A';            // u8 literal (ASCII)
 ```
 
+### Floating-Point: Métodos Algébricos (Rust 1.98+)
+
+Os tipos `f32` e `f64` ganharam métodos **"algébricos"** para as cinco
+operações básicas. Eles permitem que o compilador aplique otimizações
+usando as propriedades algébricas dos números reais (associatividade,
+distributividade, etc.), mesmo que essas propriedades **não** valham para
+representações de ponto flutuante IEEE 754. É análogo ao `-ffast-math`
+de outras linguagens.
+
+```rust
+let a = 1.0_f64;
+let b = 2.0_f64;
+let c = 3.0_f64;
+let d = 4.0_f64;
+
+// Normal: avaliação estritamente left-associative ((a+b)+c)+d
+let normal = a + b + c + d;
+
+// Algébrico: o compilador PODE reordenar, ex.: (a+b) + (c+d),
+// habilitando paralelismo/loop-vectorization
+let alg = a.algebraic_add(b).algebraic_add(c).algebraic_add(d);
+```
+
+| Método | Operação |
+|--------|----------|
+| `algebraic_add` | adição (`+`) |
+| `algebraic_sub` | subtração (`-`) |
+| `algebraic_mul` | multiplicação (`*`) |
+| `algebraic_div` | divisão (`/`) |
+| `algebraic_rem` | resto (`%`) |
+
+**Características importantes:**
+
+- **Não-determinísticos**: o compilador escolhe as otimizações, então o
+  resultado pode variar entre builds/plataformas.
+- **Nunca causam UB** — são seguros; apenas relaxam garantias de
+  precisão/ordem.
+- **Não são** um replacement direto dos operadores quando a reprodutibilidade
+  bit-a-bit importa (ex.: finanças, hashing de floats). Use-os em
+  hot loops numéricos (SIMD, ML, gráficos) onde a reordenação compensa.
+
+```rust
+// Exemplo: redução vetorizada de um slice
+let sum = data.iter().copied()
+    .reduce(f64::algebraic_add)
+    .unwrap_or(0.0);
+```
+
+> **Quando NÃO usar**: se você depende de igualdade exata, comparações
+> determinísticas ou resultados reprodutíveis entre máquinas, mantenha
+> os operadores normais (`+`, `-`, `*`, `/`, `%`).
+
+### Formatação de Inteiros em Buffer (Rust 1.98+)
+
+Todos os inteiros primitivos têm `format_into`, que escreve a forma
+decimal em um `NumBuffer<Self>` — um buffer opaco grande o suficiente para
+qualquer valor do tipo — e retorna um `&str` emprestado do buffer. Evita
+`write!` dinâmico e tem performance comparável ao crate `itoa`.
+
+```rust
+use core::fmt::NumBuffer;
+
+let mut buf = NumBuffer::<i32>::new();
+let s: &str = 42_i32.format_into(&mut buf);
+assert_eq!(s, "42");
+
+// Útil em serialização / logging de alto throughput
+```
+
 ## Tipos Compostos
 
 ```rust

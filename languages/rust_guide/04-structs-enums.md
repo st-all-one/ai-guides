@@ -136,6 +136,10 @@ enum Color {
 let color = Color::Red as i32; // cast explícito
 ```
 
+> **Rust 1.98+**: `repr(transparent)` é mais estrito sobre quais campos
+> têm layout "trivial" e podem ser ignorados. `repr(C)`, tipos com campos
+> privados, e `#[non_exhaustive]` não são mais considerados "triviais".
+
 ## Pattern Matching
 
 ### Match Exaustivo

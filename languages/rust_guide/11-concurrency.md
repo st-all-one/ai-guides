@@ -192,6 +192,10 @@ unsafe impl Send for MyType {}
 unsafe impl Sync for MyType {}
 ```
 
+> **Rust 1.98+**: `Send`/`Sync` agora é implementado para
+> `std::process::CommandArgs`. `Send`/`Sync` **não** é implementado para
+> `std::env::Vars{,Os}`.
+
 ## Barrier
 
 ```rust
@@ -225,6 +229,12 @@ counter.fetch_add(1, Ordering::SeqCst);
 // Acquire — vê writes de Release
 // AcqRel — Acquire + Release
 // SeqCst — sequencialmente consistente (default, mais lento)
+
+// Novas APIs estabilizadas em 1.98:
+use std::sync::atomic::Atomic;
+let atomic = Atomic::from_mut(&mut value);
+let slice = Atomic::get_mut_slice(&mut [atomic]);
+let atomic_slice = Atomic::from_mut_slice(&mut [value]);
 ```
 
 ## Boas Práticas

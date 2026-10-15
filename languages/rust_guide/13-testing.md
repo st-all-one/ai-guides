@@ -264,3 +264,8 @@ benches/
    `test1`
 9. **Property-based testing com `proptest`** — testa casos aleatórios
 10. **Code coverage com `cargo tarpaulin`** ou `cargo-llvm-cov`
+
+> **Rust 1.99+**: `doc(cfg())` não é mais considerado ao filtrar
+> doctests. Attributes não aplicáveis são agora error em code blocks
+> de doc comments. O lint `unused_footnote_definition` foi adicionado
+> ao rustdoc.

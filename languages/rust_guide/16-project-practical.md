@@ -422,3 +422,7 @@ jobs:
 8. **`cargo deny`** para auditoria automática
 9. **Benchmarks via criterion** para código crítico
 10. **Perfil de release otimizado** antes de deploy
+
+> **Rust 1.99+**: Em CI (env var `CI`), a compilação incremental
+> é desabilitada por default. O profile `debug` built-in foi adicionado
+> como preparação para a transição do profile `dev`.
