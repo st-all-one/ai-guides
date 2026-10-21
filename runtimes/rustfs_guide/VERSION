@@ -1,0 +1,23 @@
+rustfs-guide 1.0
+=================
+Covered RustFS version: 1.0.2 (Cargo workspace version)
+Language baseline: Rust 1.99.0, edition 2024
+Source snapshot: rustfs/rustfs commit 6153769 (2026-10-14)
+Source material: README.md, ARCHITECTURE.md, CHANGELOG.md, docs/ (121 files),
+deploy/, helm/, Docker/Compose files, and code defaults in crates/config,
+crates/credentials, crates/ecstore and rustfs/src.
+
+This guide condenses the official repository documentation and the
+operator-relevant code defaults into 17 reference files. It is not a copy of
+the upstream docs: normative details are summarized and linked back to the
+source document or symbol.
+
+Key boundaries at this version:
+- S3 compatibility is "broad for supported features", not complete.
+- ACL authorization is intentionally unsupported.
+- S3 Tables (Iceberg REST) is preview.
+- MinIO on-disk compatibility is read-only, one-way, feature-gated for SSE.
+- FIPS 140-3 validation is not claimed.
+
+For release changes see:
+https://github.com/rustfs/rustfs/releases

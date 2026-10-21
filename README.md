@@ -90,7 +90,7 @@ guia; os arquivos numerados (`00-*`, `01-*`, …) formam a ordem de consulta.
 | [`languages/`](./languages/) | 9 | Linguagens de programação e formatos de marcação |
 | [`frameworks/`](./frameworks/) | 6 | Frameworks full-stack e web |
 | [`libraries/`](./libraries/) | 8 | UI, templates, query builder e TUI |
-| [`runtimes/`](./runtimes/) | 2 | Servidores e runtimes de execução |
+| [`runtimes/`](./runtimes/) | 3 | Servidores e runtimes de execução |
 | [`databases/`](./databases/) | 3 | Bancos de dados e persistência |
 | [`protocols/`](./protocols/) | 5 | Protocolos, especificações e APIs |
 | [`tooling/`](./tooling/) | 6 | Ferramentas de build, teste e agentes |
