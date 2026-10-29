@@ -10,5 +10,6 @@ Frameworks full-stack e web.
 | [Laravel 5.5](./laravel55_guide/) | 5.5.50 (LTS) | Eloquent, Blade, Service Container, segurança, performance |
 | [Laravel 12](./laravel12_guide/) | 12.x | Bootstrap/app.php, Eloquent attributes, Blade, Sanctum, Vite, Octane, cache/filas |
 | [Leptos](./leptos_guide/) | 0.8 | Full-stack Rust — reatividade fina, SSR, islands, server functions |
+| [Topcoat](./topcoat_guide/) | 0.11.0 | Full-stack Rust — HTML server-side, componentes async, runtime Rust/JS, shards, sessões, assets |
 
 Cada guia possui `SKILL.md` (frontmatter YAML + mapa de arquivos) e `VERSION`.
