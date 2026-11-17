@@ -1,0 +1,35 @@
+SonarQube Community Build — 26.12
+Code source: SonarSource/sonarqube @ ae3d6eb800dacf528b752a51b6b6bda0ec3f4971 (2026-11-16)
+Product license: LGPL-3.0 (README.md:217-221); guide license: MIT
+
+ gradle.properties:2     version=26.12
+ gradle.properties:3     isLta=false
+ gradle.properties:8     versionEOL=2027-02-01
+ gradle.properties:31    elasticSearchServerVersion=9.4.7
+ gradle.properties:38    jre_release_name=jdk-21.0.13+9
+ gradle.properties:39    webappVersion=2026.6.0.82538
+ gradle.properties:50    scannerEngineVersion=13.16.0.6705
+ plugin-api ............. 14.1.0.5543 (gradle.properties:14)
+
+Documentation: docs.sonarsource.com
+  sonarqube-community-build/*  open-source edition in this repository
+  sonarqube-server/*           2026.5 LTA; commercial editions, feature subset
+  machine index: https://docs.sonarsource.com/llms.txt
+  Markdown pages: same URL + ".md"
+
+Measured surface (derived from downloaded files, 2026-11-17):
+  repo ................ 8,559 files, 7,633 .java, 32 modules under server/
+  docs ................ 373 Community Build pages + 4,335 Server pages in llms.txt
+
+Version boundary: code is 26.12 (Community Build, HEAD Nov/2026); Server "latest"
+docs are 2026.5 LTA. Property names and defaults are cited from the source read;
+if docs lag the code, the code wins and the divergence is recorded in the
+relevant file.
+
+Guide coverage:
+  product/editions; architecture (web/CE/ES/DB) and analysis pipeline; Gradle build
+  and separate webapp; ZIP/Docker/Helm/systemd installation; sonar.properties and
+  env vars; database, pool and migrations; security, auth and permissions; scanners
+  and parameters; issues, metrics and new code; quality gates/profiles/rules; Web
+  API and webhooks; CI and ALM/PR; plugins; logging/health/monitoring; performance;
+  backup/upgrade; troubleshooting; decisions, quick reference and verified minimum.
