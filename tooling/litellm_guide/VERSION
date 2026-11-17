@@ -1,0 +1,35 @@
+LiteLLM 1.111.0 — Community AI Gateway
+
+Code: BerriAI/litellm @ bcb1f486a65ac86b98904bb36b768593be91b3c4
+Commit: 2026-11-17
+Package: 1.111.0 (pyproject.toml:3)
+Python: >=3.10, <3.16 (pyproject.toml:6)
+License: MIT outside litellm/enterprise/ (LICENSE:1-4); enterprise package is
+LicenseRef-Proprietary (litellm/enterprise/pyproject.toml:7)
+
+Docs: docs.litellm.ai, pages last updated 2026-11-16/17; every page is readable
+as <url>.md; full dump https://docs.litellm.ai/llms-full.txt (10,068,412 bytes).
+Docs describe the moving `latest`; the checkout is authoritative.
+
+Measured surface (03, 23):
+  3,580 Python files; 1,158,033 Python LOC
+  460,585 proxy LOC; 159 provider adapter directories
+  2,383-line Prisma schema; 6,237 test files; 10.1 MB docs dump
+
+Scope: free/open-source AI Gateway — install, config.yaml, model routing,
+virtual keys, budgets/rate limits/spend, OpenAI/Anthropic API, Admin UI,
+management API, caching, observability, guardrails, MCP, production, upgrades,
+troubleshooting. Enterprise is covered only at the boundary: SSO/SCIM beyond
+5 users, audit logs, org/team admins, secret managers, IP allowlists, per-team
+logging, multi-region, support SLAs.
+
+Exclusions: Python SDK internals beyond proxy exposure; provider-by-provider
+credential consoles; Enterprise deployment internals; live load tests.
+
+Verification: static audit of source + docs. No container, provider call,
+migration, UI render, load test or Enterprise license was run. Runtime behavior
+is implementation reading, not observation (23-coverage-and-limits.md).
+
+Update: re-pin commit/version; re-resolve every path:line; re-read
+docs/enterprise.md and config_settings.md; re-check quickstart compose image tag
+and env-var names.
