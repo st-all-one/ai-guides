@@ -1,0 +1,26 @@
+Bot API 10.4 (2026-11-09); docs captured 2026-11-18.
+
+Official roots:
+  core.telegram.org/bots
+  core.telegram.org/bots/api
+  core.telegram.org/bots/features
+  core.telegram.org/bots/samples
+Capture: 247 artifacts (24 HTML, 23 whole-page .md, 200 API method/type pages),
+6,817 link rows. Machine-readable .md twins used for line citations.
+
+Pinned libraries (source read at these commits):
+  python-telegram-bot 22.8.0 @ 41e3633bd1b4e51693ee57059828a59a9773618a
+  aiogram             3.32.0 @ 63d09d6310072179af8419dfd93a5c51bb8ceea1
+  pyTelegramBotAPI    4.37.1 @ 469eece4f84f917195b40bbe9daf428443a64d8b
+  grammY              1.46.0 @ e8b3b1bec0ecb0cd76af7f3996354027ba94c303
+  Telegraf           4.100.0 @ 1386cc4014b0627b1805c215adad75b3f3e9f9b0
+  GramIO              0.15.3 @ a6487633410fa5e3427e836242dfda35627895e1
+  teloxide            0.17.0 @ 3c46b96e0dc0cabc75d6430c4566d7e2e12fd233
+  carapax             0.40.0 @ 5566d290fd2d9cb9061539064005e9ebd6362d4c
+  tgbotapi-rs          0.1.0 @ bd553c1da140fdd5ae270d9b34c80c85cf21bae3
+
+Scope: Python, JavaScript/TypeScript, Rust only. MTProto/TDLib client
+protocol and other language ecosystems are out of scope.
+
+Verification: static capture + line-checking only. No live API calls, no bot
+token, no runtime deployment.

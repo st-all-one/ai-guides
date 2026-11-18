@@ -9,5 +9,6 @@ Protocolos, especificações e APIs.
 | [Protobuf](./protobuf_guide/) | 37 (editions 2023/2024/2026) | Contrato `.proto`, wire format, editions/features, segurança, performance, testes + uso sem gRPC (PHP 7.2/Laravel 5.5) |
 | [Redmine](./redmine_guide/) | API v5.0+ | API REST — issues, projetos, usuários, time entries, wiki |
 | [WebMCP](./webmcp_guide/) | Experimental | Tools para agentes de IA na web — APIs imperativa e declarativa |
+| [Telegram Bots](./telegram_bots_guide/) | Bot API 10.4 (2026-11-09) | API HTTP oficial, getUpdates/webhooks, flood control, segurança, Web Apps, inline, Payments/Stars e bibliotecas Python/JS-TS/Rust |
 
 Cada guia possui `SKILL.md` (frontmatter YAML + mapa de arquivos).
