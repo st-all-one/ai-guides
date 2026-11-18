@@ -1,0 +1,7 @@
+diff
+{
+"compilerOptions": {
+// Explicitly list the @types packages you need
++ "types": ["node", "jest"]
+}
+}

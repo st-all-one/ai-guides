@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Python Wiki - Python Wiki</title><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Archive" href="archive/index.html" /><link rel="prev" title="Python Wiki" href="../index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=b138c3a8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Python Wiki"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../index.html">
+      
+      
+      <strong>Python Wiki</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="#">Python Wiki</a></li><li class="link"><a href="../psf/index.html">PSF Wiki</a></li><li class="link"><a href="../jython/index.html">Jython Wiki</a></li>
+      <li class="link"><button class="js-menu" type="button" id="nav-trigger-4" aria-controls="nav-children-4">
+            <span>Contribute</span>
+            <i class="i-lucide chevron-down"></i>
+          </button>
+        <ul id="nav-children-4" aria-labelledby="nav-trigger-4"><li><a href="../edit/index.html">
+                <span>Edit with CMS</span>
+                <small>Use the web-based editor to create or edit wiki pages</small>
+              </a></li><li><a href="https://github.com/psf/wiki">
+                <span>Edit on GitHub</span>
+                <small>Fork the repository and submit changes via pull request</small>
+              </a></li></ul>
+      </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/psf/wiki" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+<a href="https://x.com/ThePSF" aria-label="X (Twitter)">
+  <iconify-icon icon="prime:twitter"></iconify-icon>
+</a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Wiki</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="archive/index.html">Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conferences/index.html">Conferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database/index.html">Database Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation/index.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="education/index.html">Education</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui/index.html">GUI Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guides/index.html">Guides and How-Tos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="i18n/index.html">Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="language/index.html">Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="networking/index.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="packaging/index.html">Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="performance/index.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/index.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="science/index.html">Scientific Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="soc/index.html">Summer of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sprints/index.html">Sprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/index.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="web/index.html">Web Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../psf/index.html">PSF Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jython/index.html">Jython Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../people/index.html">People</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#the-python-wiki">The Python Wiki</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a class="reference internal" href="#events-courses-conferences-community">Events, Courses, Conferences, Community</a></li>
+<li><a class="reference internal" href="#python-software">Python Software</a></li>
+<li><a class="reference internal" href="#python-core-development-tools">Python Core Development Tools</a></li>
+</ul>
+</li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/psf/wiki"
+  data-type="github" data-user="psf" data-repo="wiki">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>psf/wiki</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/psf/wiki/blob/main/python/index.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Python Wiki</span></a>
+        <meta itemprop="position" content="1" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/index.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/index.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/index.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="python-wiki">
+<h1>Python Wiki<a class="headerlink" href="#python-wiki" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Legacy Wiki Page</p>
+<p>This page was migrated from the old MoinMoin-based wiki. Information may be outdated or no longer applicable. For current documentation, see <a class="reference external" href="https://www.python.org">python.org</a>.</p>
+</div>
+<section id="the-python-wiki">
+<h2>The Python Wiki<a class="headerlink" href="#the-python-wiki" title="Link to this heading">¶</a></h2>
+<p>Welcome to the Python Wiki, a user-editable compendium of knowledge based around the Python programming language. Some pages are protected against casual editing - see <a class="reference internal" href="archive/WikiEditingGuidelines.html"><span class="doc std std-doc">WikiEditingGuidelines</span></a> for more information about editing content.</p>
+<p><a class="reference external" href="https://web.archive.orghttps://www.python.org/">Python</a> is a great object-oriented, interpreted, and interactive programming language. It is often <a class="reference internal" href="archive/LanguageComparisons.html"><span class="doc std std-doc">compared</span></a> (favorably of course 🙂 ) to Lisp, Tcl, Perl, Ruby, C#, Visual Basic, Visual Fox Pro, Scheme or Java… and it’s much more fun.</p>
+<p>Python combines remarkable power with very clear syntax. It has modules, classes, exceptions, very high level dynamic data types, and dynamic typing. There are interfaces to many system calls and libraries, as well as to <a class="reference internal" href="#/python/GUI%20Programming%20in%20Python.html"><span class="xref myst">various windowing systems</span></a>. New built-in modules are easily written in C or C++ (or other languages, depending on the chosen <a class="reference internal" href="implementations/PythonImplementations.html"><span class="doc std std-doc">implementation</span></a>). Python is also usable as an extension language for <a class="reference internal" href="libraries/AppsWithPythonScripting.html"><span class="doc std std-doc">applications written in other languages</span></a> that need easy-to-use scripting or automation interfaces.</p>
+<section id="getting-started">
+<h3>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="getting-started/BeginnersGuide.html"><span class="doc std std-doc">Beginners Guide</span></a></p></td>
+<td><p><a class="reference internal" href="#Documentation/Documentation"><span class="xref myst">Documentation</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Links to tutorials, courses and resources</p></td>
+<td><p>Learning materials, topic guides and links to central resources</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="archive/BeginnerErrorsWithPythonProgramming.html"><span class="doc std std-doc">Beginner Errors</span></a></p></td>
+<td><p><a class="reference internal" href="books/PythonBooks.html"><span class="doc std std-doc">Python Books</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Some common pitfalls of beginners</p></td>
+<td><p>Books about Python plus reviews</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#/python/Asking%20for%20Help.html"><span class="xref myst">Asking for Help</span></a></p></td>
+<td><p><a class="reference internal" href="archive/PythonAudioMaterial.html"><span class="doc std std-doc">Python Audio Materials</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Questions asked by beginners, answered here</p></td>
+<td><p>A mixture of introductory and topical material</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="archive/Languages.html"><span class="doc std std-doc">Languages</span></a></p></td>
+<td><p><a class="reference internal" href="implementations/PythonImplementations.html"><span class="doc std std-doc">Python Implementations</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Resources written in languages other than English</p></td>
+<td><p>Different software which runs programs in the Python language</p></td>
+</tr>
+<tr class="row-even"><td><p>See also the <a class="reference internal" href="#archive/CategoryDocumentation"><span class="xref myst">documentation category</span></a> for all known documentation-related pages.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="events-courses-conferences-community">
+<h3>Events, Courses, Conferences, Community<a class="headerlink" href="#events-courses-conferences-community" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="archive/PythonDiscussions.html"><span class="doc std std-doc">Python Discussion Forums</span></a> - if you want to meet people online, ask questions or discuss new ideas</p></li>
+<li><p><a class="reference internal" href="conferences/regional/PythonConferences.html"><span class="doc std std-doc">Python Conferences</span></a> - information about the Python conference scene</p></li>
+<li><p><a class="reference internal" href="community/LocalUserGroups.html"><span class="doc std std-doc">Local User Groups</span></a> - find a Python group near you</p></li>
+<li><p><a class="reference internal" href="archive/PythonTraining.html"><span class="doc std std-doc">Python Training</span></a> - Python training courses</p></li>
+<li><p><a class="reference internal" href="conferences/regional/PythonEvents.html"><span class="doc std std-doc">Python Events</span></a> - event listing for conferences, training courses and more</p></li>
+<li><p><a class="reference internal" href="conferences/regional/PythonEventsCalendar.html"><span class="doc std std-doc">Python Event Calendars</span></a> - calendars for Python conferences and user groups</p></li>
+<li><p><a class="reference internal" href="archive/Community.html"><span class="doc std std-doc">Participating in the Community</span></a> - where people using and producing Python get together</p></li>
+<li><p><a class="reference internal" href="psf/PythonSoftwareFoundation.html"><span class="doc std std-doc">Python Software Foundation</span></a> - show your support by joining the Foundation behind Python</p></li>
+<li><p><a class="reference internal" href="archive/PythonJobs.html"><span class="doc std std-doc">Find a job where you can use Python</span></a> - Python job boards around the world</p></li>
+</ul>
+</section>
+<section id="python-software">
+<h3>Python Software<a class="headerlink" href="#python-software" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="archive/PythonProjects.html"><span class="doc std std-doc">Python Projects</span></a> Information on finding software projects written in Python, including… <a class="reference internal" href="archive/Applications.html"><span class="doc std std-doc">Applications</span></a> Ready-to-run applications which use Python <a class="reference internal" href="archive/UsefulModules.html"><span class="doc std std-doc">Useful Modules</span></a> Some building blocks for your own projects (including frameworks for database, GUI, Web programming)</p></td>
+<td><p><a class="reference internal" href="archive/DevelopmentTools.html"><span class="doc std std-doc">Development Tools</span></a> Managing your code more effectively <a class="reference internal" href="editors/PythonEditors.html"><span class="doc std std-doc">Python Editors</span></a> Editing your code more effectively <a class="reference internal" href="archive/PublishingPythonModules.html"><span class="doc std std-doc">Publishing Python Modules</span></a> How to make others aware of your own works</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="python-core-development-tools">
+<h3>Python Core Development Tools<a class="headerlink" href="#python-core-development-tools" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="infrastructure/PythonWebsite.html"><span class="doc std std-doc">The Python Web Site</span></a> Maintaining the official Python online resources <a class="reference internal" href="archive/CheeseShopDev.html"><span class="doc std std-doc">Package Index</span></a> The infrastructure behind Python package hosting</p></td>
+<td><p><a class="reference internal" href="infrastructure/TrackerDevelopment.html"><span class="doc std std-doc">Bug Tracker</span></a> Roundup and the code review services used by the Python project <a class="reference internal" href="#archive/CategoryDevelopmentProcess"><span class="xref myst">Other Resources</span></a> A list of all development process-related resources on this Wiki</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="archive/index.html">Archive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conferences/index.html">Conferences</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conferences/europython/index.html">EuroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conferences/pycon/index.html">PyCon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conferences/regional/index.html">Regional Conferences</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database/index.html">Database Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation/index.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="education/index.html">Education</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui/index.html">GUI Programming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/index.html">Guides and How-Tos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n/index.html">Internationalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="language/index.html">Language Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l1"><a class="reference internal" href="networking/index.html">Networking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packaging/index.html">Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance/index.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l1"><a class="reference internal" href="psf/index.html">Python Software Foundation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="psf/PSF%20Python%20Job%20Board/index.html">Psf Python Job Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundation/index.html">Pythonsoftwarefoundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationLicenseFaq/index.html">Pythonsoftwarefoundationlicensefaq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PSF%20Python%20Job%20Board.html">PSF Python Job Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCd.html">Python Cd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdContributors.html">Python Cd Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdCore.html">Python Cd Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdDocs.html">Python Cd Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdDownload.html">Python Cd Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdFun.html">Python Cd Fun</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdPackages.html">Python Cd Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdToDo.html">Python Cd to Do</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdTools.html">Python Cd Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonCdWiki.html">Python Cd Wiki</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundation.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationBoard.html">Python Software Foundation Board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationCommittees.html">Python Software Foundation Committees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationLicenseFaq.html">Python Software Foundation License FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationLicenseV2.html">Python Software Foundation License V 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationLicenseV2Easy.html">Python Software Foundation License V 2 Easy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationLicenseV2Revised.html">Python Software Foundation License V 2 Revised</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationTrademarkPolicy.html">Python Software Foundation Trademark Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationTrademarkPolicyAlt2.html">Python Software Foundation Trademark Policy Alt 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="psf/PythonSoftwareFoundationWorkflow.html">Python Software Foundation Workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="science/index.html">Scientific Computing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security/index.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="soc/index.html">Summer of Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sprints/index.html">Sprints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web/index.html">Web Development</a></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Home</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="archive/index.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Archive</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Python Software Foundation</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <a href="https://bsky.app/profile/python.org" title="Bluesky" aria-label="Bluesky">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.625 3.375 6.168 3.028-3.652.477-6.387 2.063-3.902 6.293C5.14 23.025 8.612 21.282 12 16.29c3.388 4.992 6.86 6.736 9.11 3.278 2.485-4.23-.25-5.816-3.902-6.293 2.543.347 5.383-.401 6.168-3.028.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+  </svg>
+</a>
+    </div>
+  </div>
+</footer>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=30646c52"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

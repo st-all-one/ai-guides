@@ -1,0 +1,6 @@
+TypeScript 6.0.3
+Pinned commit: 050880ce59e30b356b686bd3144efe24f875ebc8 (tag v6.0.3)
+Captured: 2026-11-18
+Sources: https://www.typescriptlang.org/docs/ (126 exported pages) + microsoft/TypeScript v6.0.3 checkout
+Guide surface: 16 chapters + 6 byte-identical samples
+Coverage floor: 85% in each of six 20-item checklists (functional, determinism, performance, security, logs-errors, modern)

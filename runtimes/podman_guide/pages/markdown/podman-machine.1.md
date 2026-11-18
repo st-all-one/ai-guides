@@ -1,0 +1,77 @@
+NAME
+podman-machine - Manage Podman’s virtual machine
+SYNOPSIS
+podman machine subcommand
+DESCRIPTION
+podman machine is a set of subcommands that manage Podman’s virtual machine.
+Podman on MacOS and Windows requires a virtual machine. This is because containers are Linux -
+containers do not run on any other OS because containers’ core functionality are
+tied to the Linux kernel. Podman machine must be used to manage MacOS and Windows machines,
+but can be optionally used on Linux.
+All podman machine commands are rootless only.
+NOTE: The podman-machine configuration file is managed under the
+$XDG_CONFIG_HOME/containers/podman/machine/ directory. Changing the $XDG_CONFIG_HOME
+environment variable while the machines are running can lead to unexpected behavior.
+Podman machine behaviour can be modified via the [machine] section in the containers.conf(5) file.
+Podman is based on virtual machine providers. The following table describes which providers are
+supported by platform. The asterisk denotes the default provider for the platform.
+Platform
+Provider
+Linux
+qemu*
+MacOS
+libkrun*
+MacOS
+applehv
+Windows
+wsl*
+Windows
+hyperv
+COMMANDS
+Command
+Man Page
+Description
+cp
+podman-machine-cp(1)
+Securely copy contents between the host and the virtual machine
+info
+podman-machine-info(1)
+Display machine host info
+init
+podman-machine-init(1)
+Initialize a new virtual machine
+inspect
+podman-machine-inspect(1)
+Inspect one or more virtual machines
+list
+podman-machine-list(1)
+List virtual machines
+os
+podman-machine-os(1)
+Manage a Podman virtual machine’s OS
+reset
+podman-machine-reset(1)
+Reset Podman machines and environment
+restart
+podman-machine-restart(1)
+Restart a virtual machine
+rm
+podman-machine-rm(1)
+Remove a virtual machine
+set
+podman-machine-set(1)
+Set a virtual machine setting
+ssh
+podman-machine-ssh(1)
+SSH into a virtual machine
+start
+podman-machine-start(1)
+Start a virtual machine
+stop
+podman-machine-stop(1)
+Stop a virtual machine
+SEE ALSO
+podman(1), podman-machine-cp(1), podman-machine-info(1), podman-machine-init(1), podman-machine-list(1), podman-machine-os(1), podman-machine-rm(1), podman-machine-ssh(1), podman-machine-start(1), podman-machine-stop(1), podman-machine-inspect(1), podman-machine-reset(1), podman-machine-restart(1), containers.conf(5)
+Troubleshooting
+See podman-troubleshooting(7)
+for solutions to common issues.

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Handling Exceptions - Python Wiki</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="How to I use gzip module with pickle?" href="How%20to%20I%20use%20gzip%20module%20with%20pickle_.html" /><link rel="prev" title="boost.python / How to" href="boost.python/HowTo.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b138c3a8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Handling Exceptions"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Python Wiki</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Python Wiki</a></li><li class="link"><a href="../../psf/index.html">PSF Wiki</a></li><li class="link"><a href="../../jython/index.html">Jython Wiki</a></li>
+      <li class="link"><button class="js-menu" type="button" id="nav-trigger-4" aria-controls="nav-children-4">
+            <span>Contribute</span>
+            <i class="i-lucide chevron-down"></i>
+          </button>
+        <ul id="nav-children-4" aria-labelledby="nav-trigger-4"><li><a href="../../edit/index.html">
+                <span>Edit with CMS</span>
+                <small>Use the web-based editor to create or edit wiki pages</small>
+              </a></li><li><a href="https://github.com/psf/wiki">
+                <span>Edit on GitHub</span>
+                <small>Fork the repository and submit changes via pull request</small>
+              </a></li></ul>
+      </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/psf/wiki" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+<a href="https://x.com/ThePSF" aria-label="X (Twitter)">
+  <iconify-icon icon="prime:twitter"></iconify-icon>
+</a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python Wiki</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../archive/index.html">Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conferences/index.html">Conferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html">Database Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../education/index.html">Education</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gui/index.html">GUI Programming</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Guides and How-Tos</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Asking%20for%20Help/index.html">Asking For Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20Tkinter%20can%20exploit%20Tcl/index.html">How Tkinter Can Exploit Tcl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to.../index.html">How To…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowTo/index.html">Howto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Powerful%20Python%20One-Liners/index.html">Powerful Python One Liners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boost.python/index.html">Boost.Python</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Handling Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to%20I%20use%20gzip%20module%20with%20pickle_.html">How to I use gzip module with pickle?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to%20have%20a%20mutable%20buffer%20with%20python%202.3_.html">How to have a mutable buffer with python 2.3?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to%20make%20exe%20on%20Windows.html">How to make exe on Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to%20publish%20Python%20modules.html">How to publish Python modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to%20start%20learning%20Python_%20Any%20suggestions.html">How to start learning Python? Any suggestions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="How%20to....html">How to…</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowTo.html">How to</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HowToEditPythonCode.html">How to Edit Python Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Powerful%20Python%20One-Liners.html">Powerful Python One-Liners</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../i18n/index.html">Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../language/index.html">Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging/index.html">Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/index.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../psf/index.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../science/index.html">Scientific Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soc/index.html">Summer of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sprints/index.html">Sprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../web/index.html">Web Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../psf/index.html">PSF Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jython/index.html">Jython Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../people/index.html">People</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#id1">Handling Exceptions</a><ul>
+<li><a class="reference internal" href="#general-error-catching">General Error Catching</a></li>
+<li><a class="reference internal" href="#finding-specific-exception-names">Finding Specific Exception Names</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also:</a></li>
+<li><a class="reference internal" href="#to-write-about">To Write About&#8230;</a></li>
+<li><a class="reference internal" href="#questions">Questions</a><ul>
+<li><a class="reference internal" href="#general-error-handling">General Error Handling</a></li>
+<li><a class="reference internal" href="#getting-useful-information-from-an-exception">Getting Useful Information from an Exception</a></li>
+<li><a class="reference internal" href="#isn-t-it-better-to-prevent-then-to-remediate">Isn&#8217;t it better to prevent then to remediate?</a></li>
+</ul>
+</li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/psf/wiki"
+  data-type="github" data-user="psf" data-repo="wiki">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>psf/wiki</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/psf/wiki/blob/main/python/guides/HandlingExceptions.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Guides and How-Tos</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Handling Exceptions</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/guides/HandlingExceptions.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/guides/HandlingExceptions.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/guides/HandlingExceptions.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="handling-exceptions">
+<h1>Handling Exceptions<a class="headerlink" href="#handling-exceptions" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Legacy Wiki Page</p>
+<p>This page was migrated from the old MoinMoin-based wiki. Information may be outdated or no longer applicable. For current documentation, see <a class="reference external" href="https://www.python.org">python.org</a>.</p>
+</div>
+<section id="id1">
+<h2>Handling Exceptions<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p>The simplest way to handle exceptions is with a “try-except” block:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="3">   <span class="mi">3</span>   <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="n">y</span>
+</span><span data-line="4">   <span class="mi">4</span> <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+</span><span data-line="5">   <span class="mi">5</span>   <span class="nb">print</span> <span class="s2">&quot;divide by zero&quot;</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>If you wanted to examine the exception from code, you could have:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="3">   <span class="mi">3</span>   <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="n">y</span>
+</span><span data-line="4">   <span class="mi">4</span> <span class="k">except</span> <span class="ne">ZeroDivisionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="5">   <span class="mi">5</span>   <span class="n">z</span> <span class="o">=</span> <span class="n">e</span> <span class="c1"># representation: &quot;&lt;exceptions.ZeroDivisionError instance at 0x817426c&gt;&quot;</span>
+</span><span data-line="6">   <span class="mi">6</span> <span class="nb">print</span> <span class="n">z</span> <span class="c1"># output: &quot;integer division or modulo by zero&quot;</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<section id="general-error-catching">
+<h3>General Error Catching<a class="headerlink" href="#general-error-catching" title="Link to this heading">¶</a></h3>
+<p>Sometimes, you want to catch <em>all</em> errors that could possibly be generated, but usually <em>you don’t</em>. In most cases, you want to be as specific as possible. In the first example above, if you were using a catch-all exception clause and a user presses Ctrl-C, generating a <a class="reference external" href="https://docs.python.org/library/exceptions.html#KeyboardInterrupt">KeyboardInterrupt</a>, you don’t want the program to print “divide by zero”.</p>
+<p>However, there are some situations where it’s best to catch <em>all</em> errors.</p>
+<p>For example, suppose you are writing an extension module to a web service. You want the error information to output the output web page, and the server to continue to run, if at all possible. But you have no idea what kind of errors you might have put in your code.</p>
+<p>In situations like these, you may want to code something like this:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span data-line="2">   <span class="mi">2</span> 
+</span><span data-line="3">   <span class="mi">3</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="n">untrusted</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</span><span data-line="5">   <span class="mi">5</span> <span class="k">except</span><span class="p">:</span>  <span class="c1"># catch *all* exceptions</span>
+</span><span data-line="6">   <span class="mi">6</span>     <span class="n">e</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="7">   <span class="mi">7</span>     <span class="n">write_to_page</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Error: </span><span class="si">%s</span><span class="s2">&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p><a class="reference external" href="https://moinmo.in">MoinMoin</a> software is a good example of where general error catching is good. If you write MoinMoin extension macros, and trigger an error, MoinMoin will give you a detailed report of your error and the chain of events leading up to it. Python software needs to be able to catch <em>all</em> errors, and deliver them to the recipient of the web page.</p>
+<p>Another case is when you want to do something when code fails:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="n">do_some_stuff</span><span class="p">()</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="k">except</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="n">rollback</span><span class="p">()</span>
+</span><span data-line="5">   <span class="mi">5</span>     <span class="k">raise</span>
+</span><span data-line="6">   <span class="mi">6</span> <span class="k">else</span><span class="p">:</span>
+</span><span data-line="7">   <span class="mi">7</span>     <span class="n">commit</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>By using <code class="docutils literal notranslate"><span class="pre">raise</span></code> with no arguments, you will re-raise the last exception. A common place to use this would be to roll back a transaction, or undo operations. If it’s a matter of cleanup that should be run regardless of success or failure, then you would do:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="n">do_some_stuff</span><span class="p">()</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="k">finally</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="n">cleanup_stuff</span><span class="p">()</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="finding-specific-exception-names">
+<h3>Finding Specific Exception Names<a class="headerlink" href="#finding-specific-exception-names" title="Link to this heading">¶</a></h3>
+<p>Standard exceptions that can be raised are detailed at:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/library/exceptions.html">https://docs.python.org/library/exceptions.html</a></p></li>
+</ul>
+<p>Look to class documentation to find out what exceptions a given class can raise.</p>
+</section>
+</section>
+<section id="see-also">
+<h2>See Also:<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<p>On this wiki: <a class="reference internal" href="../archive/WritingExceptionClasses.html"><span class="doc std std-doc">WritingExceptionClasses</span></a>, <a class="reference internal" href="#./TracebackModule.html"><span class="xref myst">TracebackModule</span></a>.</p>
+<p>For general (non-Python specific) ideas about exceptions, consult <a class="reference external" href="http://c2.com/cgi/wiki?ExceptionPatterns" title="Wiki">ExceptionPatterns</a>.</p>
+</section>
+<section id="to-write-about">
+<h2>To Write About…<a class="headerlink" href="#to-write-about" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Give example of IOError, and interpreting the IOError code.</p></li>
+<li><p>Give example of multiple excepts. Handling multiple excepts in one line.</p></li>
+</ul>
+</section>
+<section id="questions">
+<h2>Questions<a class="headerlink" href="#questions" title="Link to this heading">¶</a></h2>
+<section id="general-error-handling">
+<h3>General Error Handling<a class="headerlink" href="#general-error-handling" title="Link to this heading">¶</a></h3>
+<p>In the “general error handling” section above, it says to catch all exceptions, you use the following code:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+</span><span data-line="2">   <span class="mi">2</span> 
+</span><span data-line="3">   <span class="mi">3</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="n">untrusted</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</span><span data-line="5">   <span class="mi">5</span> <span class="k">except</span><span class="p">:</span>  <span class="c1"># catch *all* exceptions</span>
+</span><span data-line="6">   <span class="mi">6</span>     <span class="n">e</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="7">   <span class="mi">7</span>     <span class="n">write_to_page</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Error: </span><span class="si">%s</span><span class="s2">&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>However, it originally was:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="n">untrusted</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="n">write_to_page</span><span class="p">(</span> <span class="s2">&quot;&lt;p&gt;Error: </span><span class="si">%s</span><span class="s2">&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Someone pointed out that “except” catches more than just <code class="docutils literal notranslate"><span class="pre">except Exception as e</span></code></p>
+<p><em>Why is that the case? What is the difference?</em>– <a class="reference internal" href="#../people/LionKimbro"><span class="xref myst">LionKimbro</span></a></p>
+<p>For now (version &lt;= 2.4) exception doesn’t have to be inherited from Exception. Thus plain ‘except:’ catches all exceptions, not only system. String exceptions are one example of an exception that doesn’t inherit from Exception. – <a class="reference internal" href="#../people/MikeRovner"><span class="xref myst">MikeRovner</span></a></p>
+<p>I believe that as of 2.7, exceptions still don’t have to be inherited from Exception or even <a class="reference internal" href="#./BaseException.html"><span class="xref myst">BaseException</span></a>. However, as of Python 3, exceptions <em>must</em> subclass <code class="docutils literal notranslate"><span class="pre">BaseException</span></code>. – <a class="reference internal" href="#./ElephantJim.html"><span class="xref myst">ElephantJim</span></a></p>
+</section>
+<section id="getting-useful-information-from-an-exception">
+<h3>Getting Useful Information from an Exception<a class="headerlink" href="#getting-useful-information-from-an-exception" title="Link to this heading">¶</a></h3>
+<p>So, I’ve got something like:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="n">d</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>…and Python spits back:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="ne">ValueError</span><span class="p">:</span> <span class="n">unpack</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">wrong</span> <span class="n">size</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>…and so, you naturally wonder, “Well, what <em>was</em> in <code class="docutils literal notranslate"><span class="pre">d</span></code>?”</p>
+<p>You know- you can put a <code class="docutils literal notranslate"><span class="pre">print d</span></code> in there, and that works. But is there a better, more interesting way to get at that information that people know of?</p>
+<p>You can do something like:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">try</span><span class="p">:</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">d</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="n">e</span><span class="o">.</span><span class="n">args</span> <span class="o">+=</span> <span class="p">(</span><span class="n">d</span><span class="p">,)</span>
+</span><span data-line="5">   <span class="mi">5</span>     <span class="k">raise</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.args</span></code> attribute of exceptions is a tuple of all the arguments that were passed in (typically the one and only argument is the error message). This way you can modify the arguments and re-raise, and the extra information will be displayed. You could also put a print statement or logging in the <code class="docutils literal notranslate"><span class="pre">except</span></code> block.</p>
+<p>Note that not all exceptions subclass Exception (though almost all do), so this might not catch some exceptions; also, exceptions aren’t required to have an <code class="docutils literal notranslate"><span class="pre">.args</span></code> attribute (though it will if the exception subclasses Exception and doesn’t override <code class="docutils literal notranslate"><span class="pre">__init__</span></code> without calling its superclass), so the code as written might fail But in practice it almost never does (and if it does, you should fix the non-conformant exception!)</p>
+</section>
+<section id="isn-t-it-better-to-prevent-then-to-remediate">
+<h3>Isn’t it better to prevent then to remediate?<a class="headerlink" href="#isn-t-it-better-to-prevent-then-to-remediate" title="Link to this heading">¶</a></h3>
+<p>&gt; <a class="reference external" href="https://www.joelonsoftware.com/items/2003/10/13.html">https://www.joelonsoftware.com/items/2003/10/13.html</a></p>
+<p>Joel Spolsky might be a great C++ programmer, and his advice on user interface design is invaluable, but Python is not C++ or Java, and his arguments about exceptions do not hold in Python.</p>
+<p>Joel argues:</p>
+<p>“They are invisible in the source code. Looking at a block of code, including functions which may or may not throw exceptions, there is no way to see which exceptions might be thrown and from where. This means that even careful code inspection doesn’t reveal potential bugs.”</p>
+<p>(Note that this is also the argument behind Java’s checked exceptions – now it is explicit that an exception can be thrown – except that <a class="reference internal" href="#./RuntimeException.html"><span class="xref myst">RuntimeException</span></a> can still be thrown anywhere. -jJ)</p>
+<p>I don’t quite get this argument. In a random piece of source code, there is no way to tell whether or not it will fail just by inspection. If you look at:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">x = 1
+</span><span data-line="2">result = myfunction(x)
+</span></pre></div>
+</div>
+<p>you can’t tell whether or not myfunction will fail at runtime just by inspection, so why should it matter whether it fails by crashing at runtime or fails by raising an exception?</p>
+<p>(Crashing is bad. By explicitly declaring the exception, you warn people that they may want to handle it. Java does this awkwardly. C doesn’t have a good way to do it at all, because the error returns are still in-band for regular returns. In python, passthrough exceptions aren’t marked, but error conditions stand out where they are created, and they don’t usually mimic valid returns. -jJ)</p>
+<p>Joel’s argument that raising exceptions is just a goto in disguise is partly correct. But so are for loops, while loops, functions and methods! Like those other constructs, exceptions are gotos tamed and put to work for you, instead of wild and dangerous. You can’t jump *anywhere*, only highly constrained places.</p>
+<p>Joel also writes:</p>
+<p>“They create too many possible exit points for a function. To write correct code, you really have to think about every possible code path through your function. Every time you call a function that can raise an exception and don’t catch it on the spot, you create opportunities for surprise bugs caused by functions that terminated abruptly, leaving data in an inconsistent state, or other code paths that you didn’t think about.”</p>
+<p>(Even now, a fairly high percentage of the bugs found in CPython’s C code are memory leaks caused by premature exits – exactly what Joel warned about. It isn’t such a problem with python code, because the language is supposed to take care of fixing accounting-type invariants for you. -jJ)</p>
+<p>This is a better argument for *careful* use of exceptions, not an argument to avoid them. Or better still, it is an argument for writing code which doesn’t has side-effects and implements data transactions. That’s a good idea regardless of whether you use exceptions or not. (In python, “transactions” are small enough that it is usually difficult to interrupt an operation inside one without writing C code. You *can* do it, say, with recursive generators, but it is difficult.)</p>
+<p>Joel’s concern about multiple exit points is good advice, but it can be taken too far. Consider the following code snippet:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def myfunc(x=None):
+</span><span data-line="2">   result = &quot;&quot;
+</span><span data-line="3">   if x is None:
+</span><span data-line="4">       result = &quot;No argument given&quot;
+</span><span data-line="5">   elif x == 0:
+</span><span data-line="6">       result = &quot;Zero&quot;
+</span><span data-line="7">   elif 0 &lt; x &lt;= 3:
+</span><span data-line="8">       resutl = &quot;x is between 0 and 3&quot;
+</span><span data-line="9">   else:
+</span><span data-line="10">       result = &quot;x is more than 3&quot;
+</span><span data-line="11">   return result
+</span></pre></div>
+</div>
+<p>There is no benefit in deferring returning value as myfunc does, just for the sake of having a single exit point. “Have a single exit point” is a good heuristic for many functions, but it is pointless make-work for this one. (In fact, it increases, not decreases, the chances of a bug. If you look carefully, myfunc above has such a bug in the “0 &lt; x &lt;= 3” clause.)</p>
+<p>Used correctly, exceptions in Python have more advantages than disadvantages. They aren’t just for errors either: exceptions can be triggered for exceptional cases (hence the name) without needing to track (and debug) multiple special cases.</p>
+<p>Lastly, let me argue against one of Joel’s comments:</p>
+<p>“A better alternative is to have your functions return error values when things go wrong, and to deal with these explicitly, no matter how verbose it might be. It is true that what should be a simple 3 line program often blossoms to 48 lines when you put in good error checking, but that’s life, and papering it over with exceptions does not make your program more robust.”</p>
+<p>Maybe that holds true for C++. I don’t know the language, and wouldn’t like to guess. But it doesn’t hold true for Python.</p>
+<p>(The difference is that Python reduces the chances of an error in the first place, and makes raising an exception the clean way to “return an error value”. It is definately a cleaner way to pass through an error value that was generated by something you called.)</p>
+<p>This is how Joel might write a function as a C programmer:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def joels_function(args):
+</span><span data-line="2">    error_result = 0
+</span><span data-line="3">    good_result = None
+</span><span data-line="4">    process(args)
+</span><span data-line="5">    if error_condition():
+</span><span data-line="6">        error_result = -1  # flag for an error
+</span><span data-line="7">    elif different_error_conditon():
+</span><span data-line="8">        error_result = -2
+</span><span data-line="9">    else:
+</span><span data-line="10">        more_processing()
+</span><span data-line="11">        if another_error_conditon():
+</span><span data-line="12">            error_result = -3
+</span><span data-line="13">        do_more_work()
+</span><span data-line="14">        good_result = &quot;Success!&quot;
+</span><span data-line="15">    if error_result != 0:
+</span><span data-line="16">        return (False, error_result)
+</span><span data-line="17">    else:
+</span><span data-line="18">        return (True, good_result)
+</span></pre></div>
+</div>
+<p>and then call it with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">status, msg = joels_function(args)
+</span><span data-line="2">if status == False:
+</span><span data-line="3">    print(msg)
+</span><span data-line="4">    # and fail...
+</span><span data-line="5">else:
+</span><span data-line="6">    print(msg)
+</span><span data-line="7">    # and now continue...
+</span></pre></div>
+</div>
+<p>This is how I would write it in Python:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">def my_function(args):
+</span><span data-line="2">    process(args)
+</span><span data-line="3">    if error_condition():
+</span><span data-line="4">        raise SomeError(&quot;An error occurred&quot;)
+</span><span data-line="5">    elif different_error_conditon():
+</span><span data-line="6">        raise SomeError(&quot;A different error occurred&quot;)
+</span><span data-line="7">    more_processing()
+</span><span data-line="8">    if another_error_conditon():
+</span><span data-line="9">        raise SomeError(&quot;Another error occurred&quot;)
+</span><span data-line="10">    do_more_work()
+</span><span data-line="11">    return &quot;Success!&quot;
+</span></pre></div>
+</div>
+<p>and call it with:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">try:
+</span><span data-line="2">    print(my_function(args))
+</span><span data-line="3">except SomeError as msg:
+</span><span data-line="4">    print(msg)
+</span><span data-line="5">    # and fail...
+</span><span data-line="6"># and now continue safely here...
+</span></pre></div>
+</div>
+<p>In the case of Python, calling a function that may raise an exception is no more difficult or unsafe than calling a function that returns a status flag and a result, but writing the function itself is much easier, with fewer places for the programmer to make a mistake. (The one difference is that if you don’t handle the error, your program will stop and complain, instead of continuing and corrupting the data.)</p>
+<p>In effect, exceptions allow the Python programmer to concentrate on his actual program, rather than be responsible for building error-handling infrastructure into every function. Python supplies that infrastructure for you, in the form of exceptions.</p>
+<p>(I’m sorry, but if you had actually done much programming in C++, you’d know that there’s not much difference between the two languages when it comes to exceptions, at least unless you program C++ in the old-fashioned C-like way with new’s and delete’s sprinkled everywhere. You’re basically dismissing Joel’s argument. This whole section is a bit weak, maybe it would be better to just state “don’t overuse exceptions as that can lead to hard-to-verify spaghetti code” and be done with it 🙂 –olau)</p>
+<hr class="docutils" />
+<p>See also: Italian translation at <a class="reference internal" href="../archive/ManutenereLeEccezioni.html"><span class="doc std std-doc">ManutenereLeEccezioni</span></a>.</p>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="boost.python/HowTo.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">boost.python / How to</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="How%20to%20I%20use%20gzip%20module%20with%20pickle_.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">How to I use gzip module with pickle?</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Python Software Foundation</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <a href="https://bsky.app/profile/python.org" title="Bluesky" aria-label="Bluesky">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.625 3.375 6.168 3.028-3.652.477-6.387 2.063-3.902 6.293C5.14 23.025 8.612 21.282 12 16.29c3.388 4.992 6.86 6.736 9.11 3.278 2.485-4.23-.25-5.816-3.902-6.293 2.543.347 5.383-.401 6.168-3.028.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+  </svg>
+</a>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

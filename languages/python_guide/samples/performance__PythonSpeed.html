@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Python Speed - Python Wiki</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Speed Up 2to 3 Pattern Matching" href="SpeedUp2to3PatternMatching.html" /><link rel="prev" title="Profile Replacement Project" href="ProfileReplacementProject.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b138c3a8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Python Speed"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Python Wiki</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Python Wiki</a></li><li class="link"><a href="../../psf/index.html">PSF Wiki</a></li><li class="link"><a href="../../jython/index.html">Jython Wiki</a></li>
+      <li class="link"><button class="js-menu" type="button" id="nav-trigger-4" aria-controls="nav-children-4">
+            <span>Contribute</span>
+            <i class="i-lucide chevron-down"></i>
+          </button>
+        <ul id="nav-children-4" aria-labelledby="nav-trigger-4"><li><a href="../../edit/index.html">
+                <span>Edit with CMS</span>
+                <small>Use the web-based editor to create or edit wiki pages</small>
+              </a></li><li><a href="https://github.com/psf/wiki">
+                <span>Edit on GitHub</span>
+                <small>Fork the repository and submit changes via pull request</small>
+              </a></li></ul>
+      </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/psf/wiki" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+<a href="https://x.com/ThePSF" aria-label="X (Twitter)">
+  <iconify-icon icon="prime:twitter"></iconify-icon>
+</a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python Wiki</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../archive/index.html">Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conferences/index.html">Conferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html">Database Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../education/index.html">Education</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gui/index.html">GUI Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/index.html">Guides and How-Tos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i18n/index.html">Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../language/index.html">Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging/index.html">Packaging</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Performance</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NeedForSpeed/index.html">Needforspeed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PythonSpeed/index.html">Pythonspeed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NeedForSpeed.html">Need for Speed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ProfileReplacementProject.html">Profile Replacement Project</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Python Speed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SpeedUp2to3PatternMatching.html">Speed Up 2to 3 Pattern Matching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SpeedUpInterpreterStartup.html">Speed Up Interpreter Startup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../psf/index.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../science/index.html">Scientific Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soc/index.html">Summer of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sprints/index.html">Sprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../web/index.html">Web Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../psf/index.html">PSF Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jython/index.html">Jython Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../people/index.html">People</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#id1">Python speed</a><ul>
+<li><a class="reference internal" href="#why-is-raw-speed-important-or-isn-t-it">Why is raw speed important? Or isn&#8217;t it?</a></li>
+<li><a class="reference internal" href="#techniques-for-improving-performance-and-scalability">Techniques for Improving Performance and Scalability</a><ul>
+<li><a class="reference internal" href="#use-the-best-algorithms-and-fastest-tools">Use the best algorithms and fastest tools</a></li>
+<li><a class="reference internal" href="#take-advantage-of-interpreter-optimizations">Take advantage of interpreter optimizations</a></li>
+<li><a class="reference internal" href="#take-advantage-of-diagnostic-tools">Take advantage of diagnostic tools</a></li>
+<li><a class="reference internal" href="#performance-can-dictate-overall-strategy">Performance can dictate overall strategy</a></li>
+<li><a class="reference internal" href="#consider-external-tools-for-enhancing-performance">Consider external tools for enhancing performance</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-performance-tips">More Performance Tips</a></li>
+</ul>
+</li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/psf/wiki"
+  data-type="github" data-user="psf" data-repo="wiki">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>psf/wiki</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/psf/wiki/blob/main/python/performance/PythonSpeed.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Performance</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Python Speed</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/performance/PythonSpeed.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/performance/PythonSpeed.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/performance/PythonSpeed.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="python-speed">
+<h1>Python Speed<a class="headerlink" href="#python-speed" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Legacy Wiki Page</p>
+<p>This page was migrated from the old MoinMoin-based wiki. Information may be outdated or no longer applicable. For current documentation, see <a class="reference external" href="https://www.python.org">python.org</a>.</p>
+</div>
+<section id="id1">
+<h2>Python speed<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p>People are often worried about the speed of their Python programs; doesn’t using Python mean an unacceptable loss in performance? Some people just jump to the conclusion that “hey, it’s an interpreted scripting language, and those all run very slow!” Other people have actually tried Python and have found it performs well enough. Sometimes, though, you have a program that just runs too slowly.</p>
+<section id="why-is-raw-speed-important-or-isn-t-it">
+<h3>Why is raw speed important? Or isn’t it?<a class="headerlink" href="#why-is-raw-speed-important-or-isn-t-it" title="Link to this heading">¶</a></h3>
+<p>Some people are inappropriately obsessed with speed and think that just because C can provide better performance for certain types of problem, it must therefore be a better language for all purposes. Other people think that <em>speed of development</em> is far more important, and choose Python even for those applications where it will run slower. Often, they are surprised to find Python code can run at quite acceptable speeds, and in some cases even faster than what they could get from C/C++ with a similar amount of development time invested.</p>
+<p>Usually it is not the absolute speed that is important, you should think about what would be an <em>acceptable</em> speed of execution. Optimisations beyond achieving this acceptable speed are wasteful of resources (usually: your time. And thus: money.).</p>
+</section>
+<section id="techniques-for-improving-performance-and-scalability">
+<h3>Techniques for Improving Performance and Scalability<a class="headerlink" href="#techniques-for-improving-performance-and-scalability" title="Link to this heading">¶</a></h3>
+<p>Here are some coding guidelines for applications that demand peak performance (in terms of memory utilization, speed, or scalability).</p>
+<section id="use-the-best-algorithms-and-fastest-tools">
+<h4>Use the best algorithms and fastest tools<a class="headerlink" href="#use-the-best-algorithms-and-fastest-tools" title="Link to this heading">¶</a></h4>
+<ul>
+<li><p>Membership testing with sets and dictionaries is much faster, O(1), than searching sequences, O(n). When testing “a in b”, b should be a set or dictionary instead of a list or tuple.</p></li>
+<li><p>String concatenation is best done with <code class="docutils literal notranslate"><span class="pre">''.join(seq)</span></code> which is an O(n) process. In contrast, using the ‘+’ or ‘+=’ operators can result in an O(n**2) process because new strings may be built for each intermediate step. The CPython 2.4 interpreter mitigates this issue somewhat; however, <code class="docutils literal notranslate"><span class="pre">''.join(seq)</span></code> remains the best practice.</p></li>
+<li><p>Many tools come in both list form and iterator form (range and xrange, map and itertools.imap, list comprehensions and generator expressions, dict.items and dict.iteritems). In general, the iterator forms are more memory friendly and more scalable. They are preferred whenever a real list is not required.</p></li>
+<li><p>Many core building blocks are coded in optimized C. Applications that take advantage of them can make substantial performance gains. The building blocks include all of the builtin datatypes (lists, tuples, sets, and dictionaries) and extension modules like array, itertools, and collections.deque.</p></li>
+<li><p>Likewise, the builtin functions run faster than hand-built equivalents. For example, map(operator.add, v1, v2) is faster than map(lambda x,y: x+y, v1, v2).</p></li>
+<li><p>Lists perform well as either fixed length arrays or variable length stacks. However, for queue applications using pop(0) or insert(0,v)), collections.deque() offers superior O(1) performance because it avoids the O(n) step of rebuilding a full list for each insertion or deletion.</p></li>
+<li><p>Custom sort ordering is best performed with Py2.4’s key= option or with the traditional decorate-sort-undecorate technique. Both approaches call the key function just once per element. In contrast, sort’s cmp= option is called many times per element during a sort. For example, sort(key=str.lower) is faster than sort(cmp=lambda a,b: cmp(a.lower(), b.lower())).</p>
+<p>See also <a class="reference internal" href="../language/TimeComplexity.html"><span class="doc std std-doc">TimeComplexity</span></a>.</p>
+</li>
+</ul>
+</section>
+<section id="take-advantage-of-interpreter-optimizations">
+<h4>Take advantage of interpreter optimizations<a class="headerlink" href="#take-advantage-of-interpreter-optimizations" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>In functions, local variables are accessed more quickly than global variables, builtins, and attribute lookups. So, it is sometimes worth localizing variable access in inner-loops. For example, the code for <code class="docutils literal notranslate"><span class="pre">random.shuffle()</span></code> localizes access with the line, <code class="docutils literal notranslate"><span class="pre">random=self.random</span></code>. That saves the shuffling loop from having to repeatedly lookup <code class="docutils literal notranslate"><span class="pre">self.random</span></code>. Outside of loops, the gain is minimal and rarely worth it.</p></li>
+<li><p>The previous recommendation is a generalization of the rule to factor constant expressions out of loops. Likewise, constant folding needs to be done manually. Inside loops, write “<code class="docutils literal notranslate"><span class="pre">x=3</span></code>” instead of “<code class="docutils literal notranslate"><span class="pre">x=1+2</span></code>”.</p></li>
+<li><p>Function call overhead is large compared to other instructions. Accordingly, it is sometimes worth in-lining code inside time-critical loops.</p></li>
+<li><p>List comprehensions run a bit faster than equivalent for-loops (unless you’re just going to throw away the result).</p></li>
+<li><p>Starting with Py2.3, the interpreter optimizes <code class="docutils literal notranslate"><span class="pre">while 1</span></code> to just a single jump. In contrast, prior to Python 3, <code class="docutils literal notranslate"><span class="pre">while True</span></code> took several more steps. While the latter was preferred for clarity, time-critical code should have used the first form. Starting in Python 3, <em>True</em>, <em>False</em>, and <em>None</em> are reserved words, so there is no longer any performance difference here. See <a class="reference internal" href="../getting-started/WhileLoop.html"><span class="doc std std-doc">WhileLoop</span></a> for additional details.</p></li>
+<li><p>Multiple assignment is slower than individual assignment. For example “<code class="docutils literal notranslate"><span class="pre">x,y=a,b</span></code>” is slower than “<code class="docutils literal notranslate"><span class="pre">x=a; y=b</span></code>”. However, multiple assignment is faster for variable swaps. For example, “<code class="docutils literal notranslate"><span class="pre">x,y=y,x</span></code>” is faster than “<code class="docutils literal notranslate"><span class="pre">t=x; x=y; y=t</span></code>”.</p></li>
+<li><p>Chained comparisons are faster than using the “and” operator. Write “<code class="docutils literal notranslate"><span class="pre">x &lt; y &lt; z</span></code>” instead of “<code class="docutils literal notranslate"><span class="pre">x &lt; y and y &lt; z</span></code>”.</p></li>
+<li><p>A few fast approaches should be considered hacks and reserved for only the most demanding applications. For example, “<code class="docutils literal notranslate"><span class="pre">not not x</span></code>” is faster than “<code class="docutils literal notranslate"><span class="pre">bool(x)</span></code>”.</p></li>
+</ul>
+</section>
+<section id="take-advantage-of-diagnostic-tools">
+<h4>Take advantage of diagnostic tools<a class="headerlink" href="#take-advantage-of-diagnostic-tools" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>The <a class="reference external" href="http://docs.python.org/2/library/hotshot.html">hotshot</a> and <a class="reference external" href="http://docs.python.org/2/library/profile.html">profile</a> modules help identify performance bottlenecks. Profile can distinguish between time spent in pure Python and time spent in C code.</p></li>
+<li><p>The timeit module offers immediate performance comparisons between alternative approaches to writing individual lines of code.</p></li>
+</ul>
+</section>
+<section id="performance-can-dictate-overall-strategy">
+<h4>Performance can dictate overall strategy<a class="headerlink" href="#performance-can-dictate-overall-strategy" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>SAX is typically faster and more memory efficient than DOM approaches to XML.</p></li>
+<li><p>Use C versions of modules that are used frequently; e.g. cPickle instead of the pickle module, and cStringIO instead of StringIO. Note that on occasion, the C versions are less flexible, so be sure to read the module docs to know what you may be missing.</p></li>
+<li><p>Threading can improve the response time in applications that would otherwise waste time waiting for I/O.</p></li>
+<li><p>Select can help minimize the overhead for polling multiple sockets.</p></li>
+</ul>
+</section>
+<section id="consider-external-tools-for-enhancing-performance">
+<h4>Consider external tools for enhancing performance<a class="headerlink" href="#consider-external-tools-for-enhancing-performance" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Numpy is essential for high volume numeric work.</p></li>
+<li><p>Psyco and pyrex can help achieve the speed of native code. However, keep in mind the limitations of each, as neither supports all Python constructs.</p></li>
+<li><p>See the <a class="reference internal" href="#SciPy"><span class="xref myst">SciPy</span></a>-related document <a class="reference external" href="http://scipy.github.io/old-wiki/pages/PerformancePython">“A beginners guide to using Python for performance computing”</a> for an interesting comparison of different tools, along with some timing results.</p></li>
+</ul>
+</section>
+</section>
+<section id="more-performance-tips">
+<h3>More Performance Tips<a class="headerlink" href="#more-performance-tips" title="Link to this heading">¶</a></h3>
+<p>More performance tips and examples can be found at <a class="reference internal" href="PythonSpeed/PerformanceTips.html"><span class="doc std std-doc">PythonSpeed/PerformanceTips</span></a>.</p>
+<hr class="docutils" />
+<p><a class="reference internal" href="#CategoryDocumentation"><span class="xref myst">CategoryDocumentation</span></a></p>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="ProfileReplacementProject.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Profile Replacement Project</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="SpeedUp2to3PatternMatching.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Speed Up 2to 3 Pattern Matching</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Python Software Foundation</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <a href="https://bsky.app/profile/python.org" title="Bluesky" aria-label="Bluesky">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.625 3.375 6.168 3.028-3.652.477-6.387 2.063-3.902 6.293C5.14 23.025 8.612 21.282 12 16.29c3.388 4.992 6.86 6.736 9.11 3.278 2.485-4.23-.25-5.816-3.902-6.293 2.543.347 5.383-.401 6.168-3.028.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+  </svg>
+</a>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

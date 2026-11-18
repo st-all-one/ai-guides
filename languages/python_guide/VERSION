@@ -1,0 +1,24 @@
+Python 3.15.2 (docs.python.org/3, captured 2026-11-18); uv 0.13.9 (docs).
+
+Official roots:
+  https://www.python.org/doc/                     (documentation portal)
+  https://docs.python.org/3/                      (Python 3.15.2 documentation)
+  https://wiki.python.org/python/index.html       (community wiki, Sphinx tree)
+
+Pinned documentation sources:
+  CPython docs  v3.15.2  https://raw.githubusercontent.com/python/cpython/v3.15.2/Doc/<path>
+                (the docs.python.org/3 site links to github.com/python/cpython/blob/3.15/Doc/...)
+  uv docs       0.13.9   https://docs.astral.sh/uv/.../index.md  (llms.txt + 55 pages)
+  uv release    0.13.9   published 2026-11-17T09:57:55Z (GitHub releases API)
+
+Runtime smoke (executed 2026-11-18 in the research environment):
+  python3 3.15.2 (x86_64)  — PEP 695, PEP 649/749, PEP 750, ExceptionGroup,
+                             itertools.pairwise/batched, uv project + PEP 723 script
+  uv      0.13.7 (x86_64)  — `uv run --offline`, `uv init --bare`, `uv lock --offline`
+  Note: local uv 0.13.7 is two patch versions behind the documented 0.13.9.
+
+Scope: standard library + typing + functional/deterministic patterns + uv workflow.
+Third-party frameworks, scientific stack and non-CPython implementations are out of scope.
+
+Verification: static capture with line cites + byte-identical samples + local smoke
+where stated. No network service, deployment or production workload was exercised.

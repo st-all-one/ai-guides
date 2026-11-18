@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Beginners Guide - Python Wiki</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Beginners Guide Chinese" href="BeginnersGuideChinese.html" /><link rel="prev" title="Problem Sets / Project Euler Solutions" href="ProblemSets/Project%20Euler%20Solutions.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b138c3a8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Beginners Guide"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Python Wiki</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Python Wiki</a></li><li class="link"><a href="../../psf/index.html">PSF Wiki</a></li><li class="link"><a href="../../jython/index.html">Jython Wiki</a></li>
+      <li class="link"><button class="js-menu" type="button" id="nav-trigger-4" aria-controls="nav-children-4">
+            <span>Contribute</span>
+            <i class="i-lucide chevron-down"></i>
+          </button>
+        <ul id="nav-children-4" aria-labelledby="nav-trigger-4"><li><a href="../../edit/index.html">
+                <span>Edit with CMS</span>
+                <small>Use the web-based editor to create or edit wiki pages</small>
+              </a></li><li><a href="https://github.com/psf/wiki">
+                <span>Edit on GitHub</span>
+                <small>Fork the repository and submit changes via pull request</small>
+              </a></li></ul>
+      </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/psf/wiki" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+<a href="https://x.com/ThePSF" aria-label="X (Twitter)">
+  <iconify-icon icon="prime:twitter"></iconify-icon>
+</a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python Wiki</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../archive/index.html">Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conferences/index.html">Conferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html">Database Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../education/index.html">Education</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="BeginnersGuide/index.html">Beginnersguide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CodingProjectIdeas/index.html">Codingprojectideas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ProblemSets/index.html">Problemsets</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Beginners Guide</a></li>
+<li class="toctree-l3"><a class="reference internal" href="BeginnersGuideChinese.html">Beginners Guide Chinese</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CodingProjectIdeas.html">Coding Project Ideas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LearnPython.html">Learn Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MovingToPythonFromOtherLanguages.html">Moving to Python from Other Languages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ProblemSets.html">Problem Sets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ProjectsForLearning.html">Projects for Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SimplePrograms.html">Simple Programs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SimpleProgramsChinese.html">Simple Programs Chinese</a></li>
+<li class="toctree-l3"><a class="reference internal" href="WhileLoop.html">While Loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../gui/index.html">GUI Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/index.html">Guides and How-Tos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i18n/index.html">Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../language/index.html">Language Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging/index.html">Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/index.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../psf/index.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../science/index.html">Scientific Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soc/index.html">Summer of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sprints/index.html">Sprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../web/index.html">Web Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../psf/index.html">PSF Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jython/index.html">Jython Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../people/index.html">People</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#beginner-s-guide-to-python">Beginner&#8217;s Guide to Python</a><ul>
+<li><a class="reference internal" href="#new-to-python">New to Python?</a></li>
+<li><a class="reference internal" href="#getting-python">Getting Python</a></li>
+<li><a class="reference internal" href="#learning-python">Learning Python</a></li>
+<li><a class="reference internal" href="#need-help">Need Help?</a></li>
+<li><a class="reference internal" href="#complete-list-of-beginner-s-guide-pages">Complete list of Beginner&#8217;s Guide pages</a></li>
+<li><a class="reference internal" href="#quiz-and-exercises">Quiz and Exercises</a></li>
+<li><a class="reference internal" href="#python-based-ai-and-prompt-engineering">Python Based AI and Prompt Engineering</a></li>
+<li><a class="reference internal" href="#looking-for-a-particular-python-module-or-application">Looking for a particular Python module or application?</a></li>
+<li><a class="reference internal" href="#python-related-cheat-sheets">Python-Related Cheat Sheets</a></li>
+<li><a class="reference internal" href="#want-to-contribute">Want to contribute?</a></li>
+</ul>
+</li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/psf/wiki"
+  data-type="github" data-user="psf" data-repo="wiki">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>psf/wiki</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/psf/wiki/blob/main/python/getting-started/BeginnersGuide.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Getting Started</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Beginners Guide</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/getting-started/BeginnersGuide.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/getting-started/BeginnersGuide.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/getting-started/BeginnersGuide.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="beginners-guide">
+<h1>Beginners Guide<a class="headerlink" href="#beginners-guide" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Legacy Wiki Page</p>
+<p>This page was migrated from the old MoinMoin-based wiki. Information may be outdated or no longer applicable. For current documentation, see <a class="reference external" href="https://www.python.org">python.org</a>.</p>
+</div>
+<section id="beginner-s-guide-to-python">
+<h2>Beginner’s Guide to Python<a class="headerlink" href="#beginner-s-guide-to-python" title="Link to this heading">¶</a></h2>
+<p>Welcome to Python.</p>
+<p>The <a class="reference external" href="https://docs.python.org/3/tutorial/index.html">official Python tutorial</a> provides a good starting point if you have programmed in another language.</p>
+<p>New to programming? Python is free and easy to learn if you know where to start! This guide will help you get started.</p>
+<p><a class="reference internal" href="BeginnersGuideChinese.html"><span class="doc std std-doc">Beginner’s Guide: Chinese Translation/中文版入门</span></a></p>
+<section id="new-to-python">
+<h3>New to Python?<a class="headerlink" href="#new-to-python" title="Link to this heading">¶</a></h3>
+<p>Read <a class="reference internal" href="BeginnersGuide/Overview.html"><span class="doc std std-doc">BeginnersGuide/Overview</span></a> for a short explanation of what Python is.</p>
+</section>
+<section id="getting-python">
+<h3>Getting Python<a class="headerlink" href="#getting-python" title="Link to this heading">¶</a></h3>
+<p>Next, install the Python 3 interpreter on your computer. This is the program that reads Python programs and carries out their instructions; you need it before you can do any Python programming. Mac and Linux distributions may include an outdated version of Python (Python 2), but you should install an updated one (Python 3). See <a class="reference internal" href="BeginnersGuide/Download.html"><span class="doc std std-doc">BeginnersGuide/Download</span></a> for instructions to download the correct version of Python.</p>
+<p>There are also Python interpreter and IDE bundles available, such as <a class="reference external" href="http://thonny.org">Thonny</a>. Other options can be found at <a class="reference internal" href="../editors/IntegratedDevelopmentEnvironments.html"><span class="doc std std-doc">IntegratedDevelopmentEnvironments</span></a>.</p>
+<p>At some stage, you’ll want to edit and save your program code. Take a look at <a class="reference internal" href="../guides/HowToEditPythonCode.html"><span class="doc std std-doc">HowToEditPythonCode</span></a> for some advice and recommendations.</p>
+</section>
+<section id="learning-python">
+<h3>Learning Python<a class="headerlink" href="#learning-python" title="Link to this heading">¶</a></h3>
+<p>Next, read a tutorial and try some simple experiments with your new Python interpreter.</p>
+<ul class="simple">
+<li><p>If you have never programmed before, see <a class="reference internal" href="BeginnersGuide/NonProgrammers.html"><span class="doc std std-doc">BeginnersGuide/NonProgrammers</span></a> for a list of suitable tutorials.</p></li>
+<li><p>If you have previous programming experience, consult <a class="reference internal" href="BeginnersGuide/Programmers.html"><span class="doc std std-doc">BeginnersGuide/Programmers</span></a>, which lists more advanced tutorials.</p></li>
+<li><p>If English isn’t your first language, you might be more comfortable with a tutorial that’s been translated into your language. Consult python.org’s <a class="reference internal" href="../archive/Languages.html"><span class="doc std std-doc">list of Non-English resources</span></a>.</p></li>
+</ul>
+<p>Most tutorials assume you know how to run a program on your computer. If you are using Windows and need help with this, see <a class="reference external" href="http://www.python.org/doc/faq/windows/#how-do-i-run-a-python-program-under-windows">How do I Run a Program Under Windows</a>.</p>
+<p>Here are some sites that focus on beginners and offer in-browser coding:</p>
+<p>[Please keep these links sorted alphabetically]</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://python.land/python-tutorial">Beginners Python tutorial</a> at Python Land (free)</p></li>
+<li><p><a class="reference external" href="https://coddy.tech/landing/python">Coddy</a> interactive Python course with hints, running in the browser (freemium)</p></li>
+<li><p><a class="reference external" href="https://www.codedex.io/python">Codédex</a> (non-free)</p></li>
+</ul>
+<p>[Outdated, Python 2! * <a class="reference external" href="https://www.codecademy.com/learn/learn-python">Codecademy</a> ]</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.coding-bootcamps.com">Coding Bootcamps</a> (non-free)</p></li>
+<li><p><a class="reference external" href="https://www.datacamp.com">DataCamp</a> (non-free)</p></li>
+<li><p><a class="reference external" href="https://www.dataquest.io">Dataquest</a> for Python for data science. (free)</p></li>
+<li><p><a class="reference external" href="https://genepy.org">Genepy</a> interactive exercises (free, open source, no ads)</p></li>
+<li><p><a class="reference external" href="https://www.myhsts.org">High School Technology Services</a> for general Python (non-free)</p></li>
+<li><p><a class="reference external" href="https://labex.io">LabEx</a> Python Hands-on Labs (freemium)</p></li>
+<li><p><a class="reference external" href="https://aqemery.github.io/learn-python">Learn Python</a> Python basics running in the browser(free)</p></li>
+</ul>
+<p>Once you have read a tutorial, you can browse through <a class="reference external" href="http://docs.python.org">Python’s online documentation</a>. It includes <a class="reference external" href="http://docs.python.org/tut/">a tutorial</a> that might come in handy, <a class="reference external" href="http://docs.python.org//lib/">a Library Reference</a> that lists all of the modules that come standard with Python, and <a class="reference external" href="http://docs.python.org/ref/">the Language Reference</a> for a complete (if rather dry) explanation of Python’s syntax.</p>
+<p>When you are ready to write your first program, you will need a <a class="reference internal" href="../editors/PythonEditors.html"><span class="doc std std-doc">text editor</span></a> or an <a class="reference internal" href="../editors/IntegratedDevelopmentEnvironments.html"><span class="doc std std-doc">IDE</span></a>. If you don’t want to use Thonny or something more advanced, then you can use <a class="reference external" href="https://docs.python.org/3/library/idle.html">IDLE</a>, which is bundled with Python and supports <a class="reference external" href="http://idlex.sourceforge.net">extensions</a>.</p>
+<p>This Python wiki also contains a page about <a class="reference internal" href="../guides/Powerful%20Python%20One-Liners.html"><span class="doc std std-doc">Python One-Liners</span></a> – an obscure but interesting subculture in Python.</p>
+</section>
+<section id="need-help">
+<h3>Need Help?<a class="headerlink" href="#need-help" title="Link to this heading">¶</a></h3>
+<p>Need help with any of this? Read <a class="reference internal" href="BeginnersGuide/Help.html"><span class="doc std std-doc">BeginnersGuide/Help</span></a> for mailing lists and newsgroups.</p>
+<p>An interactive and free way to learn Python is to ask ChatGPT or another generative AI model for help. The Python code quality generated by AI agents has become pretty good. State-of-the-art AI models work especially well for small projects or code understanding questions.</p>
+<p>Most Python books will include an introduction to the language; see <a class="reference internal" href="../books/IntroductoryBooks.html"><span class="doc std std-doc">IntroductoryBooks</span></a> for suggested titles.</p>
+<p>Consult <a class="reference internal" href="BeginnersGuide/Examples.html"><span class="doc std std-doc">BeginnersGuide/Examples</span></a> for small programs and little snippets of code that can help you learn.</p>
+<p>Or, if you prefer to learn Python through listening to a lecture, you can attend a training course or even hire a trainer to come to your company. Consult the <a class="reference internal" href="../conferences/regional/PythonEvents.html"><span class="doc std std-doc">PythonEvents</span></a> page to see if any training courses are scheduled in your area and the <a class="reference internal" href="../archive/PythonTraining.html"><span class="doc std std-doc">PythonTraining</span></a> page for a list of trainers.</p>
+<p>Teachers can join the <a class="reference external" href="http://www.python.org/sigs/edu-sig/">EDU-SIG</a>, a mailing list for discussion of Python’s use in teaching at any level ranging from K-12 up to university.</p>
+</section>
+<section id="complete-list-of-beginner-s-guide-pages">
+<h3>Complete list of Beginner’s Guide pages<a class="headerlink" href="#complete-list-of-beginner-s-guide-pages" title="Link to this heading">¶</a></h3>
+<div class="searchresults docutils">
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="BeginnersGuide/Download.html"><span class="doc std std-doc">**BeginnersGuide/**Download</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/Examples.html"><span class="doc std std-doc">**BeginnersGuide/**Examples</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/Help.html"><span class="doc std std-doc">**BeginnersGuide/**Help</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/Mathematics.html"><span class="doc std std-doc">**BeginnersGuide/**Mathematics</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/NonProgrammers.html"><span class="doc std std-doc">**BeginnersGuide/**NonProgrammers</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/NonProgrammersChinese.html"><span class="doc std std-doc">**BeginnersGuide/**NonProgrammersChinese</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/Overview.html"><span class="doc std std-doc">**BeginnersGuide/**Overview</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/OverviewChinese.html"><span class="doc std std-doc">**BeginnersGuide/**OverviewChinese</span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/Programmers.html"><span class="doc std std-doc">**BeginnersGuide/**Programmers</span></a></p></li>
+<li><p><a class="reference internal" href="#./BeginnersGuide(2f)Programmers.html?action=AttachFile&amp;do=view&amp;target=Cpp2Python.pdf"><span class="xref myst">BeginnersGuide/Programmers <strong>(Cpp2Python.pdf)</strong></span></a></p></li>
+<li><p><a class="reference internal" href="BeginnersGuide/Programmers/SimpleExamples.html"><span class="doc std std-doc">**BeginnersGuide/**Programmers/SimpleExamples</span></a></p></li>
+</ol>
+</div>
+</section>
+<section id="quiz-and-exercises">
+<h3>Quiz and Exercises<a class="headerlink" href="#quiz-and-exercises" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>After Hours Programming - <a class="reference external" href="http://www.afterhoursprogramming.com/tutorial/Python/Python-Quiz/">Python Quiz</a></p></li>
+<li><p>CheckIO - <a class="reference external" href="http://www.checkio.org">Online learning, testing and improving your python skills</a></p></li>
+<li><p>CS Circles - <a class="reference external" href="http://cscircles.cemc.uwaterloo.ca">Online lessons and graded exercises</a></p></li>
+<li><p>Finxter - <a class="reference external" href="https://finxter.com">How good are your Python skills? Test and Training with a Daily Python Puzzle</a></p></li>
+<li><p><a class="reference internal" href="#./LabEx.html"><span class="xref myst">LabEx</span></a> - <a class="reference external" href="https://labex.io/courses/thousands-python-interactive-challenges">1000+ Python Interactive Challenges</a></p></li>
+<li><p>PyGUI - <a class="reference external" href="http://www.pythongui.com">Collection of python quiz answers, Examples And GUI Tkinter Tutorials For Beginners</a></p></li>
+<li><p>Pythonspot - <a class="reference external" href="https://pythonspot.com/python-tests-quizes/">Python Quiz</a></p></li>
+<li><p>Python Challenge - <a class="reference external" href="https://play.google.com/store/apps/details?id=sg.apps.garden.pythonchallenge">A Python Quiz App on Android Platform</a></p></li>
+</ul>
+</section>
+<section id="python-based-ai-and-prompt-engineering">
+<h3>Python Based AI and Prompt Engineering<a class="headerlink" href="#python-based-ai-and-prompt-engineering" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>AI Engineering Academy - <a class="reference external" href="https://academy.finxter.com">Become a Certified AI Engineer with OpenAI API, HuggingFace, and Llama</a></p></li>
+<li><p>Generative AI Tutorial - <a class="reference external" href="https://www.w3schools.com/gen_ai/">Generative AI Tutorial</a></p></li>
+<li><p><a class="reference internal" href="#./GitHub.html"><span class="xref myst">GitHub</span></a> Prompt Engineering Guide - <a class="reference external" href="https://github.com/finxter/AI-Engineering-Learning-Resources">List of helpful resources</a></p></li>
+<li><p>Google Gemini (Python) - <a class="reference external" href="https://github.com/google-gemini/generative-ai-python">Python Library to access Google’s Gemini Model</a></p></li>
+<li><p>OpenAI API (Python) - <a class="reference external" href="https://platform.openai.com/docs/quickstart">Quickstart to Access OpenAI’s API (Python, Javascript, curl)</a></p></li>
+</ul>
+</section>
+<section id="looking-for-a-particular-python-module-or-application">
+<h3>Looking for a particular Python module or application?<a class="headerlink" href="#looking-for-a-particular-python-module-or-application" title="Link to this heading">¶</a></h3>
+<ul>
+<li><p>The first place to look is the <a class="reference external" href="http://pypi.python.org/pypi">Python Package Index</a>.</p></li>
+<li><p>If you can’t find anything relevant in the Package Index,</p>
+<p>try <a class="reference external" href="http://www.python.org/search/">searching python.org</a> - you can find anything mentioned on the Python site, in the <a class="reference external" href="http://www.python.org/doc/faq/">FAQs</a>, or in the newsgroup. More info: <a class="reference external" href="http://www.python.org/search/">where to search</a>.</p>
+</li>
+<li><p>Next, try <a class="reference external" href="http://www.google.com">Google</a> or another search engine of your choice. Searching for “python” and some relevant keywords will usually find something helpful.</p></li>
+<li><p>Finally, you can try posting a query to the comp.lang.python Usenet group.</p></li>
+</ul>
+</section>
+<section id="python-related-cheat-sheets">
+<h3>Python-Related Cheat Sheets<a class="headerlink" href="#python-related-cheat-sheets" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Python Cheatsheet for Beginners: <a class="reference external" href="https://pythoncheatsheet.org">pythoncheatsheet.org</a></p></li>
+<li><p>Python: <a class="reference external" href="https://blog.finxter.com/collection-5-cheat-sheets-every-python-coder-must-own/">Collection of 11 Best Python Cheat Sheets</a></p></li>
+<li><p><a class="reference internal" href="../science/NumPy.html"><span class="doc std std-doc">NumPy</span></a>: <a class="reference external" href="https://blog.finxter.com/collection-10-best-numpy-cheat-sheets-every-python-coder-must-own/">Collection of 10 Best NumPy Cheat Sheets</a></p></li>
+<li><p>Pandas: <a class="reference external" href="https://blog.finxter.com/pandas-cheat-sheets/">Collection of 7 Beautiful Pandas Cheat Sheets</a></p></li>
+<li><p>Machine Learning: <a class="reference external" href="https://blog.finxter.com/machine-learning-cheat-sheets/">Collection of 15 Machine Learning Cheat Sheets</a></p></li>
+</ul>
+</section>
+<section id="want-to-contribute">
+<h3>Want to contribute?<a class="headerlink" href="#want-to-contribute" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Python is a product of the <a class="reference external" href="http://www.python.org/psf/">Python Software Foundation</a>, a non-profit organization that holds the copyright. <a class="reference external" href="http://www.python.org/psf/donations/">Donations to the PSF</a> are tax-deductible in the USA, and you can donate via credit card or <a class="reference internal" href="#./PayPal.html"><span class="xref myst">PayPal</span></a>.</p></li>
+<li><p>To report a bug in the Python core, use the <a class="reference external" href="http://bugs.python.org/">Python Bug Tracker</a>.</p></li>
+<li><p>To contribute a bug fix or other patch to the Python core, read the <a class="reference external" href="http://www.python.org/dev/">Python Developer’s Guide</a> for more information about Python’s development process.</p></li>
+<li><p>To contribute to the official <a class="reference external" href="http://www.python.org/doc/">Python documentation</a>, join the <a class="reference external" href="http://www.python.org/sigs/doc-sig/">Documentation SIG</a>, write to <a class="reference external" href="mailto:docs&#37;&#52;&#48;python&#46;org">docs<span>&#64;</span>python<span>&#46;</span>org</a> , or use the <a class="reference external" href="http://bugs.python.org/">Issue Tracker</a> to contribute a documentation patch.</p></li>
+<li><p>To announce your module or application to the Python community, use <a class="reference internal" href="#news:comp.lang.python.announce"><span class="xref myst">comp.lang.python.announce</span></a>. See <a class="reference external" href="http://www.python.org/community/lists/#comp-lang-python-announce">the guide to Python mailing lists</a> for more information.</p></li>
+<li><p>To propose changes to the Python core, post your thoughts to <a class="reference internal" href="#news:comp.lang.python"><span class="xref myst">comp.lang.python</span></a>. If you have an implementation, follow the <a class="reference external" href="http://www.python.org/patches/">Python Patch Guidelines</a>.</p></li>
+<li><p>If you have a question are not sure where to report it, check out the <a class="reference internal" href="#./WhereDoIReportThis(3f).html"><span class="xref myst">WhereDoIReportThis?</span></a> page.</p></li>
+</ul>
+<hr class="docutils" />
+<p><a class="reference internal" href="#CategoryDocumentation"><span class="xref myst">CategoryDocumentation</span></a></p>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="ProblemSets/Project%20Euler%20Solutions.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Problem Sets / Project Euler Solutions</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="BeginnersGuideChinese.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Beginners Guide Chinese</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Python Software Foundation</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <a href="https://bsky.app/profile/python.org" title="Bluesky" aria-label="Bluesky">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.625 3.375 6.168 3.028-3.652.477-6.387 2.063-3.902 6.293C5.14 23.025 8.612 21.282 12 16.29c3.388 4.992 6.86 6.736 9.11 3.278 2.485-4.23-.25-5.816-3.902-6.293 2.543.347 5.383-.401 6.168-3.028.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+  </svg>
+</a>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

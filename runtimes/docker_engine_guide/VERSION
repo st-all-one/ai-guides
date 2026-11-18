@@ -1,0 +1,21 @@
+Docker documentation snapshot: 2026-11-18
+Discovery: https://docs.docker.com/llms.txt
+Page index: https://docs.docker.com/llms-full.txt (1,980 Markdown URLs)
+Capture: 935 Markdown pages, 7,126,318 bytes, /tmp/docker-research/pages
+
+Docker Engine: 29.10.0 (2026-11-16), latest in the 29 release line at capture time
+Evidence: pages/engine/release-notes/29.md:11-13
+
+Docker Compose: Compose v2 (plugin), model reference under pages/reference/compose-file
+Docker Build: BuildKit / buildx, bake v2, attestations under pages/build/metadata
+Docker Sandboxes: local and cloud posture, pages/ai/sandboxes/security/defaults.md:13-14
+
+Version naming rule: name a version only when a captured page states it.
+Otherwise write "unverified". Never infer a version from a CLI default.
+
+Refresh procedure:
+1. Re-fetch llms.txt and llms-full.txt.
+2. Re-capture the page set into pages/ with capture.py.
+3. Re-read version/release pages and update this file.
+4. Update affected chapters and re-run the mechanical verifier.
+5. If a citation fails, re-read the source and rewrite the claim.

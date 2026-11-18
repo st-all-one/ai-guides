@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Generators - Python Wiki</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Iterator" href="Iterator.html" /><link rel="prev" title="Decorators" href="Decorators.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b138c3a8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Generators"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Python Wiki</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Python Wiki</a></li><li class="link"><a href="../../psf/index.html">PSF Wiki</a></li><li class="link"><a href="../../jython/index.html">Jython Wiki</a></li>
+      <li class="link"><button class="js-menu" type="button" id="nav-trigger-4" aria-controls="nav-children-4">
+            <span>Contribute</span>
+            <i class="i-lucide chevron-down"></i>
+          </button>
+        <ul id="nav-children-4" aria-labelledby="nav-trigger-4"><li><a href="../../edit/index.html">
+                <span>Edit with CMS</span>
+                <small>Use the web-based editor to create or edit wiki pages</small>
+              </a></li><li><a href="https://github.com/psf/wiki">
+                <span>Edit on GitHub</span>
+                <small>Fork the repository and submit changes via pull request</small>
+              </a></li></ul>
+      </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/psf/wiki" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+<a href="https://x.com/ThePSF" aria-label="X (Twitter)">
+  <iconify-icon icon="prime:twitter"></iconify-icon>
+</a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python Wiki</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../archive/index.html">Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conferences/index.html">Conferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html">Database Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../education/index.html">Education</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gui/index.html">GUI Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/index.html">Guides and How-Tos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i18n/index.html">Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Language Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Concurrency/index.html">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StructuredText/index.html">Structuredtext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AST.html">AST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ASTBasedOptimization.html">AST Based Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractBaseClasses.html">Abstract Base Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AdapterRegistry.html">Adapter Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternateLambdaSyntax.html">Alternate Lambda Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativeDescriptionOfProperty.html">Alternative Description of Property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathClass.html">Alternative Path Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathDiscussion.html">Alternative Path Discussion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathModule.html">Alternative Path Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathModuleTests.html">Alternative Path Module Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ByteplayDoc.html">Byteplay Doc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ComputedAttributesUsingPropertyObjects.html">Computed Attributes Using Property Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Concurrency.html">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParser.html">Config Parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParserExamples.html">Config Parser Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParserGoals.html">Config Parser Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParserShootout.html">Config Parser Shootout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DataRepresentation.html">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Iterator.html">Iterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LanguageParsing.html">Language Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ObserverPattern.html">Observer Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StructureAnnotation.html">Structure Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StructuredText.html">Structured Text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SwitchStatement.html">Switch Statement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimeComplexity%20%28SetCode%29.html">Time Complexity (Set Code)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimeComplexity.html">Time Complexity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="WithStatement.html">With Statement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging/index.html">Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/index.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../psf/index.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../science/index.html">Scientific Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soc/index.html">Summer of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sprints/index.html">Sprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../web/index.html">Web Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../psf/index.html">PSF Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jython/index.html">Jython Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../people/index.html">People</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#simplified-code">Simplified Code</a></li>
+<li><a class="reference internal" href="#improved-performance">Improved Performance</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#links">Links</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#discussion">Discussion</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/psf/wiki"
+  data-type="github" data-user="psf" data-repo="wiki">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>psf/wiki</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/psf/wiki/blob/main/python/language/Generators.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Language Reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Generators</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/language/Generators.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/language/Generators.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/language/Generators.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="generators">
+<h1>Generators<a class="headerlink" href="#generators" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Legacy Wiki Page</p>
+<p>This page was migrated from the old MoinMoin-based wiki. Information may be outdated or no longer applicable. For current documentation, see <a class="reference external" href="https://www.python.org">python.org</a>.</p>
+</div>
+<p>Generator functions allow you to declare a function that behaves like an iterator, i.e. it can be used in a for loop.</p>
+<section id="simplified-code">
+<h2>Simplified Code<a class="headerlink" href="#simplified-code" title="Link to this heading">¶</a></h2>
+<p>The simplification of code is a result of generator function and generator expression support provided by Python.</p>
+<p>To illustrate this, we will compare different implementations that implement a function, “firstn”, that represents the first <em>n</em> non-negative integers, where <em>n</em> is a really big number, and assume (for the sake of the examples in this section) that each integer takes up a lot of space, say 10 megabytes each.</p>
+<p>Note: Please note that in real life, integers do not take up that much space, unless they are really, really, really, big integers. For instance you can represent a 309 digit number with 128 bytes (add some overhead, it will still be less than 150 bytes).</p>
+<p>First, let us consider the simple example of building a list and returning it.</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">def</span><span class="w"> </span><span class="nf">first_n</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="s1">&#39;&#39;&#39;Build and return a list&#39;&#39;&#39;</span>
+</span><span data-line="3">   <span class="mi">3</span>     <span class="n">num</span><span class="p">,</span> <span class="n">nums</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[]</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="k">while</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+</span><span data-line="5">   <span class="mi">5</span>         <span class="n">nums</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+</span><span data-line="6">   <span class="mi">6</span>         <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span data-line="7">   <span class="mi">7</span>     <span class="k">return</span> <span class="n">nums</span>
+</span><span data-line="8">   <span class="mi">8</span> 
+</span><span data-line="9">   <span class="mi">9</span> 
+</span><span data-line="10">  <span class="mi">10</span> <span class="n">sum_of_first_n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">first_n</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>The code is quite simple and straightforward, but it builds the full list in memory. This is clearly not acceptable in our case, because we cannot afford to keep all <em>n</em> “10 megabyte” integers in memory.</p>
+<p>So, we resort to the generator pattern. The following implements generator as an iterable object.</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># Using the generator pattern (an iterable)</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="k">class</span><span class="w"> </span><span class="nc">first_n</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span><span data-line="3">   <span class="mi">3</span> 
+</span><span data-line="4">   <span class="mi">4</span> 
+</span><span data-line="5">   <span class="mi">5</span>     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span><span data-line="6">   <span class="mi">6</span>         <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
+</span><span data-line="7">   <span class="mi">7</span>         <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="8">   <span class="mi">8</span> 
+</span><span data-line="9">   <span class="mi">9</span> 
+</span><span data-line="10">  <span class="mi">10</span>     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="11">  <span class="mi">11</span>         <span class="k">return</span> <span class="bp">self</span>
+</span><span data-line="12">  <span class="mi">12</span> 
+</span><span data-line="13">  <span class="mi">13</span> 
+</span><span data-line="14">  <span class="mi">14</span>     <span class="c1"># Python 3 compatibility</span>
+</span><span data-line="15">  <span class="mi">15</span>     <span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="16">  <span class="mi">16</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</span><span data-line="17">  <span class="mi">17</span> 
+</span><span data-line="18">  <span class="mi">18</span> 
+</span><span data-line="19">  <span class="mi">19</span>     <span class="k">def</span><span class="w"> </span><span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="20">  <span class="mi">20</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">:</span>
+</span><span data-line="21">  <span class="mi">21</span>             <span class="n">cur</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num</span><span class="o">+</span><span class="mi">1</span>
+</span><span data-line="22">  <span class="mi">22</span>             <span class="k">return</span> <span class="n">cur</span>
+</span><span data-line="23">  <span class="mi">23</span>         <span class="k">raise</span> <span class="ne">StopIteration</span><span class="p">()</span>
+</span><span data-line="24">  <span class="mi">24</span> 
+</span><span data-line="25">  <span class="mi">25</span> 
+</span><span data-line="26">  <span class="mi">26</span> <span class="n">sum_of_first_n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">first_n</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>This will perform as we expect, but we have the following issues:</p>
+<ul class="simple">
+<li><p>there is a lot of boilerplate</p></li>
+<li><p>the logic has to be expressed in a somewhat convoluted way</p></li>
+</ul>
+<p>Furthermore, this is a pattern that we will use over and over for many similar constructs. Imagine writing all that just to get an iterator.</p>
+<p>Python provides generator functions as a convenient shortcut to building iterators. Lets us rewrite the above iterator as a generator function:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># a generator that yields items instead of returning a list</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="k">def</span><span class="w"> </span><span class="nf">firstn</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span data-line="3">   <span class="mi">3</span>     <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="4">   <span class="mi">4</span>     <span class="k">while</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+</span><span data-line="5">   <span class="mi">5</span>         <span class="k">yield</span> <span class="n">num</span>
+</span><span data-line="6">   <span class="mi">6</span>         <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span data-line="7">   <span class="mi">7</span> 
+</span><span data-line="8">   <span class="mi">8</span> <span class="n">sum_of_first_n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">firstn</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Note that the expression of the number generation logic is clear and natural. It is very similar to the implementation that built a list in memory, but has the memory usage characteristic of the iterator implementation.</p>
+<p><em>Note: the above code is perfectly acceptable for expository purposes, but remember that in Python 2 <strong>firstn()</strong> is equivalent to the built-in <strong>xrange()</strong> function, and in Python 3 <strong>range()</strong> is an immutable sequence type. The built-ins will always be much faster. SH</em></p>
+<p>Generator expressions provide an additional shortcut to build generators out of expressions similar to that of list comprehensions.</p>
+<p>In fact, we can turn a list comprehension into a generator expression by replacing the square brackets (”[ ]”) with parentheses. Alternately, we can think of list comprehensions as generator expressions wrapped in a list constructor.</p>
+<p>Consider the following example:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># list comprehension</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="n">doubles</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">)]</span>
+</span><span data-line="3">   <span class="mi">3</span> 
+</span><span data-line="4">   <span class="mi">4</span> <span class="c1"># same as the list comprehension above</span>
+</span><span data-line="5">   <span class="mi">5</span> <span class="n">doubles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Notice how a list comprehension looks essentially like a generator expression passed to a list constructor.</p>
+<p>By allowing generator expressions, we don’t have to write a generator function if we do not need the list. If only list comprehensions were available, and we needed to lazily build a set of items to be processed, we will have to write a generator function.</p>
+<p>This also means that we can use the same syntax we have been using for list comprehensions to build generators.</p>
+<p>Keep in mind that generators are a special type of iterator, and that containers like <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">set</span></code> are also iterables. The uniform way in which all of these are handled adds greatly to the simplification of code.</p>
+</section>
+<section id="improved-performance">
+<h2>Improved Performance<a class="headerlink" href="#improved-performance" title="Link to this heading">¶</a></h2>
+<p>The performance improvement from the use of generators is the result of the lazy (on demand) generation of values, which translates to lower memory usage. Furthermore, we do not need to wait until all the elements have been generated before we start to use them. This is similar to the benefits provided by iterators, but the generator makes building iterators easy.</p>
+<p>This can be illustrated by comparing the <code class="docutils literal notranslate"><span class="pre">range</span></code> and <code class="docutils literal notranslate"><span class="pre">xrange</span></code> built-ins of Python 2.x.</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">range</span></code> and <code class="docutils literal notranslate"><span class="pre">xrange</span></code> represent a range of numbers, and have the same function signature, but <code class="docutils literal notranslate"><span class="pre">range</span></code> returns a <code class="docutils literal notranslate"><span class="pre">list</span></code> while <code class="docutils literal notranslate"><span class="pre">xrange</span></code> returns a generator (at least in concept; the implementation may differ).</p>
+<p>Say, we had to compute the sum of the first <em>n</em>, say 1,000,000, non-negative numbers.</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># Note: Python 2.x only</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="c1"># using a non-generator</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="n">sum_of_first_n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span><span data-line="4">   <span class="mi">4</span> 
+</span><span data-line="5">   <span class="mi">5</span> <span class="c1"># using a generator</span>
+</span><span data-line="6">   <span class="mi">6</span> <span class="n">sum_of_first_n</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">xrange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Note that both lines are identical in form, but the one using <code class="docutils literal notranslate"><span class="pre">range</span></code> is much more expensive.</p>
+<p>When we use <code class="docutils literal notranslate"><span class="pre">range</span></code> we build a 1,000,000 element list in memory and then find its sum. This is a waste, considering that we use these 1,000,000 elements just to compute the sum.</p>
+<p>This waste becomes more pronounced as the number of elements (our <em>n</em>) becomes larger, the size of our elements become larger, or both.</p>
+<p>On the other hand, when we use <code class="docutils literal notranslate"><span class="pre">xrange</span></code>, we do not incur the cost of building a 1,000,000 element list in memory. The generator created by xrange will generate each number, which <code class="docutils literal notranslate"><span class="pre">sum</span></code> will consume to accumulate the sum.</p>
+<p>In the case of the “range” function, using it as an iterable is the dominant use-case, and this is reflected in Python 3.x, which makes the <code class="docutils literal notranslate"><span class="pre">range</span></code> built-in return a sequence-type object instead of a list.</p>
+<p>Note: a generator will provide performance benefits only if we do not intend to use that set of generated values more than once.</p>
+<p>Consider the following example:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># Note: Python 2.x only</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">xrange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="n">p</span> <span class="o">=</span> <span class="n">product</span><span class="p">(</span><span class="n">xrange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Imagine that making a integer is a very expensive process. In the above code, we just performed the same expensive process twice. In cases like this, building a list in memory might be worth it (see example below):</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># Note: Python 2.x only</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="n">nums</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">xrange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span><span data-line="4">   <span class="mi">4</span> <span class="n">p</span> <span class="o">=</span> <span class="n">product</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>However, a generator might still be the only way, if the storage of these generated objects in memory is not practical, and it might be worth to pay the price of duplicated expensive computations.</p>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<p>For example, the <a class="reference internal" href="#../people/RangeGenerator"><span class="xref myst">RangeGenerator</span></a> can be used to iterate over a large number of values, without creating a massive list (like range would)</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1">#the for loop will generate each i (i.e. 1,2,3,4,5, ...), add it to total,  and throw it away</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="c1">#before the next i is generated.  This is opposed to iterating through range(...), which creates</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="c1">#a potentially massive list and then iterates through it.</span>
+</span><span data-line="4">   <span class="mi">4</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="5">   <span class="mi">5</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">):</span>
+</span><span data-line="6">   <span class="mi">6</span>    <span class="n">total</span> <span class="o">+=</span> <span class="n">i</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Generators can be composed. Here we create a generator on the squares of consecutive integers.</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1">#square is a generator</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="n">square</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">irange</span><span class="p">(</span><span class="mi">1000000</span><span class="p">))</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="c1">#add the squares</span>
+</span><span data-line="4">   <span class="mi">4</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="5">   <span class="mi">5</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">square</span><span class="p">:</span>
+</span><span data-line="6">   <span class="mi">6</span>    <span class="n">total</span> <span class="o">+=</span> <span class="n">i</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Here, we compose a square generator with the takewhile generator, to generate squares less than 100</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1">#add squares less than 100</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="n">square</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">count</span><span class="p">())</span>
+</span><span data-line="3">   <span class="mi">3</span> <span class="n">bounded_squares</span> <span class="o">=</span> <span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">&lt;</span> <span class="mi">100</span><span class="p">,</span> <span class="n">square</span><span class="p">)</span>
+</span><span data-line="4">   <span class="mi">4</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span data-line="5">   <span class="mi">5</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bounded_squares</span><span class="p">:</span>
+</span><span data-line="6">   <span class="mi">6</span>    <span class="n">total</span> <span class="o">+=</span> <span class="n">i</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>to be written: Generators made from classes?</p>
+<section id="links">
+<h3>Links<a class="headerlink" href="#links" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.python.org/peps/pep-0255.html">PEP-255: Simple Iterators</a> – the original</p></li>
+<li><p><a class="reference external" href="http://linuxgazette.net/100/pramode.html">Python Generator Tricks</a> – various infinite sequences, recursions, …</p></li>
+<li><p><a class="reference external" href="http://www.ibm.com/developerworks/library/l-pythrd/">“weightless threads”</a> – simulating threads using generators</p></li>
+<li><p><a class="reference external" href="http://c2.com/cgi/wiki?GeneratorsAreNotCoroutines">C2:GeneratorsAreNotCoroutines</a> – particulars on generators, coroutines, and continuations</p></li>
+<li><p><a class="reference external" href="http://thepythonguru.com/python-generators/">Generator tutorial</a> – How generators work in plain english</p></li>
+</ul>
+<p>See also: <a class="reference internal" href="Iterator.html"><span class="doc std std-doc">Iterator</span></a></p>
+</section>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">¶</a></h2>
+<p>I once saw <a class="reference internal" href="#./MikeOrr.html"><span class="xref myst">MikeOrr</span></a> demonstrate Before and After examples. But, I forget how they worked.</p>
+<p>Can someone demonstrate here?</p>
+<p>He did something like: Show how a normal list operation could be written to use generators. Something like:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">def</span><span class="w"> </span><span class="nf">double</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L</span><span class="p">]</span>
+</span><span data-line="3">   <span class="mi">3</span> 
+</span><span data-line="4">   <span class="mi">4</span> <span class="n">eggs</span> <span class="o">=</span> <span class="n">double</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>…he showed how that, or something like that, could be rewritten using iterators, generators.</p>
+<p>It’s been a while since I’ve seen it, I may be getting this all wrong.</p>
+<p>– <a class="reference internal" href="#../people/LionKimbro"><span class="xref myst">LionKimbro</span></a> 2005-04-02 19:12:19</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="c1"># explicitly write a generator function</span>
+</span><span data-line="2">   <span class="mi">2</span> <span class="k">def</span><span class="w"> </span><span class="nf">double</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+</span><span data-line="3">   <span class="mi">3</span>     <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+</span><span data-line="4">   <span class="mi">4</span>         <span class="k">yield</span> <span class="n">x</span><span class="o">*</span><span class="mi">2</span>
+</span><span data-line="5">   <span class="mi">5</span> 
+</span><span data-line="6">   <span class="mi">6</span> <span class="c1"># eggs will be a generator</span>
+</span><span data-line="7">   <span class="mi">7</span> <span class="n">eggs</span> <span class="o">=</span> <span class="n">double</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</span><span data-line="8">   <span class="mi">8</span> 
+</span><span data-line="9">   <span class="mi">9</span> <span class="c1"># the above is equivalent to (&quot;generator comprehension&quot;?)</span>
+</span><span data-line="10">  <span class="mi">10</span> <span class="n">eggs</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+</span><span data-line="11">  <span class="mi">11</span> 
+</span><span data-line="12">  <span class="mi">12</span> <span class="c1"># need to do this if you need a list</span>
+</span><span data-line="13">  <span class="mi">13</span> <span class="n">eggs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">double</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]))</span>
+</span><span data-line="14">  <span class="mi">14</span> 
+</span><span data-line="15">  <span class="mi">15</span> <span class="c1"># the above is equivalent to (list comprehension)</span>
+</span><span data-line="16">  <span class="mi">16</span> <span class="n">eggs</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>For the above example, a generator comprehension or list comprehension is sufficient unless you need to apply that in many places.</p>
+<p>Also, a generator function will be cleaner and more clear, if the generated expressions are more complex, involve multiple steps, or depend on additional temporary state.</p>
+<p>Consider the following example:</p>
+<div class="docutils">
+<div class="docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1">   <span class="mi">1</span> <span class="k">def</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">iterable</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
+</span><span data-line="2">   <span class="mi">2</span>     <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span data-line="3">   <span class="mi">3</span>     <span class="k">for</span> <span class="n">elem</span><span class="p">,</span> <span class="n">ekey</span> <span class="ow">in</span> <span class="p">((</span><span class="n">e</span><span class="p">,</span> <span class="n">key</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">iterable</span><span class="p">):</span>
+</span><span data-line="4">   <span class="mi">4</span>         <span class="k">if</span> <span class="n">ekey</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+</span><span data-line="5">   <span class="mi">5</span>             <span class="k">yield</span> <span class="n">elem</span>
+</span><span data-line="6">   <span class="mi">6</span>             <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ekey</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</div>
+<p>Here, the temporary keys collector, <em>seen</em>, is a temporary storage that will just be more clutter in the location where this generator will be used.</p>
+<p>Even if we were to use this only once, it is worth writing a function (for the sake of clarity; remember that Python allows nested functions).</p>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="Decorators.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Decorators</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="Iterator.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Iterator</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Python Software Foundation</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <a href="https://bsky.app/profile/python.org" title="Bluesky" aria-label="Bluesky">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.625 3.375 6.168 3.028-3.652.477-6.387 2.063-3.902 6.293C5.14 23.025 8.612 21.282 12 16.29c3.388 4.992 6.86 6.736 9.11 3.278 2.485-4.23-.25-5.816-3.902-6.293 2.543.347 5.383-.401 6.168-3.028.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+  </svg>
+</a>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

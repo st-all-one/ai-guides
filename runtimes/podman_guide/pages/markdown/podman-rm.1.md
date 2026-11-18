@@ -1,0 +1,142 @@
+NAME
+podman-rm - Remove one or more containers
+SYNOPSIS
+podman rm [options] container
+podman container rm [options] container
+DESCRIPTION
+podman rm removes one or more containers from the host. The container name or ID can be used. This does not remove images.
+Running or unusable containers are not removed without the -f option.
+OPTIONS
+--all, -a
+Remove all containers. Can be used in conjunction with -f as well.
+--cidfile=file
+Read container ID from the specified file and rm the container.
+Can be specified multiple times.
+Command does not fail when file is missing and user specified --ignore.
+--depend
+Remove selected container and recursively remove all containers that depend on it.
+--filter, -f=filter
+Filter what containers rm.
+Multiple filters can be given with multiple uses of the --filter flag.
+Filters with the same key work inclusive with the only exception being
+label which is exclusive. Filters with different keys always work exclusive.
+Valid filters are listed below:
+Filter
+Description
+id
+[ID] Container’s ID (CID prefix match by default; accepts regex)
+name
+[Name] Container’s name (accepts regex)
+annotation
+[Key] or [Key=Value] Annotation assigned to a container
+annotation!
+[Key] or [Key=Value] Annotation NOT assigned to a container
+label
+[Key] or [Key=Value] Label assigned to a container
+label!
+[Key] or [Key=Value] Label NOT assigned to a container
+exited
+[Int] Container’s exit code
+status
+[Status] Container’s status: ‘created’, ‘initialized’, ‘running’, ‘stopped’, ‘paused’, ‘exited’, ‘removing’, ‘stopping’, ‘unknown’
+status!
+[Status] Container’s status is NOT the specified status
+ancestor
+[ImageName] Image or descendant used to create container (accepts regex)
+before
+[ID] or [Name] Containers created before this container
+since
+[ID] or [Name] Containers created since this container
+volume
+[VolumeName] or [MountpointDestination] Volume mounted in container
+health
+[Status] healthy or unhealthy
+pod
+[Pod] name or full or partial ID of pod
+network
+[Network] name or full ID of network
+restart-policy
+[Policy] Container’s restart policy (e.g., ‘no’, ‘on-failure’, ‘always’, ‘unless-stopped’)
+until
+[DateTime] Containers created before the given duration or time.
+command
+[Command] the command the container is executing, only argv[0] is taken
+should-start-on-boot
+[Bool] Containers that need to be restarted after system reboot. True for containers with restart policy ‘always’, or ‘unless-stopped’ that were not explicitly stopped by the user
+--force, -f
+Force the removal of running and paused containers. Forcing a container removal also
+removes containers from container storage even if the container is not known to Podman.
+For example, containers that are created by different container engines like Buildah.
+In addition, forcing can be used to remove unusable containers, e.g. containers
+whose OCI runtime has become unavailable.
+--ignore, -i
+Ignore errors when specified containers are not in the container store. A user
+might have decided to manually remove a container which leads to a failure
+during the ExecStop directive of a systemd service referencing that container.
+Further ignore when the specified --cidfile does not exist as it may have
+already been removed along with the container.
+--latest, -l
+Instead of providing the container name or ID, use the last created container.
+Note: the last started container can be from other users of Podman on the host machine.
+(This option is not available with the remote Podman client, including Mac and Windows
+(excluding WSL2) machines)
+--time, -t=seconds
+Seconds to wait before forcibly stopping the container.
+Use -1 for infinite wait.
+The --force option must be specified to use the --time option.
+--volumes, -v
+Remove anonymous volumes associated with the container. This does not include named volumes
+created with podman volume create, or the --volume option of podman run and podman create.
+EXAMPLES
+Remove container with a given name:
+$ podman rm mywebserver
+Remove container with a given name and all of the containers that depend on it:
+$ podman rm --depend mywebserver
+Remove multiple containers with given names or IDs:
+$ podman rm mywebserver myflaskserver 860a4b23
+Remove multiple containers with IDs read from files:
+$ podman rm --cidfile ./cidfile-1 --cidfile /home/user/cidfile-2
+Forcibly remove container with a given ID:
+$ podman rm -f 860a4b23
+Forcibly remove a container with a specified timeout (in seconds) before sending SIGKILL:
+$ podman rm --time 2 --force 860a4b23
+Forcibly remove a container instantly without waiting:
+$ podman rm --time 0 --force 860a4b23
+Remove all containers regardless of the run state:
+$ podman rm -f -a
+Forcibly remove the last created container. (This option is not available with the remote Podman client, including Mac and Windows (excluding WSL2) machines):
+$ podman rm -f --latest
+Remove by name:
+$ podman rm --filter name=test-alpine
+34f997d354017a0076402c3a79245a5b8bd11b597c84385bec25ae8941fd5238
+Remove by label:
+$ podman rm --filter label=app=frontend
+5a3694a13436168ea99490e74b489566c646d6a0db29868f57113298110d1b1c
+Remove by status:
+$ podman rm --filter status=exited
+4a3332649ed8bec1e0d82e113074b9a13d45582007aeac969c005992cc480a73
+f8e85f84a749b205fb602895afa6ec8a866045ff27b82f843033712c8b93a2c9
+7d17e850c9b172f11a3e20bab81da6fc694c35c2dc38d84083eb57869dcaca63
+47972eb04aa7c77705b597a929957d1e8a392e00b44c0a2a7f88a01f9f860d11
+Remove by ancestor:
+$ podman rm --filter ancestor=nginx
+8a7668cdec27664559a7da55ed5cda101f904441f7245e248218580656b2bae3
+0d297b336bf31d141c7720a791c45dafdb8b5033deaab12f29b88e5bff6b122d
+134475ac5140687d1eefff19f937dc24755f6c18e37e11d61b1084b59f1bdbe2
+Remove by volume:
+$ podman rm --filter volume=web-vol
+b3f4d4c6a67e2ef1e089efdc8ff3a47dba008eb0ff1e53ae60f59279cb43f9ba
+Remove by network:
+$ podman rm --filter network=web-net
+1c057cac90c0512df86197599eef5a9485afc900b1ade03c9739fa24c360bbda
+Remove containers ignoring errors if they don’t exist :
+$ podman rm --ignore mycontainer1 mycontainer2 nonexistent-container
+mycontainer1
+mycontainer2
+Exit Status
+0 All specified containers removed
+1 One of the specified containers did not exist, and no other failures
+2 One of the specified containers is paused or running
+125 The command fails for any other reason
+SEE ALSO
+podman(1)

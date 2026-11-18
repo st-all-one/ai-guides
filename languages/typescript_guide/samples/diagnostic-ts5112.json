@@ -1,0 +1,4 @@
+    "tsconfig.json is present but will not be loaded if files are specified on commandline. Use '--ignoreConfig' to skip this error.": {
+        "category": "Error",
+        "code": 5112
+    },

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="blue" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>With Statement - Python Wiki</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Libraries &amp; Tools" href="../libraries/index.html" /><link rel="prev" title="Time Complexity" href="TimeComplexity.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=b138c3a8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="With Statement"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>Python Wiki</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../index.html">Python Wiki</a></li><li class="link"><a href="../../psf/index.html">PSF Wiki</a></li><li class="link"><a href="../../jython/index.html">Jython Wiki</a></li>
+      <li class="link"><button class="js-menu" type="button" id="nav-trigger-4" aria-controls="nav-children-4">
+            <span>Contribute</span>
+            <i class="i-lucide chevron-down"></i>
+          </button>
+        <ul id="nav-children-4" aria-labelledby="nav-trigger-4"><li><a href="../../edit/index.html">
+                <span>Edit with CMS</span>
+                <small>Use the web-based editor to create or edit wiki pages</small>
+              </a></li><li><a href="https://github.com/psf/wiki">
+                <span>Edit on GitHub</span>
+                <small>Fork the repository and submit changes via pull request</small>
+              </a></li></ul>
+      </li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/psf/wiki" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a>
+<a href="https://x.com/ThePSF" aria-label="X (Twitter)">
+  <iconify-icon icon="prime:twitter"></iconify-icon>
+</a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Python Wiki</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../archive/index.html">Archive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../books/index.html">Books &amp; Publications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../community/index.html">Community &amp; User Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conferences/index.html">Conferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html">Database Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../documentation/index.html">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../editors/index.html">Editors &amp; IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../education/index.html">Education</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started/index.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gui/index.html">GUI Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../guides/index.html">Guides and How-Tos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../i18n/index.html">Internationalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../implementations/index.html">Python Implementations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infrastructure/index.html">Infrastructure</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Language Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Concurrency/index.html">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StructuredText/index.html">Structuredtext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AST.html">AST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ASTBasedOptimization.html">AST Based Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AbstractBaseClasses.html">Abstract Base Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AdapterRegistry.html">Adapter Registry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternateLambdaSyntax.html">Alternate Lambda Syntax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativeDescriptionOfProperty.html">Alternative Description of Property</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathClass.html">Alternative Path Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathDiscussion.html">Alternative Path Discussion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathModule.html">Alternative Path Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="AlternativePathModuleTests.html">Alternative Path Module Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ByteplayDoc.html">Byteplay Doc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ComputedAttributesUsingPropertyObjects.html">Computed Attributes Using Property Objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Concurrency.html">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParser.html">Config Parser</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParserExamples.html">Config Parser Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParserGoals.html">Config Parser Goals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ConfigParserShootout.html">Config Parser Shootout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DataRepresentation.html">Data Representation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Decorators.html">Decorators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Generators.html">Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Iterator.html">Iterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LanguageParsing.html">Language Parsing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ObserverPattern.html">Observer Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StructureAnnotation.html">Structure Annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="StructuredText.html">Structured Text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SwitchStatement.html">Switch Statement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimeComplexity%20%28SetCode%29.html">Time Complexity (Set Code)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="TimeComplexity.html">Time Complexity</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">With Statement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../libraries/index.html">Libraries &amp; Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../multimedia/index.html">Multimedia &amp; Games</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packaging/index.html">Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../performance/index.html">Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../platforms/index.html">Platform-Specific</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../psf/index.html">Python Software Foundation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../py3/index.html">Python 3 Migration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../science/index.html">Scientific Computing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../security/index.html">Security</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../soc/index.html">Summer of Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sprints/index.html">Sprints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../web/index.html">Web Development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../psf/index.html">PSF Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jython/index.html">Jython Wiki</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing/index.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../people/index.html">People</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#using-something-syntax">Using &#8220;.something&#8221; syntax</a></li>
+<li><a class="reference internal" href="#flow-control-macros">Flow Control macros</a></li>
+</ul>
+</div><a class="js-repo-stats repo-stats flex items-center" href="https://github.com/psf/wiki"
+  data-type="github" data-user="psf" data-repo="wiki">
+  <span class="w-8 flex items-center justify-around shrink-0 text-3xl">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </span>
+  <span class="flex-grow px-2 break-all">
+    
+    
+      <span>psf/wiki</span>
+    
+    <span class="flex text-sm repo-stats-count">
+      <span class="flex items-center pr-3">
+        <iconify-icon icon="lucide:star"></iconify-icon>
+        <strong class="js-repo-stars ml-1">0</strong>
+      </span>
+      <span class="flex items-center">
+        <iconify-icon icon="lucide:git-fork"></iconify-icon>
+        <strong class="js-repo-forks ml-1">0</strong>
+      </span>
+    </span>
+  </span>
+</a><div class="edit-this-page">
+  <a href="https://github.com/psf/wiki/blob/main/python/language/WithStatement.md">Edit this page</a>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Python Wiki</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Language Reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">With Statement</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/language/WithStatement.md.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/language/WithStatement.md.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://raw.githubusercontent.com/psf/wiki/refs/heads/main/python/language/WithStatement.md.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:markdown"></iconify-icon>
+            <span>View as Markdown</span></a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="with-statement">
+<h1>With Statement<a class="headerlink" href="#with-statement" title="Link to this heading">¶</a></h1>
+<div class="note admonition">
+<p class="admonition-title">Legacy Wiki Page</p>
+<p>This page was migrated from the old MoinMoin-based wiki. Information may be outdated or no longer applicable. For current documentation, see <a class="reference external" href="https://www.python.org">python.org</a>.</p>
+</div>
+<p>This page is dedicated to the public discussion of <a class="reference external" href="http://www.python.org/peps/pep-0343.html">PEP 343</a>: Anonymous Block Redux and Generator Enhancements.</p>
+<p>I think this is a good one; I hope people agree. Its acceptance will obsolete about 4 other PEPs! (A sign that it fulfills a need and that the proposed solution is powerful.)</p>
+<p>Please read the PEP; then add your comments here. Please sign your comments with your name. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a> (Guido van Rossum)</p>
+<hr class="docutils" />
+<p>Can someone please speak to the implementation schedule for WithStatement? I am dying to use it, but I don’t appear able to import it even from the [future] yet! – Barnard Masonry</p>
+<hr class="docutils" />
+<p>I feel like PEP 343 and PEP 342 work together in some important way, but it’s not clear what that is. Does one depend on the other? What kind of things are possible if both are accepted (vs. just one of them)? I think this is important to understanding where PEP 343 is leading; some discussion of this would be appreciated. – <a class="reference internal" href="#../people/IanBicking"><span class="xref myst">IanBicking</span></a></p>
+<ul class="simple">
+<li><p>No, they are quite independent. PEP 342 is for making generators into real coroutines. Maybe throw() can help a tiny bit there but I think it’s not essential. PEP 342 adds argument-less yield to PEP 343 which is a very minor improvement (no “yield None”). <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p></li>
+</ul>
+<hr class="docutils" />
+<p>To assist in avoiding the mistake pointed out in the optional extension, the documentation of the standard library should include a description on how to use (or: how not to use) objects that support the <code class="docutils literal notranslate"><span class="pre">__enter__</span></code>/<code class="docutils literal notranslate"><span class="pre">__exit__</span></code> protocol. E.g.</p>
+<ul class="simple">
+<li><p>Do not use objects of this class as a parameter to <code class="docutils literal notranslate"><span class="pre">with</span></code>.</p></li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li><p>Objects of this class may be used as a parameter to <code class="docutils literal notranslate"><span class="pre">with</span></code>. However, they will become invalid after the <code class="docutils literal notranslate"><span class="pre">with</span></code> block.</p></li>
+</ul>
+<p>– <em>Eric Nieuwland</em></p>
+<ul class="simple">
+<li><p>I’d be very surprised if an object supporting <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> would say “do not use this in a with-statement.” 🙂 What makes sense, however, is to distinguish between objects that can be used at most once in a with-statement (like files) and objects that can be used over and over (like locks). <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p></li>
+</ul>
+<p>The solution to this problem recommended in PEP 346 is to throw an explicit exception in <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> when a non-reusable template is reused. PEP 343 uses this approach for the <a class="reference external" href="http://3d2f.com/tags/generator/based/templates/download/">generator-based templates</a>, and I would expect an <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> method on file objects to do the same thing. – <em>Alyssa Coghlan</em></p>
+<hr class="docutils" />
+<p>next_throw() is easier to grep with next(). <em>Niki Spahiev</em></p>
+<ul class="simple">
+<li><p>Given that 99% of uses of both are implicit, I don’t see how that matters. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p></li>
+</ul>
+<p>I don’t want to teach beginners why python uses ‘raise’ sometimes and ‘throw’ other times. I predict: they’re going to be coming from other languages, they’re going to accidentally use ‘throw’ as the statement, and they’re going to get mad at “all of python’s weird quirks, like how it has both raise and throw”. <em>Drew Perttula</em></p>
+<ul>
+<li><p>I’m not so worried. Your tolerance for language quirks seems rather low. 🙂 <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+<p>Raymond Hettinger added on python-dev (copied here by <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a>):</p>
+<ul class="simple">
+<li><p>“This was intended. There was much discussion about this for PEP 288 and this was more or less a concensus choice. The term is already associated with exceptions in other languages and it captures the concept of the raise occurring somewhere else (what is thrown at or into). It is simple, clear, and tends to suggest all the right things. I have no doubt that someone can point out differing semantics in other languages but I don’t care. The verbal cue is what we are after.”</p></li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>I’ve tuned out the recent conversation on these PEPs quite religiously, because I never thought they would result in anything even vaguely useful. Fortunately, I was dead wrong. PEP-343 is simple, elegant, and feels very Pythonic to me. I need to catch up now and think through the implications and corner-cases, but I can give a provisional +1 to the concept. Thanks to all those that didn’t tune out and worked to get us to this point. – <em>Kevin Jacobs</em></p>
+<hr class="docutils" />
+<p>A few immediate comments:</p>
+<ol class="arabic">
+<li><p>Is g.throw(…) supposed to let you raise exceptions in other threads (by having g catch the exception you throw it, then raise its own exception for its caller)? The PEP should be clear about this. It would be great if the answer is yes and if that’s the case, objects like queues and sockets should be turned into generators to permit cross-thread signalling using generator exceptions. But I had the impression that this would be difficult in CPython.</p>
+<ul>
+<li><p>This is not the intention at all. The PEP specifically speaks of “where the generator g is currently suspended”. By definition this implies that it is not running in another thread. You must have had threads on your mind too much</p>
+<p>recently to even think of this. 🙂 <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+<ul>
+<li><p>I will read it again, but I don’t remember seeing anything that made me think the generator couldn’t be suspended in another thread. phr</p>
+<ul>
+<li><p>Generators aren’t tied to a thread, but they can only be executing in one thread at a time. When a generator yields in one thread, another thread can resume it with next() or throw() – but then the resumed generator executes in the thread that called next() or throw(). There’s nothing new to this – it’s been like this</p>
+<p>since generators were invented. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+<ul class="simple">
+<li><p>Well, throw() didn’t exist when generators were invented, so throw hasn’t always been like anything ;-). If throw is supposed to resume execution in the throwing thread rather than the thread where the generator was last suspended, the PEP should clearly specify that. –phr</p>
+<ul>
+<li><p>It already says that throw() is just like next(). <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>I thought some of the original motivation of PEP 310 was to lessen the pain of giving up the idiom of expecting files to be closed when their last reference goes away. So if 343 no longer guarantees that the exit method will be run when the “with” statement finishes, it’s lost some of its main motivating functionality. I wonder if having a more serious treatment of block scope, so that destructors are guaranteed to be called when a scope exits (by falling through or via an exception), would also take care of this issue.</p>
+<ul class="simple">
+<li><p>Where did you read that the <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> method isn’t guaranteed to be called upon exit from the with statement? The translation explicitly calls it! Read again. You may be confused with g.close(). That’s only relevant when you use a for-loop without an explicit with-statement. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p></li>
+</ul>
+</li>
+</ol>
+<p>There was some good discussion on clpy a while ago that I’ll try to locate, and add some more comments during the weekend. –Paul Rubin (phr)</p>
+<hr class="docutils" />
+<p>Overall I think this is a great proposal. It will allow a lot of things to be made a great deal more natural - probably many things that have not yet been considered.</p>
+<p>I can see a lot of areas in the standard libs where improvements could be made using this construct. It will seem slightly inconsistent in areas where this is not done.</p>
+<p>The only negative to the proposal is the extra complexity. The idea is a little magical, and may not be easy for new users to pick up. New users will not be forced to use it of course. However ironically the very usefulness of the idiom will probably lead to it being widely used in libraries, which will of course require new users to learn it sooner or later!</p>
+<p>– <a class="reference internal" href="#../people/MichaelSmith"><span class="xref myst">MichaelSmith</span></a></p>
+<hr class="docutils" />
+<p>I like the idea and the “with .. as ..” syntax, where readable keywords are used instead of obscure characters, like decorators use. It looks like Python to me. What I don’t like is the use of decoratorated generators to create the templates. Generators don’t seem to fit the problem here. First you have to add generator enhancements. Then you use a decorator, because the enhancements still don’t make generators fit the problem. It is almost like generators and decorators are the latest and coolest additions to the language, so we’re going to use them for everything we possibly can. I find example 4, using a simple class, to be much more readable than example 1. To me, example 4 shows the relative DISadvantage of using a generator template. I would dump the generator changes and just keep the with statement.</p>
+<p>Patrick Ellis</p>
+<ul class="simple">
+<li><p>Well, you have a choice not to use generators. 🙂 To many who participated in the discussion on python-dev, using generators to write templates is an essential part. The more state you carry over from <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> to <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> the more you will appreciate the generator. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p></li>
+</ul>
+<hr class="docutils" />
+<p>What happened to Fredrik Lundh’s proposal (14/5/2005) to use the existing ‘try’ keyword instead of ‘with’, eg:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">try opening(file) as f: ...
+</span><span data-line="2">try locking(mutex): ...
+</span><span data-line="3">try atomic_transaction(connection): ...
+</span></pre></div>
+</div>
+<p>Try already has the idea of doing cleanup at block exit. I saw only reply in support of the idea on the list, but no other comments.</p>
+<p>Thomas Leonard</p>
+<ul>
+<li><p>When this were combined with an except or finally clause, it would be confusing to the reader which applies to which – does the except clause</p>
+<p>catch exceptions in the <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> method, or does the <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> method see exceptions raised in the except clause? <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+<ul>
+<li><p>Python already has this problem when combining except and finally. If we take the same solution (make them mutually exclusive) then there’s no problem. You still get a more readable syntax and one less keyword. Thomas Leonard</p>
+<ul>
+<li><p>Doesn’t help.</p>
+<p>When combining except &amp; finally, the answer is explicit: control moves only forward. (At the very least you can use this to remember the rule.) But when combining with &amp; except (or finally), the handler for with is implicit, so there is no parallel heuristic to decide which one handles which. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+<ul class="simple">
+<li><p>I meant, don’t allow combining with &amp; except or with &amp; finally. Ie, the try: has neither an except nor a finally clause if it has an expression. After all, the proposed with: syntax doesn’t allow these either. I’m not sure what you mean about control moving forwards. The versions of Python here (2.3 and 2.4) don’t allow except and finally at the same time.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr class="docutils" />
+<p>I can’t tell from the PEP whether or not it is recommended that objects themselves expose <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> (like locks and files). It mentions the possability, but all the examples do otherwise. Greg Ewing was the only person I remember disliking the idea, but then changed his mind (to a tepid +0.6).</p>
+<p>I do understand the reluctance to pick the one-and-only way an object can be used in a <code class="docutils literal notranslate"><span class="pre">with</span></code> statement, but I suspect that most classes are factored well enough that the default <code class="docutils literal notranslate"><span class="pre">with</span></code> behavior is obvious (and more obvious than using a helper function like <code class="docutils literal notranslate"><span class="pre">opening</span></code> or <code class="docutils literal notranslate"><span class="pre">locking</span></code>). And any object that may have more than one <code class="docutils literal notranslate"><span class="pre">with</span></code> behavior can have 0 or 1 inherent behaviors and 1 or more helpers, but I seriously doubt there would be any cases like that in the standard library.</p>
+<p>– <a class="reference internal" href="#../people/BenjiYork"><span class="xref myst">BenjiYork</span></a></p>
+<ul>
+<li><p>Time will tell. The with-statement doesn’t force you either way. The PEP doesn’t strongly recommend either way because we don’t have the experience with this yet to know which pattern is better. Personally I’d like to be cautious – use explicit wrapper methods</p>
+<p>like opening() and locking() first, and add <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> methods to some objects later. <a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+</li>
+</ul>
+<hr class="docutils" />
+<p>Personally I find the half-hearted approach to adding features rather frustrating. I liked new style classes a lot, and I like classmethod and company. But it was frustrating that decorator syntax didn’t come along until a couple releases after we needed them (putting aside how absurdly difficult a decision that turned out to be). I think it led to a very gradual and vague adoption of new class functionality. And maybe that’s not bad, but as someone who likes the features it was frustrating. At the time, I felt like I was being punished for using new features because the syntax wasn’t keeping up with other parts of the language. And the punishment continues, because I don’t feel like I can use decorators for another year because I still have to support Python 2.3.</p>
+<p>It also means much more tracking of versions. Now will I have to know that, in Python 2.4 I use <code class="docutils literal notranslate"><span class="pre">try:finally:</span></code>, in Python 2.5 <code class="docutils literal notranslate"><span class="pre">with opening()</span></code>, in Python 2.6 <code class="docutils literal notranslate"><span class="pre">with open()</span></code>, etc.? Can’t we have a little faith in our imaginations and add a few <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> methods that seem so obviously useful, like to files and threading.Lock objects?</p>
+<p>Adding features is always a problem, but adding them gradually just makes it that much worse. I think the reception of this feature is positive enough (+1 from me, BTW) that it shows people understand why it matters and understand where we should start using it right away. – <a class="reference internal" href="#../people/IanBicking"><span class="xref myst">IanBicking</span></a></p>
+<ul>
+<li><p>Trust me, it is frustrating for me too. But given the large number of users we <em>have</em> to go slowly. Compare it to upgrading a freeway or an airport. It’s much more complicated than building a new one, because you have to accommodate existing traffic while the work is going on. But the alternative is Perl 6…</p>
+<p>In this particular case, I actually believe that adding <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> to file objects is <em>wrong</em>, but for lock objects it is <em>right</em>. Does that help?</p>
+<p><a class="reference internal" href="../archive/GvR.html"><span class="doc std std-doc">GvR</span></a></p>
+<ul class="simple">
+<li><p>So you don’t think we should detect <code class="docutils literal notranslate"><span class="pre">with open(X)</span></code> as a special language construct?!? Sorry, just trying to think about how Perl would approach this… 😉 I’m certainly not set on any particular example, I haven’t</p></li>
+</ul>
+</li>
+</ul>
+<p>I would prefer that <code class="docutils literal notranslate"><span class="pre">__enter__</span></code> and <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> be added to <code class="docutils literal notranslate"><span class="pre">Lock</span></code> and <code class="docutils literal notranslate"><span class="pre">RLock</span></code> objects, since it’s really, REALLY obvious what <code class="docutils literal notranslate"><span class="pre">with lock:</span></code> does. Hey, and nice work on unifying the synchronize keyword, database transactions, etc into the (consistent and intuitive) PEP 343. I see why <a class="reference internal" href="#../people/IanBicking"><span class="xref myst">IanBicking</span></a> thinks PEP 342 and 343 are related: they both do black magic with generators, look weird at first, but end up making a lot of sense and looking Pythonic. I didn’t think coroutines could be expressed so cleanly in Python, either. It’s impressive, really. – <a class="reference internal" href="#./ConnellyBarnes.html"><span class="xref myst">ConnellyBarnes</span></a></p>
+<section id="using-something-syntax">
+<h2>Using “.something” syntax<a class="headerlink" href="#using-something-syntax" title="Link to this heading">¶</a></h2>
+<p>I think many Python programmers hate endless <code class="docutils literal notranslate"><span class="pre"> self.XXX </span></code> in, for example, <code class="docutils literal notranslate"><span class="pre"> __init__(self) </span></code>. Maybe it could be replaced with <code class="docutils literal notranslate"><span class="pre"> .XXX </span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">class A(object):
+</span><span data-line="2">    def __init__(self):
+</span><span data-line="3">        .state = &quot;OK&quot;
+</span><span data-line="4">        .value = 1
+</span></pre></div>
+</div>
+<p>I think it may be useful because WITH statement would be often used like <code class="docutils literal notranslate"><span class="pre"> with self: </span></code></p>
+<ul class="simple">
+<li><p>I think the . in this case is much to easy to overlook. If you really dislike writing self. so much, you could use an editor macro to translate your version to real python</p></li>
+</ul>
+</section>
+<section id="flow-control-macros">
+<h2>Flow Control macros<a class="headerlink" href="#flow-control-macros" title="Link to this heading">¶</a></h2>
+<p>I was very impressed with this and associated PEPs (340, 346, etc), but sorely disappointed when it was decided to remove the looping capabilities from the <code class="docutils literal notranslate"><span class="pre">with</span></code> statement. Having read Raymond Chen’s linked rant about flow control macros, I felt I had to point out some of the differences between the flow control macros he was (quite rightly) complaining about, and those proposed here.</p>
+<p>A block statement (<code class="docutils literal notranslate"><span class="pre">def, class, for, if, etc</span></code>) in Python (or most other languages) means “start at the top of this block, run through it X times, let control flow off the end”. For if statements, X is 0 or 1, for defs and classes it’s 0 (but the code is given a name for later) and for loops it’s anything. Constructs that can “jump”, such as break, continue, and return, break this reasoning, so it’s important that you can see them clearly, and that they’re not hidden behind macros (this is the gist of Raymond Chen’s piece).</p>
+<p>The proposed with statement does not break this reasoning, as it defines a new “block type”. It doesn’t cause control to jump around semi-randomly like hidden breaks, continues, and returns do. It is comparable to <code class="docutils literal notranslate"><span class="pre">#define until(x) while(!(x))</span></code>, in that it defines a sensible control structure that doesn’t break structured programming, unlike the macros Raymond Chen dislikes (MUST_SUCCEED and its ilk).</p>
+<p>And I really like <code class="docutils literal notranslate"><span class="pre">auto_retry</span></code>.</p>
+<p>Am I too late?</p>
+<p>Stephen Dolan</p>
+<ul class="simple">
+<li><p>By several months. However, you can still write something like <code class="docutils literal notranslate"><span class="pre">auto_retry</span></code> as a generator which returns an appropriate sequence of context managers:</p></li>
+</ul>
+<!-- -->
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><span data-line="1">    for mgr in auto_retry(Exception, 3):
+</span><span data-line="2">        with mgr:
+</span><span data-line="3">            retry_if_this_fails()
+</span></pre></div>
+</div>
+<ul class="simple">
+<li><p>– <em>Alyssa Coghlan</em></p></li>
+</ul>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="TimeComplexity.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Time Complexity</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="../libraries/index.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Libraries &amp; Tools</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Python Software Foundation</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <a href="https://bsky.app/profile/python.org" title="Bluesky" aria-label="Bluesky">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.785 2.627 3.625 3.375 6.168 3.028-3.652.477-6.387 2.063-3.902 6.293C5.14 23.025 8.612 21.282 12 16.29c3.388 4.992 6.86 6.736 9.11 3.278 2.485-4.23-.25-5.816-3.902-6.293 2.543.347 5.383-.401 6.168-3.028.246-.828.624-5.79.624-6.479 0-.688-.139-1.86-.902-2.203-.659-.3-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8Z"/>
+  </svg>
+</a>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=30646c52"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>
