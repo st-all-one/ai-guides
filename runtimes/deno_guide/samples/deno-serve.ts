@@ -1,0 +1,5 @@
+```ts title="server.ts"
+Deno.serve((_req) => {
+  return new Response("Hello, World!");
+});
+```

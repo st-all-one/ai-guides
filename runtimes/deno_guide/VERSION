@@ -1,0 +1,7 @@
+Deno 2.9.3 (LTS line 2.9)
+Captured: 2026-11-18
+Source of truth: https://docs.deno.com/runtime/ and the official llms-full.txt export
+Corpus: 172 runtime Markdown pages, 1,234,286 bytes, SHA-256 d0c857e94d3465657b3671309f4ddbf49d64172ade3e1e3c4ee36c0729a0125f
+Sitemap surface: 789 documentation URLs, 174 under /runtime/
+Guide surface: 22 numbered chapters + 8 byte-identical samples
+Coverage floor: 85% in each of seven 20-item checklists (usability, configuration, security, logging, telemetry, performance, lint)

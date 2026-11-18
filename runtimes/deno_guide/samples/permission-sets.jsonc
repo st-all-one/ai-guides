@@ -1,0 +1,13 @@
+```jsonc
+{
+  "permissions": {
+    "read-data": {
+      "read": "./data"
+    },
+    "read-and-write": {
+      "read": true,
+      "write": ["./data"]
+    }
+  }
+}
+```

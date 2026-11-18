@@ -5,13 +5,13 @@
 **Skills técnicas densas para agentes de IA — contexto sob demanda, não documentação para ler.**
 
 [![License](https://img.shields.io/badge/license-MIT-2b3a42?style=for-the-badge)](./LICENSE)
-[![Skills](https://img.shields.io/badge/skills-56-009739?style=for-the-badge)](./INDEX.md)
+[![Skills](https://img.shields.io/badge/skills-57-009739?style=for-the-badge)](./INDEX.md)
 [![CLI](https://img.shields.io/badge/CLI-0.1.1-DEA584?style=for-the-badge&logo=gnubash&logoColor=000)](./bin/ai-guides)
 [![Idioma](https://img.shields.io/badge/idioma-pt--BR%20%2F%20EN-6E56CF?style=for-the-badge)](./INDEX.md)
 
 </div>
 
-O **ai-guides** é uma coleção de **56 guias de referência** sobre linguagens, frameworks,
+O **ai-guides** é uma coleção de **57 guias de referência** sobre linguagens, frameworks,
 bibliotecas, runtimes, bancos, protocolos, tooling e temas web — cada um empacotado como uma
 **skill** (`SKILL.md` + arquivos numerados) que um agente de IA carrega no seu projeto.
 
