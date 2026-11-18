@@ -1,0 +1,10 @@
+OpenClaw reference snapshot
+Product version: 2026.11.5
+Pinned commit: 2f5bb506ef61ab6e327df88133bfc68d95e0c90a
+Capture date: 2026-11-18
+Docs index: https://docs.openclaw.ai/llms.txt (1,432 entries)
+Captured pages: 951 Markdown exports (16.5 MB)
+Repository surface: 65,856 files
+Guide surface: 24 chapters + 6 byte-identical samples
+Verifier: python3 /tmp/openclaw-research/verify.py
+Status: static reference; no live Gateway, install, provider login or runtime test executed

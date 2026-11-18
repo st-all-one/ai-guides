@@ -6,5 +6,6 @@ IA, agentes e modelos.
 |---|---|---|
 | [knudge](./knudge_guide/) | 0.5.0 | Memória durável por projeto para agentes — notas Markdown, índice derivado (BM25+RRF+embeddings), tarefas, MCP |
 | [RLM](./rlm_guide/) | 1.0 | Recursive Language Model — contextos quase infinitos via REPL e sub-LLMs |
+| [OpenClaw](./openclaw_guide/) | 2026.11.5 / 2f5bb50 | Gateway auto-hospedado e runtime de agentes: arquitetura, segurança, contexto/memória, multiagentes, ferramentas e operação |
 
 Cada guia possui `SKILL.md` (frontmatter YAML + mapa de arquivos).
